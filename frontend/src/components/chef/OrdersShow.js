@@ -17,9 +17,10 @@ export const OrdersShow = (props) => {
     }
 
     const clickHandler = () => {
-        updateOrderDone().then(() => {
-            navigate(`/food-order-show`)
-        })
+        updateOrderDone()
+        // .then(() => {
+        //     navigate(`/food-order-show`)
+        // })
     }
 
     return (
@@ -29,6 +30,7 @@ export const OrdersShow = (props) => {
                     <p>Name: {props.foodName}</p>
                     <p>quantity: {props.quantity}</p>
                     <p>table: {props.table}</p>
+                    <p>chef: {props.chef}</p>
                 <Button className="btnShow"
                     onClick={clickHandler}
                 >Done</Button>

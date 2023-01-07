@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { OrdersShow } from './OrdersShow'
 import "../styles.css"
+import { useParams } from "react-router-dom";
 
 //import React from "react"
-export const OrdersDetail = (props) => {
+export const OrdersDetail = () => {
     // store all orders..
     const [foodOrders, setFoodOrders] = useState();
+    const chefId = useParams().chefId;
 
     // fetch all orders ..
     const fetchFoodOrdersDetails = async () => {
-        const res = await axios.get(`http://localhost:8000/api/order/`)
+        const res = await axios.get(`http://localhost:8000/api/order/chef/${chefId}`)
             .catch(error => console.log(error));
         const data = await res.data;
         return data;
@@ -19,9 +21,7 @@ export const OrdersDetail = (props) => {
     useEffect(() => {
         // after some interval rerander this page..
         setInterval(() => {
-            fetchFoodOrdersDetails()
-                .then(data => data.filter(order => !order.isDone))
-                .then(data => setFoodOrders(data));
+            fetchFoodOrdersDetails().then(data => setFoodOrders(data));
         }, 1000);
 
     }, []);
@@ -38,6 +38,7 @@ export const OrdersDetail = (props) => {
                             foodName={foodOrder.name}
                             quantity={foodOrder.quantity}
                             table={foodOrder.table}
+                            chef={foodOrder.chef}
                         />
                     ))}
                 </div>

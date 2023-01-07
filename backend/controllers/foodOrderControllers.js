@@ -19,6 +19,14 @@ async function getFoodOrderByTable(req,res) {
     res.status(200).json(orders);
 }
 
+async function getFoodOrderByChef(req,res) {
+    const chefId = req.params.chefId;
+    
+    const orders = await FoodOrder.find({ chef:chefId , isDone:false});
+
+    res.status(200).json(orders);
+}
+
 async function findChefWithMinLoad(){
     const chefs = await Chef.find({});
     let load = 10000;
@@ -100,10 +108,19 @@ async function deleteOrderByTable(req,res) {
     return res.status(201).json({message:"successfully delete"});
 }
 
+async function deleteAllOrders(req,res) {
+
+    await FoodOrder.remove();       
+
+    return res.status(201).json({message:"successfully All delete"});
+}
+
 module.exports = {
     getAllFoodOrders,
     getFoodOrderByTable,
+    getFoodOrderByChef,
     setFoodOrder,
     updateOrderDone,
     deleteOrderByTable,
+    deleteAllOrders
 }
