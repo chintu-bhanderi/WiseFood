@@ -21,7 +21,12 @@ const foodOrderSchema = mongoose.Schema({
     isDone: {
         type: Boolean,
         default: false
-    }
+    },
+    chef: {
+        type: mongoose.Types.ObjectId,
+        ref: "Chef",
+        required: true
+    },
 },{
     timestemps: true,
 })

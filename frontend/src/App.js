@@ -28,7 +28,7 @@ function App() {
           <Route path='/food-order-show' element={<OrdersDetail/>} />
           {/* Not implement  */}
           <Route path='/chef' >
-              <Route index element={<HomeCounter/>} />
+              <Route index element={<OrdersDetail/>} />
           </Route>
           <Route path='/counter'>
               <Route index element={<HomeCounter/>} />
