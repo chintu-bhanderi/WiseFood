@@ -1,0 +1,43 @@
+.tableShow {
+
+    font-size: 1.2rem;
+    font-weight: 1.2rem; 
+    color: red;
+    border: 0.1rem solid blue;
+    padding: 1.5rem 1.5rem;
+    background-color: #ffd300;
+
+}
+
+.tableDetail {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.ordersShow {
+
+    font-size: 1.2rem;
+    font-weight: 1.2rem; 
+    color: red;
+    border: 0.1rem solid blue;
+    padding: 1.5rem 1.5rem;
+    background-color: #ffd300;
+
+}
+
+.ordersDetail {
+    display: flex;
+    /* justify-content: space-evenly; */
+
+}
+
+.tableDetail .tableShow .btnShow {
+    border: 0.1rem solid blue;
+    background-color: #73d6c4;
+}
+
+.ordersDetail .ordersShow .btnShow {
+    border: 0.1rem solid blue;
+    background-color: #73d6c4;
+}
