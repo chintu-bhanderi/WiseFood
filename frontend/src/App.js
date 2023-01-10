@@ -13,6 +13,7 @@ import { HomeCounter } from './components/counter/HomeCounter'; //done
 import { TableBookFind } from './components/counter/TableBookFind'; //done
 import { TableOrderDetail } from './components/counter/TableOrderDetail'; //done
 import { ChefDetail } from './components/chef/ChefDetail';
+import { Cards } from './components/Cards';
 
 function App() {
   // const navigate = useNavigate();
@@ -20,6 +21,7 @@ function App() {
       // <FoodCategory />
     <div>
         <Routes>
+          <Route index element={<Cards />} />
           <Route path='/category' element={<FoodCategory/>} />
           <Route path='/category/:categoryId' element={<FoodDetail/>} />
           <Route path='/food-order/:foodName' element={<FoodOrderDetail/>} />
