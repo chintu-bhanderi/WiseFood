@@ -1,12 +1,12 @@
-import {TableDetail} from './components/TableDetail'
-import {FoodCategory} from './components/FoodCategory' //done
-import {FoodOrderDetail} from './components/FoodOrderDetail' //done
+import {TableDetail} from './components/table/TableDetail'
+import {FoodCategory} from './components/food/FoodCategory' //done
+import {FoodOrderDetail} from './components/food/FoodOrderDetail' //done
 // import {FoodCategory} from './components/FoodCategory'
-// import "./components/styles.css"
+import "./components/styles.css"
 import {Routes, Route } from "react-router-dom";
-import {TableBook} from './components/TableBook' //done
-import { FoodDetail } from './components/FoodDetail'; //done
-import { FoodOrderShow } from './components/FoodOrderShow'; //done
+import {TableBook} from './components/table/TableBook' //done
+import { FoodDetail } from './components/food/FoodDetail'; //done
+import { FoodOrderShow } from './components/food/FoodOrderShow'; //done
 import { OrdersDetail } from './components/chef/OrdersDetail'; //done
 import { HomeCounter } from './components/counter/HomeCounter'; //done
 import { TableBookFind } from './components/counter/TableBookFind'; //done

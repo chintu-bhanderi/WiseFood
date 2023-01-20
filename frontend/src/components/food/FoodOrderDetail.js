@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { FoodShow } from './FoodShow'
-import "./styles.css"
+import "../styles.css"
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@mui/material";
 

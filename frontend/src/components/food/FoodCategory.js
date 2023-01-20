@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import {FoodCategoryShow} from './FoodCategoryShow'
-import "./styles.css"
-
-
+import "../styles.css"
 
 //import React from "react
 export const FoodCategory = () => {

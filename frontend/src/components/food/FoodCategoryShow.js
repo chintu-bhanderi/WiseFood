@@ -1,4 +1,4 @@
-import "./styles.css"
+import "../styles.css"
 import { Button} from '@mui/material';
 import { Navigate, useNavigate } from "react-router-dom";
 

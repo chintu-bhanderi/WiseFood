@@ -1,4 +1,4 @@
-import "../styles/Table.css";
+import "../../styles/Table.css";
 
 export const TableShow = (props) => {
     return (  
