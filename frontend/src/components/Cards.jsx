@@ -1,23 +1,43 @@
 import React from "react"; 
 import {Card, CardGroup, Button} from "react-bootstrap"; 
-// import "../styles/Table.css";
+import "../styles/category.css";
 
 export const Cards = () => { 
     return (
     <>
-    <div className="heading">Tables</div>
-    <div className="cards">
-        <div className="card">
-            <img src="https://media.istockphoto.com/id/1363800317/photo/unique-round-wooden-dining-room-table.jpg?s=612x612&w=0&k=20&c=77IBIXe5TTm-_ShpwXWLHUgvFyxBc0KPB94Z-Et8rEE=" alt="img"/>
-            <div className="content">
-                <h2>Table No. 1</h2>
-                <h2>Sitting avilable : 4</h2>
-                <h2>Price : 300Rs</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                <a href="" className="button">Book Table</a>
-            </div>
-        </div>
-    </div>
+    <h1 class="mainHeading">Categories</h1>
+    <ul class="cards">
+        <li>
+            <a href="/" class="card">
+                <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
+                <div class="card__overlay">
+                    <div class="card__header">
+                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+                        <img class="card__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
+                        <div class="card__header-text">
+                            <h3 class="card__title">kim Cattrall</h3>
+                        </div>
+                    </div>
+                    <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/" class="card">
+                <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
+                <div class="card__overlay">
+                    <div class="card__header">
+                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+                        <img class="card__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
+                        <div class="card__header-text">
+                            <h3 class="card__title">kim Cattrall</h3>
+                        </div>
+                    </div>
+                    <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+                </div>
+            </a>
+        </li>
+    </ul>
     </> 
     )
 }

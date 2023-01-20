@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import {FoodCategoryShow} from './FoodCategoryShow'
 import "../styles.css"
+import "../../styles/category.css";
 
 //import React from "react
 export const FoodCategory = () => {
@@ -24,17 +25,26 @@ export const FoodCategory = () => {
         fetchCategoryDetails().then(data=>setCategories(data));
         // console.log(tables);
     },[]);
+            // <div className="tableDetail">
+            //     {categories && categories.map((category,index) => (
+            //         <FoodCategoryShow
+            //             categoryId={category._id}
+            //             categoryName={category.name}
+            //         />
+            //     ))}
+            // </div>
 
     return (
         <>
-            <div className="tableDetail"    >
+            <h1 class="mainHeading">Categories</h1>
+            <ul class="cards">
                 {categories && categories.map((category,index) => (
                     <FoodCategoryShow
                         categoryId={category._id}
                         categoryName={category.name}
                     />
                 ))}
-            </div>
+            </ul>       
         </>
     );
 }
