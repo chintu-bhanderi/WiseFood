@@ -1,6 +1,6 @@
 import React from "react"; 
 import {Card, CardGroup, Button} from "react-bootstrap"; 
-import "./styles.css";
+// import "../styles/Table.css";
 
 export const Cards = () => { 
     return (

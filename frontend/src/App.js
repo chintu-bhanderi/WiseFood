@@ -1,9 +1,8 @@
-import './App.css';
 import {TableDetail} from './components/TableDetail'
 import {FoodCategory} from './components/FoodCategory' //done
 import {FoodOrderDetail} from './components/FoodOrderDetail' //done
 // import {FoodCategory} from './components/FoodCategory'
-import "./components/styles.css"
+// import "./components/styles.css"
 import {Routes, Route } from "react-router-dom";
 import {TableBook} from './components/TableBook' //done
 import { FoodDetail } from './components/FoodDetail'; //done
@@ -29,7 +28,6 @@ function App() {
           <Route path='/table-book' element={<TableDetail/>} />
           <Route path='/table-book/:tableId' element={<TableBook/>} />
           <Route path='/food-order-show' element={<OrdersDetail/>} />
-          {/* Not implement  */}
           <Route path='/chef' >
               <Route index element={<ChefDetail/>} />
               <Route path='/chef/order/:chefId' element={<OrdersDetail/>} />

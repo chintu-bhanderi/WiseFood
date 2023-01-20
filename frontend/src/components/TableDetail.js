@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import {TableShow} from './TableShow'
-import "./styles.css"
 
 //import React from "react
 export const TableDetail = () => {
