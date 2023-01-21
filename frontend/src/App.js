@@ -13,6 +13,7 @@ import { TableBookFind } from './components/counter/TableBookFind'; //done
 import { TableOrderDetail } from './components/counter/TableOrderDetail'; //done
 import { ChefDetail } from './components/chef/ChefDetail';
 import { Cards } from './components/Cards';
+import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 
 function App() {
   // const navigate = useNavigate();
@@ -36,6 +37,9 @@ function App() {
               <Route index element={<HomeCounter/>} />
               <Route path="/counter/tables-book" element={<TableBookFind />} />
               <Route path="/counter/tables-order" element={<TableOrderDetail />} />
+          </Route>
+          <Route path='/table'>
+              <Route path="/table/tables-book/user" element={<UserTableBookDetail />} />
           </Route>
         </Routes>
     </div>
