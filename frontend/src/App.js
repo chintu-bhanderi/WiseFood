@@ -14,6 +14,7 @@ import { TableOrderDetail } from './components/counter/TableOrderDetail'; //done
 import { ChefDetail } from './components/chef/ChefDetail';
 import { Cards } from './components/Cards';
 import { UserTableBookDetail } from './components/table/UserTableBookDetail';
+import { SignUp } from './components/auth/SignUp';
 
 function App() {
   // const navigate = useNavigate();
@@ -40,6 +41,10 @@ function App() {
           </Route>
           <Route path='/table'>
               <Route path="/table/tables-book/user" element={<UserTableBookDetail />} />
+          </Route>
+          <Route path='/auth'>
+              <Route path="/auth/registration" element={<SignUp />} />
+              <Route path="/auth/tables-order" element={<TableOrderDetail />} />
           </Route>
         </Routes>
     </div>

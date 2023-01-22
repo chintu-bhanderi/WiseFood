@@ -13,7 +13,7 @@ const app = express();
 // body parser
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(cors())
+app.use(cors());
 
 
 app.use('/api/food-item/' , require('./routes/foodItemsRoutes') )
@@ -23,6 +23,7 @@ app.use('/api/order/' , require('./routes/foodOrderRoutes') )
 app.use('/api/slot/' , require('./routes/slotRoutes') )
 app.use('/api/table-book/' , require('./routes/tableBookRoutes') )
 app.use('/api/chef/' , require('./routes/chefRoutes') )
+app.use('/api/auth/' , require('./routes/authRoutes') )
 
 // app.use(errorHandler);
 
