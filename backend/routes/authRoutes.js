@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const {userRegistration} = require('../controllers/authControllers');
+const {userRegistration,userLogin} = require('../controllers/authControllers');
 
 router.route('/registration').post(userRegistration);
+router.route('/login').post(userLogin);
 // router.route('/login').get(getAllSlot).post(setSlot);
 
 

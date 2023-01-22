@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./styles.module.css";
+import styles from "../../styles/signup.module.css";
 
 export const SignUp = () => {
 	const [data, setData] = useState({
@@ -23,7 +23,7 @@ export const SignUp = () => {
 		try {
 			const url = "http://localhost:8000/api/auth/registration";
 			const { data: res } = await axios.post(url, data);
-			navigate("/login");
+			navigate("/auth/login");
 			console.log(res.message);
 		} catch (error) {
 			if (
@@ -41,7 +41,7 @@ export const SignUp = () => {
 			<div className={styles.signup_form_container}>
 				<div className={styles.left}>
 					<h1>Welcome Back</h1>
-					<Link to="/login">
+					<Link to="/auth/login">
 						<button type="button" className={styles.white_btn}>
 							Sing in
 						</button>
