@@ -16,6 +16,7 @@ import { Cards } from './components/Cards';
 import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 import { SignUp } from './components/auth/SignUp';
 import { LogIn } from './components/auth/LogIn';
+import { SlotDetail } from './components/table/SlotDetail';
 
 function App() {
   // const navigate = useNavigate();
@@ -31,6 +32,7 @@ function App() {
           <Route path='/table-book' element={<TableDetail/>} />
           <Route path='/table-book/:tableId' element={<TableBook/>} />
           <Route path='/food-order-show' element={<OrdersDetail/>} />
+          <Route path='/slot-show' element={<SlotDetail />} />
           <Route path='/chef' >
               <Route index element={<ChefDetail/>} />
               <Route path='/chef/order/:chefId' element={<OrdersDetail/>} />

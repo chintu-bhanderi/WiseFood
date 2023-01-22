@@ -9,13 +9,13 @@ async function getAllSlot(req,res) {
     res.status(200).json(slots);
 }
 async function setSlot (req,res) {
-    const {slotNo} = req.body;
-    if(!slotNo) {
+    const {slotNo,startTime,endTime} = req.body;
+    if(!slotNo && !startTime && !endTime) {
         res.status(400).json({message: "Please enter all mendetory fields"})
         return;
     }
 
-    const order = await Slot.create({slotNo});
+    const order = await Slot.create({slotNo,startTime,endTime});
 
     res.status(200).json(order);
 }
@@ -24,5 +24,4 @@ async function setSlot (req,res) {
 module.exports = {
     getAllSlot,
     setSlot,
-
 }
