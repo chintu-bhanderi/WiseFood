@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import {TableShow} from './TableShow'
+import { useParams } from "react-router-dom";
 
 //import React from "react
-export const TableDetail = () => {
+export const TableDetail = (props) => {
 
     const [tables,setTables] = useState();
     // const [chair,setChair] = useState();
@@ -22,6 +23,8 @@ export const TableDetail = () => {
 
     return (
         <>
+            <h2>{props.selectSlot}</h2>
+            <h2>{props.date.day}</h2>
             <div className="heading">Tables</div>
             <div className="cards">
                 {tables && tables.map((table) => (

@@ -15,7 +15,7 @@ export const SlotShow = (props) => {
                     <p>startTime: {props.startTime}</p>
                     <p>endTime: {props.endTime}</p>
                 <Button className="btnShow"
-                    onClick={()=>{navigate(`/food-order/`)}}
+                    onClick={()=>{props.selectSlotHandler(props.id)}}
                 >Order</Button>
             </span>
         </>

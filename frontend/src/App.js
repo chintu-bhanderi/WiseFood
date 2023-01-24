@@ -4,7 +4,7 @@ import {FoodOrderDetail} from './components/food/FoodOrderDetail' //done
 // import {FoodCategory} from './components/FoodCategory'
 import "./components/styles.css"
 import {Routes, Route } from "react-router-dom";
-import {TableBook} from './components/table/TableBook' //done
+import {TableBookDetail} from './components/table/TableBookDetail' //done
 import { FoodDetail } from './components/food/FoodDetail'; //done
 import { FoodOrderShow } from './components/food/FoodOrderShow'; //done
 import { OrdersDetail } from './components/chef/OrdersDetail'; //done
@@ -17,6 +17,7 @@ import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 import { SignUp } from './components/auth/SignUp';
 import { LogIn } from './components/auth/LogIn';
 import { SlotDetail } from './components/table/SlotDetail';
+import { TableBook } from './components/table/TableBook';
 
 function App() {
   // const navigate = useNavigate();
@@ -29,8 +30,7 @@ function App() {
           <Route path='/category/:categoryId' element={<FoodDetail/>} />
           <Route path='/food-order/:foodName' element={<FoodOrderDetail/>} />
           <Route path='/food-order/:foodName/:quantity' element={<FoodOrderShow/>} />
-          <Route path='/table-book' element={<TableDetail/>} />
-          <Route path='/table-book/:tableId' element={<TableBook/>} />
+          <Route path='/table-book/:tableId' element={<TableBookDetail/>} />
           <Route path='/food-order-show' element={<OrdersDetail/>} />
           <Route path='/slot-show' element={<SlotDetail />} />
           <Route path='/chef' >
@@ -43,6 +43,7 @@ function App() {
               <Route path="/counter/tables-order" element={<TableOrderDetail />} />
           </Route>
           <Route path='/table'>
+              <Route path='/table/table-book' element={<TableBook />} />
               <Route path="/table/tables-book/user" element={<UserTableBookDetail />} />
           </Route>
           <Route path='/auth'>
