@@ -26,13 +26,13 @@ async function getTableBooksByUserId(req, res) {
 }
 
 async function getTableBooksBySlotAndDate(req, res) {
-    const slotId = req.body.slotId;
-    // const {day,month,year} = req.body.date;
-    const {day,month,year} = {
-        day: 23,
-        month: 1,
-        year: 2023
-    };
+    const {slotId,date} = req.body;
+    const {day,month,year} = date;
+    // const {day,month,year} = {
+    //     day: 24,
+    //     month: 1,
+    //     year: 2023
+    // };
     const dateStr = `${month} ${day}, ${year}`;
     const bookDate = new Date(dateStr);
 
@@ -52,13 +52,14 @@ async function getTableBooksBySlotAndDate(req, res) {
 }
 
 async function setTableBooks(req, res) {
-    const {slotId,tableId,date,user} = req.body;
+    const {slotId,tableId,user} = req.body;
     // static
     const {day,month,year} = {
         day: 24,
         month: 1,
         year: 2023
     };
+    console.log(slotId,tableId,user);
     // Static 
     // const user = "63a4ffc68cc75652b8850f92";
     
@@ -68,6 +69,12 @@ async function setTableBooks(req, res) {
     }
     
     const table = await Table.findById(tableId);
+
+    if(!table) {
+        res.status(404).json({message: 'Please enter velid table'});
+        return;
+    }
+
     const price = table.price;
     
     const dateStr = `${month} ${day}, ${year}`;

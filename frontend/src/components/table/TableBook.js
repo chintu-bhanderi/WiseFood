@@ -38,9 +38,6 @@ export const TableBook = () => {
             </div>
             <br />
             <br />
-            <h2>{date.day}</h2>
-            <h2>{date.month}</h2>
-            <h2>{date.year}</h2>
             <SlotDetail 
                 setSelectSlot={setSelectSlot}
             />

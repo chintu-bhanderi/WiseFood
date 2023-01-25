@@ -10,8 +10,9 @@ export const TableBookDetail = (props) => {
 
     const postTableOrder = async () => {
         const slotId = '63a4ffc68cc75652b8850f9f';
+        const user = '63a4ffc68cc75652b8850f9f';
         const res = await axios.post(`http://localhost:8000/api/table-book`,{
-            slotId,tableId
+            slotId,tableId,user
           })  
           .catch(error => console.log(error));
         const data = await res.data;

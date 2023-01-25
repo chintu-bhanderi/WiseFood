@@ -7,24 +7,25 @@ import { useParams } from "react-router-dom";
 export const TableDetail = (props) => {
 
     const [tables,setTables] = useState();
-    // const [chair,setChair] = useState();
+    const slotId = props.selectSlot;
+    const date = props.date;
 
-    const fetchTableDetails = async () => {
-        const res = await axios.get(`http://localhost:8000/api/table`)
-          .catch(error => console.log(error));
-        const data = await res.data;
-        return data;
+    const fetchTableDetailsBySlot = async () => {
+            const res = await axios.post(`http://localhost:8000/api/table-book/slot`,{
+                slotId,date
+              })  
+              .catch(error => console.log(error));
+            const data = await res.data;
+            return data;
       }
     
 
     useEffect(()=>{
-        fetchTableDetails().then(data=>setTables(data));
+        fetchTableDetailsBySlot().then(data=>setTables(data));
     },[]);
 
     return (
         <>
-            <h2>{props.selectSlot}</h2>
-            <h2>{props.date.day}</h2>
             <div className="heading">Tables</div>
             <div className="cards">
                 {tables && tables.map((table) => (
