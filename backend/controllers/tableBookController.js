@@ -25,8 +25,40 @@ async function getTableBooksByUserId(req, res) {
     res.status(200).json(tableBooks);
 }
 
+async function getTableBooksBySlotAndDate(req, res) {
+    const slotId = req.body.slotId;
+    // const {day,month,year} = req.body.date;
+    const {day,month,year} = {
+        day: 23,
+        month: 1,
+        year: 2023
+    };
+    const dateStr = `${month} ${day}, ${year}`;
+    const bookDate = new Date(dateStr);
+
+    const tables = await Table.find({});
+    const tableBooks = await TableBook.find({});
+    
+    const filterData = tables.filter((table) => {
+        const findTable = tableBooks.filter((tableBook)=>{
+            if(tableBook.table.toString()==table._id && tableBook.slot==slotId && tableBook.date.toString()==bookDate.toString()) return true;
+            else return false;
+        }) 
+        if(findTable.length>0) return false;
+        else return true;
+    })  
+
+    res.status(200).json(filterData);
+}
+
 async function setTableBooks(req, res) {
     const {slotId,tableId,date,user} = req.body;
+    // static
+    const {day,month,year} = {
+        day: 24,
+        month: 1,
+        year: 2023
+    };
     // Static 
     // const user = "63a4ffc68cc75652b8850f92";
     
@@ -37,16 +69,17 @@ async function setTableBooks(req, res) {
     
     const table = await Table.findById(tableId);
     const price = table.price;
-    // console.log(table);
-
-    // await TableBook.remove();
+    
+    const dateStr = `${month} ${day}, ${year}`;
+    const bookDate = new Date(dateStr);
+    // console.log(bookDate);
 
     const tableBook = await TableBook.create({
         slot : slotId,
         table : tableId,
         price,
         user,
-        date: Date.now()
+        date: bookDate
     });
 
     res.status(200).json(tableBook);
@@ -79,4 +112,4 @@ async function deleteTableBook(req,res) {
     return res.status(201).json({message:"successfully delete"});
 }
 
-module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId, setTableBooks,updateAvailable,deleteTableBook }
+module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId,getTableBooksBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }
