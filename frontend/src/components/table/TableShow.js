@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import "../../styles/Table.css";
 
 export const TableShow = (props) => {
@@ -11,7 +12,8 @@ export const TableShow = (props) => {
                         <h2>Sitting avilable : {props.chair}</h2>
                         <h2>Price : {props.price}</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href={'/table-book/'+ props.tableId} className="button">Book Table</a>
+                        {/* <a href={'/table-book/'+ props.tableId} className="button">Book Table</a> */}
+                        <Button onClick={()=>props.postTableOrder(props.tableId)}>Book Table</Button>
 
                     </div>
                 </div>

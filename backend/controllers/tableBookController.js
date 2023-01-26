@@ -52,16 +52,14 @@ async function getTableBooksBySlotAndDate(req, res) {
 }
 
 async function setTableBooks(req, res) {
-    const {slotId,tableId,user} = req.body;
+    const {slotId,tableId,user,date} = req.body;
+    const {day,month,year} = date;
     // static
-    const {day,month,year} = {
-        day: 24,
-        month: 1,
-        year: 2023
-    };
-    console.log(slotId,tableId,user);
-    // Static 
-    // const user = "63a4ffc68cc75652b8850f92";
+    // const {day,month,year} = {
+    //     day: 24,
+    //     month: 1,
+    //     year: 2023
+    // };
     
     if(!slotId || !tableId) {
         res.status(404).json({message: 'Please enter all fields'});
