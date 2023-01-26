@@ -1,10 +1,6 @@
-import {TableDetail} from './components/table/TableDetail'
 import {FoodCategory} from './components/food/FoodCategory' //done
 import {FoodOrderDetail} from './components/food/FoodOrderDetail' //done
-// import {FoodCategory} from './components/FoodCategory'
-import "./components/styles.css"
 import {Routes, Route } from "react-router-dom";
-import {TableBookDetail} from './components/table/TableBookDetail' //done
 import { FoodDetail } from './components/food/FoodDetail'; //done
 import { FoodOrderShow } from './components/food/FoodOrderShow'; //done
 import { OrdersDetail } from './components/chef/OrdersDetail'; //done
@@ -16,8 +12,8 @@ import { Cards } from './components/Cards';
 import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 import { SignUp } from './components/auth/SignUp';
 import { LogIn } from './components/auth/LogIn';
-import { SlotDetail } from './components/table/SlotDetail';
 import { TableBook } from './components/table/TableBook';
+import "./components/styles.css"
 
 function App() {
   // const navigate = useNavigate();
@@ -26,13 +22,13 @@ function App() {
     <div>
         <Routes>
           <Route index element={<Cards />} />
-          <Route path='/category' element={<FoodCategory/>} />
-          <Route path='/category/:categoryId' element={<FoodDetail/>} />
-          <Route path='/food-order/:foodName' element={<FoodOrderDetail/>} />
-          <Route path='/food-order/:foodName/:quantity' element={<FoodOrderShow/>} />
-          <Route path='/table-book/:tableId' element={<TableBookDetail/>} />
-          <Route path='/food-order-show' element={<OrdersDetail/>} />
-          <Route path='/slot-show' element={<SlotDetail />} />
+          <Route path='/food' >
+              <Route path='/food/category' element={<FoodCategory/>} />
+              <Route path='/food/category/:categoryId' element={<FoodDetail/>} />
+              <Route path='/food/food-order/:foodName' element={<FoodOrderDetail/>} />
+              <Route path='/food/food-order/:foodName/:quantity' element={<FoodOrderShow/>} />
+              <Route path='/food/food-order-show' element={<OrdersDetail/>} />
+          </Route>
           <Route path='/chef' >
               <Route index element={<ChefDetail/>} />
               <Route path='/chef/order/:chefId' element={<OrdersDetail/>} />
