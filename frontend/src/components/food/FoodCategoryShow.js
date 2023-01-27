@@ -1,24 +1,13 @@
 import "../styles.css"
-import { Button} from '@mui/material';
-import { Navigate, useNavigate } from "react-router-dom";
 import "../../styles/category.css";
 
 export const FoodCategoryShow = (props) => {
-        // {/* {props.chair} */}
-    // const navigate = useNavigate();
-            // <span className="tableShow">
-            //         <p>Name: {props.categoryName}</p>
-            //         <p>id: {props.categoryId}</p>
-            //     <Button className="btnShow"
-            //         onClick={()=>{navigate(`/category/${props.categoryId}`)}}
-            //     >Show</Button>
-            // </span>
 
             return (
                 <>
 
             <li>
-                <a href={'/category/'+ props.categoryId} class="card">
+                <a href={'/food/category/'+ props.categoryId} class="card">
                     <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
                     <div class="card__overlay">
                         <div class="card__header">

@@ -61,4 +61,19 @@ async function workerLogin (req, res) {
 	}
 };
 
-module.exports = { workerRegistration,workerLogin }
+async function getAllWorker (req, res) {
+	try {
+        const workers = await Worker.find({});
+        let types = [];
+        workers.forEach(worker => {
+            if(!types.includes(worker.type)) {
+                types.push(worker.type);
+            }
+        })
+        res.status(201).send(types);
+	} catch (error) {
+		res.status(500).send({ message:"Internal Server Error" });
+	}
+};
+
+module.exports = { workerRegistration,workerLogin,getAllWorker }

@@ -28,7 +28,7 @@ export const FoodOrderDetail = (props) => {
     }, []);
 
     const submitHandler = () => {
-        navigate(`/food-order/${foodName}/${quantity}`);
+        navigate(`/food/food-order/${foodName}/${quantity}`);
     }
 
     const changeHadler = (event) => {

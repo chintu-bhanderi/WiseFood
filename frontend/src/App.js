@@ -12,6 +12,7 @@ import { Cards } from './components/Cards';
 import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 import { SignUp } from './components/auth/SignUp';
 import { LogIn } from './components/auth/LogIn';
+import { WorkerTypeDetail } from './components/auth/WorkerTypeDetail';
 import { TableBook } from './components/table/TableBook';
 import "./components/styles.css"
 
@@ -40,9 +41,10 @@ function App() {
           </Route>
           <Route path='/table'>
               <Route path='/table/table-book' element={<TableBook />} />
-              <Route path="/table/tables-book/user" element={<UserTableBookDetail />} />
+              <Route path="/table/table-book/user" element={<UserTableBookDetail />} />
           </Route>
           <Route path='/auth'>
+            <Route index element={<WorkerTypeDetail />} />
               <Route path="/auth/signup" element={<SignUp />} />
               <Route path="/auth/login" element={<LogIn />} />
           </Route>

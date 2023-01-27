@@ -49,17 +49,17 @@ async function setFoodOrder (req,res) {
     }
 
     tableBook = await TableBook.findOne({_id: tableBookId});
-
+    
     if(!tableBook){
         res.status(400).json({message: "Table is not booked yet"})
         return;
     }
-
+    
     if(!tableBook.isAvailable){
         res.status(400).json({message: "Please conform table available from Counter"});
         return;
     }
-
+    
     // console.log(name, " ", quantity, tableId);
     const foodItem = await FoodItem.findOne({name});
     const totalPrice = quantity*foodItem.price;

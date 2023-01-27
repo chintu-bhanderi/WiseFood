@@ -13,7 +13,7 @@ export const FoodShow = (props) => {
                     <p>Name: {props.foodName}</p>
                     <p>price: {props.price}</p>
                 <Button className="btnShow"
-                    onClick={()=>{navigate(`/food-order/${props.foodName}`)}}
+                    onClick={()=>{navigate(`/food/food-order/${props.foodName}`)}}
                 >Order</Button>
             </span>
         </>
