@@ -3,12 +3,14 @@ import {useDispatch,useSelector} from "react-redux";
 import { userLogin } from '../../store/actions/authAction';
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { useAlert } from 'react-alert';
 import {USER_TYPE} from '../../store/types/authType'
 import styles from "../../styles/login.module.css";
 
 export const LogIn = () => {
 
 	const dispatch = useDispatch();	
+	const alert = useAlert();
 
 	const type = useParams().type;
 
@@ -24,26 +26,13 @@ export const LogIn = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(userLogin(data,type));
-		// console.log('Error1',error);
-		// try {
-		// 	let url;
-		// 	if(type===USER_TYPE) url = "http://localhost:8000/api/auth/login";
-		// 	else url = "http://localhost:8000/api/worker/login";
-		// 	const { data: res } = await axios.post(url, data);
-		// 	localStorage.setItem("authToken2", res.token);
-		// 	console.log(res);
-		// 	// window.location = "/";
-		// } catch (error) {
-		// 	if(error.response){
-		// 		console.log('error->',error.response.data.error.errorMessage);
-		// 	} else {
-		// 		console.log('error->','Internal server error');
-		// 	}
-		// }
 	};
 
 	useEffect(()=>{	
-		console.log('Error1',error);
+		// console.log('Error1',error);
+		if(error){
+			error.map(err=>alert.error(err));
+		}
 	},[error])
 
 	return (

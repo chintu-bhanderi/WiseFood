@@ -5,7 +5,7 @@ import { LOGIN_FAIL, LOGIN_SUCCESS } from '../types/authType';
 const authState = { 
     loading : true,
     authenticate : false,  
-    error : "Helo",
+    error : '',
     successMessage: '',
     myInfo : ''        // Info about which user is login ..
 }
