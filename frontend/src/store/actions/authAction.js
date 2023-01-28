@@ -1,6 +1,28 @@
 import axios from 'axios';
-import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS } from '../types/authType';
+import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL } from '../types/authType';
 
+export const userRegistration = (data) => {
+    return async (dispath) => {
+         try {
+            const url = "http://localhost:8000/api/auth/registration";
+			const { data: res } = await axios.post(url, data);
+            console.log(res);
+              dispath({
+                  type: REGISTRATION_SUCCESS,
+                  payload: {
+                      successMessage: res.message,
+                  }
+              })
+          } catch (error) {
+              dispath({
+                  type: REGISTRATION_FAIL,
+                  payload: {
+                      error: error.response.data.error.errorMessage
+                  }
+              })
+          }
+    }
+}
 
 export const authLogin = (data,type) => {
      return async (dispath) => {
@@ -19,11 +41,6 @@ export const authLogin = (data,type) => {
                    }
                })
            } catch (error) {
-                // if(error.response){
-                //     console.log('error->',error.response.data.error.errorMessage);
-                // } else {
-                //     console.log('error->','Internal server error');
-                // }
                dispath({
                    type: LOGIN_FAIL,
                    payload: {

@@ -1,10 +1,17 @@
-import { useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/signup.module.css";
-import { USER_TYPE } from "../../store/types/authType";
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE } from "../../store/types/authType";
+import { useDispatch, useSelector } from "react-redux";
+import { userRegistration } from "../../store/actions/authAction";
+import { useAlert } from "react-alert";
 
 export const SignUp = () => {
+	
+	const navigate = useNavigate();
+	const dispatch = useDispatch();	
+	const alert = useAlert();
+	const {successMessage,error} = useSelector(state=>state.auth);
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
@@ -12,8 +19,6 @@ export const SignUp = () => {
 		password: "",
 		address: ""
 	});
-	const [error, setError] = useState("");
-	const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -21,21 +26,26 @@ export const SignUp = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const url = "http://localhost:8000/api/auth/registration";
-			const { data: res } = await axios.post(url, data);
-			navigate(`/auth`);
-			console.log(res.message);
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
+		dispatch(userRegistration(data));
 	};
+
+	useEffect(()=>{	
+        if(successMessage){
+            alert.success(successMessage);
+            dispatch({type : SUCCESS_MESSAGE_CLEAR })
+			navigate(`/auth`);
+        }
+		if(error){
+			error.map(err=>alert.error(err));
+			dispatch({type : ERROR_CLEAR })
+			setData((prev)=>{
+				return {
+					...prev,
+					password : ""
+				}
+			})
+		}
+	},[successMessage,error])
 
 	return (
 		<div className={styles.signup_container}>
@@ -96,7 +106,7 @@ export const SignUp = () => {
 							required
 							className={styles.input}
 						/>
-						{error && <div className={styles.error_msg}>{error}</div>}
+						{/* {error && <div className={styles.error_msg}>{error}</div>} */}
 						<button type="submit" className={styles.green_btn}>
 							Sing Up
 						</button>

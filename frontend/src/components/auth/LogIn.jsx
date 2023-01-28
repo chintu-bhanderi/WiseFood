@@ -27,7 +27,6 @@ export const LogIn = () => {
 	useEffect(()=>{	
 		if(authenticate){
 			navigate('/');
-			console.log("Success");
         }
         if(successMessage){
             alert.success(successMessage);

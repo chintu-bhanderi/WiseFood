@@ -2,6 +2,8 @@ export const USER_TYPE = 'user'
 export const WAITER_TYPE = 'waiter'
 export const CHEF_TYPE = 'chef'
 
+export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
+export const REGISTRATION_FAIL = 'REGISTRATION_FAIL'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const SUCCESS_MESSAGE_CLEAR = 'SUCCESS_MESSAGE_CLEAR'

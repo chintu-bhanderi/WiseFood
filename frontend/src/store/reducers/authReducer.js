@@ -1,13 +1,13 @@
 
 import deCodeToken from 'jwt-decode';
-import { ERROR_CLEAR, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, SUCCESS_MESSAGE_CLEAR } from '../types/authType';
+import { ERROR_CLEAR, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_FAIL, REGISTRATION_SUCCESS, SUCCESS_MESSAGE_CLEAR } from '../types/authType';
 
 const authState = { 
     loading : true,
     authenticate : false,  
     error : '',
     successMessage: '',
-    myInfo : ''        // Info about which user is login ..
+    myInfo : ''  
 }
 
 const tokenDecode = (token) =>{
@@ -31,6 +31,25 @@ if(getToken){
 
 export const authReducer = (state = authState, action) => {
     const {payload,type} = action;
+    if( type === REGISTRATION_FAIL){
+          return {
+               ...state,
+               error : payload.error,
+               authenticate : false,
+               myInfo : '',
+               loading : true
+          }
+     }
+
+     if(type === REGISTRATION_SUCCESS){
+          return{
+              ...state,
+              successMessage : payload.successMessage,
+              error : '',
+              loading: false  
+         }
+      }
+
     if( type === LOGIN_FAIL){
          return {
               ...state,
