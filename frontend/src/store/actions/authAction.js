@@ -25,7 +25,7 @@ export const userRegistration = (data) => {
     }
 }
 
-export const authLogin = (data,type) => {
+export const authLogin = (data,type,setCookies) => {
      return async (dispath) => {
           try {
             let url;
@@ -33,6 +33,7 @@ export const authLogin = (data,type) => {
 			else url = "http://localhost:8000/api/worker/login";
 			const { data: res } = await axios.post(url, data);
 			localStorage.setItem("authToken2", res.token);
+            setCookies("authToken2", res.token)
 			console.log(res);
                dispath({
                    type: LOGIN_SUCCESS,

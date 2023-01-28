@@ -16,9 +16,17 @@ import { WorkerTypeDetail } from './components/auth/WorkerTypeDetail';
 import { TableBook } from './components/table/TableBook';
 import "./components/styles.css"
 import { Navbar } from './components/Navbar';
+import { useCookies } from 'react-cookie';
 
 function App() {
-  // const navigate = useNavigate();
+  const [cookies, setCookies, removeCookies] = useCookies(['token']);
+
+  const handleSetCookies = (key, data) => {
+    setCookies(`${key}`, data, { path: '/' });
+  }
+  const handleRemoveCookies = (key) => {
+    removeCookies(`${key}`, { path: '/' });
+  }
   return (
     <>
     <div>
@@ -48,9 +56,9 @@ function App() {
           <Route path='/auth'>
             <Route index element={<WorkerTypeDetail />} />
               <Route path="/auth/signup" element={<SignUp />} />
-              <Route path="/auth/login/:type" element={<LogIn />} />
+              <Route path="/auth/login/:type" element={<LogIn setCookies={handleSetCookies}/>} />
           </Route>
-        </Routes>
+        </Routes> 
     </div>
     </>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 import {useDispatch,useSelector} from "react-redux";
 import { authLogin} from '../../store/actions/authAction';
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -6,7 +7,7 @@ import { useAlert } from 'react-alert';
 import {ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE} from '../../store/types/authType'
 import styles from "../../styles/login.module.css";
 
-export const LogIn = () => {
+export const LogIn = ({setCookies}) => {
 
 	const dispatch = useDispatch();	
 	const alert = useAlert();
@@ -21,7 +22,7 @@ export const LogIn = () => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(authLogin(data,type));
+		dispatch(authLogin(data,type,setCookies));
 	};
 
 	useEffect(()=>{	

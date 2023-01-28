@@ -1,5 +1,6 @@
 
 import deCodeToken from 'jwt-decode';
+import { Cookies } from 'react-cookie';
 import { ERROR_CLEAR, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_FAIL, REGISTRATION_SUCCESS, SUCCESS_MESSAGE_CLEAR } from '../types/authType';
 
 const authState = { 
@@ -20,6 +21,7 @@ const tokenDecode = (token) =>{
 }
 
 const getToken = localStorage.getItem('authToken2');
+console.log("Coockie->",);
 if(getToken){
     const getInfo = tokenDecode(getToken);
      if(getInfo){
