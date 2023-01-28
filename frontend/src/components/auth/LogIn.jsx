@@ -6,7 +6,7 @@ import styles from "../../styles/login.module.css";
 
 export const LogIn = () => {
 	const type = useParams().type;
-	console.log(type);
+	// console.log(type);
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 
@@ -21,16 +21,14 @@ export const LogIn = () => {
 			if(type===USER_TYPE) url = "http://localhost:8000/api/auth/login";
 			else url = "http://localhost:8000/api/worker/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("authToken1", res.data);
-			console.log(type);
-			window.location = "/";
+			localStorage.setItem("authToken2", res.token);
+			console.log(res);
+			// window.location = "/";
 		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
+			if(error.response){
+				console.log('error->',error.response.data.error.errorMessage);
+			} else {
+				console.log('error->','Internal server error');
 			}
 		}
 	};
@@ -41,6 +39,7 @@ export const LogIn = () => {
 				<div className={styles.left}>
 					<form className={styles.form_container} onSubmit={handleSubmit}>
 						<h1>Login to Your Account</h1>
+						<h1>Type : {type}</h1>
 						<input
 							type="email"
 							placeholder="Email"

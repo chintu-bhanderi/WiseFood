@@ -37,27 +37,45 @@ async function workerLogin (req, res) {
 	try {
 		const { error } = validateLogin(req.body);
 		if (error)
-		return res.status(400).send({ message: error.details[0].message });
+        return  res.status(404).json({
+                    error: {
+                        errorMessage: error.details[0].message
+                    }
+                })  
 		
 		const worker = await Worker.findOne({ email: req.body.email });
-		if (!worker)
-		return res.status(401).send({ message: "Invalid Email or Password" });
+		if (!worker){
+            return  res.status(404).json({
+                error: {
+                    errorMessage: ["Invalid Email or Password"]
+                }
+            })  
+        }
 		
 		const validPassword = await bcrypt.compare(
 			req.body.password,
 			worker.password
         );
-		if (!validPassword)
-		return res.status(401).send({ message: "Invalid Email or Password" });
+		if (!validPassword){
+            return  res.status(404).json({
+                error: {
+                    errorMessage: ["Invalid Email or Password"]
+                }
+            })  
+        }
 		
 		const token = worker.generateWorkerToken();
         // const deCodeToken = await jwt.verify(token,process.env.JWTPRIVATEKEY);
 		res.status(200).send({ 
-            data: token,
+                token: token,
             // type:deCodeToken.type,
-            message: "logged in successfully" });
+                message: "logged in successfully" });
 	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
+		return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
 	}
 };
 
