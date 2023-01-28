@@ -24,7 +24,7 @@ export const SignUp = () => {
 		try {
 			const url = "http://localhost:8000/api/auth/registration";
 			const { data: res } = await axios.post(url, data);
-			navigate("/auth/login");
+			navigate(`/auth`);
 			console.log(res.message);
 		} catch (error) {
 			if (

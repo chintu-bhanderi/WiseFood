@@ -65,10 +65,8 @@ async function workerLogin (req, res) {
         }
 		
 		const token = worker.generateWorkerToken();
-        // const deCodeToken = await jwt.verify(token,process.env.JWTPRIVATEKEY);
 		res.status(200).send({ 
                 token: token,
-            // type:deCodeToken.type,
                 message: "logged in successfully" });
 	} catch (error) {
 		return res.status(404).json({

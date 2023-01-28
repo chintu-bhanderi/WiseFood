@@ -34,25 +34,48 @@ const validateLogin = (data) => {
 
 async function userLogin (req, res) {
 	try {
+		console.log('1');
 		const { error } = validateLogin(req.body);
 		if (error)
-		return res.status(400).send({ message: error.details[0].message });
-		
+		return res.status(404).json({
+			error: {
+				errorMessage: error.details[0].message
+			}
+		})  
 		const user = await User.findOne({ email: req.body.email });
-		if (!user)
-		return res.status(401).send({ message: "Invalid Email or Password" });
+		if (!user){
+			return  res.status(404).json({
+				error: {
+					errorMessage: ["Invalid Email or Password"]
+                }
+            })  
+        }
+		console.log('2');
 		
 		const validPassword = await bcrypt.compare(
 			req.body.password,
 			user.password
-			);
-		if (!validPassword)
-		return res.status(401).send({ message: "Invalid Email or Password" });
+		);
+		if (!validPassword){
+			return  res.status(404).json({
+				error: {
+					errorMessage: ["Invalid Email or Password"]
+				}
+			})  
+		}
 		
 		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "logged in successfully" });
+		console.log('3');
+		res.status(200).send({ 
+			token: token,
+			message: "logged in successfully" 
+		});
 	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
+		return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error2']
+            }
+       })
 	}
 };
 

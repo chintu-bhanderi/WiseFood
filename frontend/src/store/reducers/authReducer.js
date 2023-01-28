@@ -1,6 +1,6 @@
 
 import deCodeToken from 'jwt-decode';
-import { LOGIN_FAIL, LOGIN_SUCCESS } from '../types/authType';
+import { ERROR_CLEAR, LOGIN_FAIL, LOGIN_SUCCESS, SUCCESS_MESSAGE_CLEAR } from '../types/authType';
 
 const authState = { 
     loading : true,
@@ -19,11 +19,19 @@ const tokenDecode = (token) =>{
     return tokenDecoded;
 }
 
+const getToken = localStorage.getItem('authToken2');
+if(getToken){
+    const getInfo = tokenDecode(getToken);
+     if(getInfo){
+          authState.myInfo = getInfo;
+          authState.authenticate = true;
+          authState.loading = false;
+     }  
+}
+
 export const authReducer = (state = authState, action) => {
     const {payload,type} = action;
-    
     if( type === LOGIN_FAIL){
-        console.log(state);
          return {
               ...state,
               error : payload.error,
@@ -44,6 +52,20 @@ export const authReducer = (state = authState, action) => {
             loading: false  
        }
     }
+
+    if(type === SUCCESS_MESSAGE_CLEAR){
+        return {
+             ...state,
+             successMessage : ''
+        }
+   }
+
+   if(type === ERROR_CLEAR){
+        return {
+             ...state,
+             error : ''
+        }
+   }
 
     return state;
 }
