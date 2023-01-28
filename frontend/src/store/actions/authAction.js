@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS } from '../types/authType';
+import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS } from '../types/authType';
 
 
-export const userLogin = (data,type) => {
+export const authLogin = (data,type) => {
      return async (dispath) => {
           try {
             let url;
@@ -32,4 +32,16 @@ export const userLogin = (data,type) => {
                })
            }
      }
+}
+
+export const authLogout = () => {
+    return (dispath) => {
+            localStorage.removeItem("authToken2");
+              dispath({
+                  type: LOGOUT_SUCCESS,
+                  payload: {
+                    successMessage: 'Logged out successfull' 
+                  }
+              })
+    }
 }

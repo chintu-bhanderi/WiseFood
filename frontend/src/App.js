@@ -15,12 +15,14 @@ import { LogIn } from './components/auth/LogIn';
 import { WorkerTypeDetail } from './components/auth/WorkerTypeDetail';
 import { TableBook } from './components/table/TableBook';
 import "./components/styles.css"
+import { Navbar } from './components/Navbar';
 
 function App() {
   // const navigate = useNavigate();
   return (
-      // <FoodCategory />
+    <>
     <div>
+        {/* <Navbar /> */}
         <Routes>
           <Route index element={<Cards />} />
           <Route path='/food' >
@@ -50,6 +52,7 @@ function App() {
           </Route>
         </Routes>
     </div>
+    </>
   );
 }
 

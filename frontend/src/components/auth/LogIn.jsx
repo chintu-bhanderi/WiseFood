@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {useDispatch,useSelector} from "react-redux";
-import { userLogin } from '../../store/actions/authAction';
+import { authLogin} from '../../store/actions/authAction';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from 'react-alert';
 import {ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE} from '../../store/types/authType'
@@ -21,7 +21,7 @@ export const LogIn = () => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(userLogin(data,type));
+		dispatch(authLogin(data,type));
 	};
 
 	useEffect(()=>{	
