@@ -67,7 +67,8 @@ async function workerLogin (req, res) {
 		const token = worker.generateWorkerToken();
 		res.status(200).send({ 
                 token: token,
-                message: "logged in successfully" });
+                message: "logged in successfully" 
+        });
 	} catch (error) {
 		return res.status(404).json({
             error: {
@@ -86,9 +87,16 @@ async function getAllWorker (req, res) {
                 types.push(worker.type);
             }
         })
-        res.status(201).send(types);
+        res.status(200).send({ 
+            types: types,
+            message: "Types get successfully" 
+        });
 	} catch (error) {
-		res.status(500).send({ message:"Internal Server Error" });
+		return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
 	}
 };
 

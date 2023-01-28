@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAlert } from 'react-alert';
 import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL } from '../types/authType';
 
 export const userRegistration = (data) => {
@@ -60,5 +61,15 @@ export const authLogout = () => {
                     successMessage: 'Logged out successfull' 
                   }
               })
+    }
+}
+
+export const getWorkerTypes = async () => {
+    try {
+        const { data: res } = await axios.get(`http://localhost:8000/api/worker`);
+        // console.log(res.types);
+        return res.types;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
     }
 }
