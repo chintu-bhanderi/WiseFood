@@ -1,9 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import {USER_TYPE} from '../../store/types/authType'
 import styles from "../../styles/login.module.css";
 
 export const LogIn = () => {
+	const type = useParams().type;
+	console.log(type);
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 
@@ -14,9 +17,12 @@ export const LogIn = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const url = "http://localhost:8000/api/auth/login";
+			let url;
+			if(type===USER_TYPE) url = "http://localhost:8000/api/auth/login";
+			else url = "http://localhost:8000/api/worker/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("userToken", res.data);
+			localStorage.setItem("authToken1", res.data);
+			console.log(type);
 			window.location = "/";
 		} catch (error) {
 			if (
@@ -59,14 +65,16 @@ export const LogIn = () => {
 						</button>
 					</form>
 				</div>
-				<div className={styles.right}>
-					<h1>New Here ?</h1>
-					<Link to="/auth/signup">
-						<button type="button" className={styles.white_btn}>
-							Sing Up
-						</button>
-					</Link>
-				</div>
+				{ type===USER_TYPE && 
+					<div className={styles.right}>
+						<h1>New Here ?</h1>
+						<Link to="/auth/signup">
+							<button type="button" className={styles.white_btn}>
+								Sing Up
+							</button>
+						</Link>
+					</div>
+				}
 			</div>
 		</div>
 	);

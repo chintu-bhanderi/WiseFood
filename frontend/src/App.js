@@ -46,7 +46,7 @@ function App() {
           <Route path='/auth'>
             <Route index element={<WorkerTypeDetail />} />
               <Route path="/auth/signup" element={<SignUp />} />
-              <Route path="/auth/login" element={<LogIn />} />
+              <Route path="/auth/login/:type" element={<LogIn />} />
           </Route>
         </Routes>
     </div>

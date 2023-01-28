@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/signup.module.css";
+import { USER_TYPE } from "../../store/types/authType";
 
 export const SignUp = () => {
 	const [data, setData] = useState({
@@ -41,7 +42,7 @@ export const SignUp = () => {
 			<div className={styles.signup_form_container}>
 				<div className={styles.left}>
 					<h1>Welcome Back</h1>
-					<Link to="/auth/login">
+					<Link to={`/auth/login/${USER_TYPE}`}>
 						<button type="button" className={styles.white_btn}>
 							Sing in
 						</button>
