@@ -21,7 +21,7 @@ const tokenDecode = (token) =>{
 }
 
 const getToken = localStorage.getItem('authToken2');
-console.log("Coockie->",);
+// console.log("Coockie->",);
 if(getToken){
     const getInfo = tokenDecode(getToken);
      if(getInfo){

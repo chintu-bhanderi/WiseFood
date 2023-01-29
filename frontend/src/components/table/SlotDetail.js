@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import "../styles.css"
 import { SlotShow } from "./SlotShow";
+import { fetchSlotDetails } from "../../store/actions/tableAction";
 
 export const SlotDetail = (props) => {
 
     const [slots,setSlots] = useState();
-
-    const fetchSlotDetails = async () => {
-        const res = await axios.get(`http://localhost:8000/api/slot`)
-          .catch(error => console.log(error));
-        const data = await res.data;
-        console.log(data);
-        return data;
-      }
 
     useEffect(()=>{
         fetchSlotDetails().then(data=>setSlots(data));

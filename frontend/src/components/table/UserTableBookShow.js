@@ -5,7 +5,6 @@ export const UserTableBookShow = (props) => {
 
     const cancelTableBook = () => {
         props.deleteTableBook(props.id);
-        console.log(props.id);
     }
 
     return (  

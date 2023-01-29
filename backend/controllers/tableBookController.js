@@ -18,76 +18,113 @@ async function getTableBookById(req, res) {
 }
 
 async function getTableBooksByUserId(req, res) {
-    const userId = req.params.userId;
-
-    const tableBooks = await TableBook.find({user:userId});
-    
-    res.status(200).json(tableBooks);
+    try{
+        const userId = req.params.userId;
+        const tableBooks = await TableBook.find({user:userId});
+        res.status(200).send({ 
+            tableBooks: tableBooks,
+            message: "TableBooks get successfully" 
+        });
+    } catch(err){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+    }
 }
 
 async function getTableBooksBySlotAndDate(req, res) {
-    const {slotId,date} = req.body;
-    const {day,month,year} = date;
-    // const {day,month,year} = {
-    //     day: 24,
-    //     month: 1,
-    //     year: 2023
-    // };
-    const dateStr = `${month} ${day}, ${year}`;
-    const bookDate = new Date(dateStr);
-
-    const tables = await Table.find({});
-    const tableBooks = await TableBook.find({});
+    try{
+        const {slotId,date} = req.body;
+        const {day,month,year} = date;
+        // const {day,month,year} = {
+            //     day: 24,
+            //     month: 1,
+            //     year: 2023
+            // };
+        const dateStr = `${month} ${day}, ${year}`;
+        const bookDate = new Date(dateStr);
+        
+        const tables = await Table.find({});
+        const tableBooks = await TableBook.find({});
+        
+        const filterData = tables.filter((table) => {
+            const findTable = tableBooks.filter((tableBook)=>{
+                if(tableBook.table.toString()==table._id && tableBook.slot==slotId && tableBook.date.toString()==bookDate.toString()) return true;
+                else return false;
+            }) 
+            if(findTable.length>0) return false;
+            else return true;
+        })  
+        
+        res.status(200).send({ 
+            tables: filterData,
+            message: "Tables get successfully" 
+        });
+    } catch (error) {
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+    }
     
-    const filterData = tables.filter((table) => {
-        const findTable = tableBooks.filter((tableBook)=>{
-            if(tableBook.table.toString()==table._id && tableBook.slot==slotId && tableBook.date.toString()==bookDate.toString()) return true;
-            else return false;
-        }) 
-        if(findTable.length>0) return false;
-        else return true;
-    })  
-
-    res.status(200).json(filterData);
 }
 
 async function setTableBooks(req, res) {
-    const {slotId,tableId,user,date} = req.body;
-    const {day,month,year} = date;
-    // static
-    // const {day,month,year} = {
-    //     day: 24,
-    //     month: 1,
-    //     year: 2023
-    // };
-    
-    if(!slotId || !tableId) {
-        res.status(404).json({message: 'Please enter all fields'});
-        return;
+    try{
+        const {slotId,tableId,user,date} = req.body;
+        const {day,month,year} = date;
+        // static
+        // const {day,month,year} = {
+        //     day: 24,
+        //     month: 1,
+        //     year: 2023
+        // };
+        
+        if(!slotId || !tableId) {
+            return  res.status(404).json({
+				error: {
+					errorMessage: ["Please enter all fields"]
+                }
+            })  
+        }
+        
+        const table = await Table.findById(tableId);
+
+        if(!table) {
+            return  res.status(404).json({
+				error: {
+					errorMessage: ["Please enter velid table"]
+                }
+            })  
+        }
+
+        const price = table.price;
+        
+        const dateStr = `${month} ${day}, ${year}`;
+        const bookDate = new Date(dateStr);
+
+        const tableBook = await TableBook.create({
+            slot : slotId,
+            table : tableId,
+            price,
+            user,
+            date: bookDate
+        });
+        res.status(200).send({ 
+            message: "TableBook successfully"
+		});
+    } catch(err){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
     }
+
     
-    const table = await Table.findById(tableId);
-
-    if(!table) {
-        res.status(404).json({message: 'Please enter velid table'});
-        return;
-    }
-
-    const price = table.price;
-    
-    const dateStr = `${month} ${day}, ${year}`;
-    const bookDate = new Date(dateStr);
-    // console.log(bookDate);
-
-    const tableBook = await TableBook.create({
-        slot : slotId,
-        table : tableId,
-        price,
-        user,
-        date: bookDate
-    });
-
-    res.status(200).json(tableBook);
 }
 
 async function updateAvailable(req, res) {
@@ -108,13 +145,19 @@ async function updateAvailable(req, res) {
 }
 
 async function deleteTableBook(req,res) {
-    const tableBookId = req.params.bookId;
     try{
+        const tableBookId = req.params.bookId;
         await TableBook.deleteOne({_id:tableBookId});        
+        res.status(200).send({ 
+            message: "TableBook successfully delete"
+		});
     } catch (err) {
-        return console.log(err);
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
     }   
-    return res.status(201).json({message:"successfully delete"});
 }
 
 module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId,getTableBooksBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }

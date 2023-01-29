@@ -2,7 +2,6 @@ import { useState } from "react";
 import { TableDetail } from "./TableDetail";
 import { SlotDetail } from "./SlotDetail";
 
-//import React from "react
 export const TableBook = () => {
 
     const [selectSlot,setSelectSlot] = useState();
@@ -20,7 +19,6 @@ export const TableBook = () => {
             }
         })
     }
-
    
     return (
         <>
