@@ -3,16 +3,28 @@ const FoodItem = require('../models/foodItemsModel');
 
 
 async function getFoodItemByCategory(req,res) {
-    const categoryId = req.params.id
-    const category = await FoodCategory.findOne({_id: categoryId})
-    
-    if(!category) {
-        res.status(400).json({message: "Category is not exist"});
-        return;
+    try{
+        const categoryId = req.params.id
+        const category = await FoodCategory.findOne({_id: categoryId})
+        if(!category) {
+            return  res.status(404).json({
+                error: {
+                    errorMessage: ["This category does not exist"]
+                }
+            })  
+        }
+        const foodItems = await FoodItem.find({ category: category._id})
+        res.status(200).send({ 
+            foodItems: foodItems,
+            message: "FoodItem get successfully" 
+    });
+    } catch(error){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+        })
     }
-    const foodItems = await FoodItem.find({ category: category._id})
-
-    res.status(200).json(foodItems);
 }
 async function setFooditem (req,res) {
     const { name,price, category} = req.body;

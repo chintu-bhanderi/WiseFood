@@ -21,10 +21,19 @@ async function setCategory(req,res) {
 }
 
 async function getAllCategory(req,res) {
-    const categories = await FoodCategory.find();
-
-    //give array of categories..
-    res.status(200).json(categories); 
+    try{
+        const categories = await FoodCategory.find();
+        res.status(200).send({ 
+            categories : categories,
+            message: "Food Categories get successfully"
+		});
+    } catch(error){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+        })
+    }
 }
 
 async function deleteCategory(req,res) {
