@@ -21,9 +21,9 @@ app.use('/api/table/' , require('./routes/tableRoutes') )
 app.use('/api/order/' , require('./routes/foodOrderRoutes') )
 app.use('/api/slot/' , require('./routes/slotRoutes') )
 app.use('/api/table-book/' , require('./routes/tableBookRoutes') )
-app.use('/api/chef/' , require('./routes/chefRoutes') )
 app.use('/api/auth/' , require('./routes/authRoutes') )
 app.use('/api/worker/' , require('./routes/workerRoutes') )
+app.use('/api/worker-action/' , require('./routes/workerActionRoutes') )    
 
 // app.use(errorHandler);
 

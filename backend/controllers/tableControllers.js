@@ -7,14 +7,14 @@ async function getAllTables(req, res) {
 }
 
 async function setTable(req, res) {
-    const {price,chair} = req.body;
+    const {price,chair,tableNo} = req.body;
 
-    if(!price || !chair) {
+    if(!tableNo || !price || !chair) {
         res.status(404).json({message: 'Please enter all fields'});
         return;
     }
 
-    const table = await Table.create({price,chair});
+    const table = await Table.create({tableNo,price,chair});
 
     res.status(200).json(table);
 }

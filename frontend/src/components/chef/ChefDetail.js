@@ -10,7 +10,7 @@ export const ChefDetail = (props) => {
 
     // fetch all orders ..
     const fetchChefDetails = async () => {
-        const res = await axios.get(`http://localhost:8000/api/chef`)
+        const res = await axios.get(`http://localhost:8000/api/worker-action/chef`)
             .catch(error => console.log(error));
         const data = await res.data;
         return data;

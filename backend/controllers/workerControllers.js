@@ -2,6 +2,7 @@ const {Worker,validate} = require('../models/workerModel');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Joi = require("joi");
+const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 
 async function workerRegistration(req, res) {
 	try {
@@ -17,8 +18,11 @@ async function workerRegistration(req, res) {
 
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-        await new Worker({ ...req.body, password: hashPassword }).save();
+        if(req.body.type==CHEF_TYPE || req.body.type==WAITER_TYPE) {
+            await new Worker({ ...req.body,password: hashPassword,load:0}).save();
+        } else {
+            await new Worker({ ...req.body, password: hashPassword }).save();
+        }
         res.status(201).send({ message: "Worker Registered Successfully" });
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });

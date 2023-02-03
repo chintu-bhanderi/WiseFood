@@ -4,6 +4,7 @@ import "../../styles/workerTypes.css";
 import { WorkerTypeShow } from "./WorkerTypeShow";
 import {USER_TYPE} from '../../store/types/authType'
 import { getWorkerTypes } from "../../store/actions/authAction";
+import { Navbar } from "../Navbar";
 
 export const WorkerTypeDetail = (props) => {
 
@@ -17,6 +18,7 @@ export const WorkerTypeDetail = (props) => {
 
     return (
         <>
+        {/* <Navbar /> */}
         <div class="heading">Login</div>
         <div class=" wrapper ">
         {

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const slotSchema = mongoose.Schema({
     slotNo: {
         type: Number,
-        required: [true,'Please add slot id'],
+        required: [true,'Please add slot no.'],
         unique : true
     },
     startTime: {

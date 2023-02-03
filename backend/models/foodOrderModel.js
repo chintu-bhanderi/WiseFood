@@ -24,7 +24,7 @@ const foodOrderSchema = mongoose.Schema({
     },
     chef: {
         type: mongoose.Types.ObjectId,
-        ref: "Chef",
+        ref: "Worker",
         required: true
     },
 },{

@@ -16,13 +16,13 @@ return (
     <>
     <nav>
         <ul>
-            <li class="logo">Welcome</li>
-            {/* <li class="items"><a href="/">Home</a></li> */}
-            {/* <li class="items"><a href="/">About</a></li> */}
-            {/* <li class="items"><a href="/">Blogs</a></li> */}
-            {!authenticate && <li class="items"><a href="/auth">Login</a></li>}
-            {authenticate && <li class="items"><a onClick={logoutHandler}>Logout</a></li>}
-            <li class="btn"><a href="/"><i class="fas fa-bars"></i></a></li>
+            <li className="logo">Welcome</li>
+            <li className="items"><a href="/">Home</a></li>
+            <li className="items"><a href="/">About</a></li>
+            {/* <li className="items"><a href="/">Blogs</a></li> */}
+            {!authenticate && <li className="items"><a href="/auth">Login</a></li>}
+            {authenticate && <li className="items"><a onClick={logoutHandler}>Logout</a></li>}
+            <li className="btn"><a href="/"><i className="fas fa-bars"></i></a></li>
         </ul>
     </nav>
     </> 

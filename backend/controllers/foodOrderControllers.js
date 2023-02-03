@@ -1,7 +1,8 @@
 const FoodOrder = require('../models/foodOrderModel');
 const FoodItem = require('../models/foodItemsModel');
 const TableBook = require('../models/tableBookModel');
-const Chef = require('../models/chefModel');
+const { CHEF_TYPE } = require('../authTypes');
+const { Worker } = require('../models/workerModel');
 
 
 async function getAllFoodOrders(req,res) {
@@ -28,7 +29,7 @@ async function getFoodOrderByChef(req,res) {
 }
 
 async function findChefWithMinLoad(){
-    const chefs = await Chef.find({});
+    const chefs = await Worker.find({type:CHEF_TYPE});
     let load = 10000;
     let findChef;
     for(let i=0; i<chefs.length; i++){
@@ -67,8 +68,8 @@ async function setFoodOrder (req,res) {
     let chef = await findChefWithMinLoad();
     const order = await FoodOrder.create({name,quantity,totalPrice,tableBook:tableBookId,chef:chef._id});
 
-    chef.foodOrder.push(order._id);
-    chef.load = chef.load+1;
+    // chef.foodOrder.push(order._id);
+    chef.load = chef.load+parseInt(quantity);
     await chef.save();
 
     res.status(200).json(order);
@@ -86,9 +87,9 @@ async function updateOrderDone (req,res) {
     const order = await FoodOrder.findById(orderId);
     order.isDone = true;
 
-    const chef = await Chef.findById(order.chef);
-    chef.load = chef.load - 1;
-    await chef.foodOrder.pull(order._id);
+    const chef = await Worker.findById(order.chef);
+    chef.load = chef.load - parseInt(order.quantity);
+    // await chef.foodOrder.pull(order._id);
     await chef.save();
 
     await FoodOrder.findByIdAndUpdate(orderId,order);
