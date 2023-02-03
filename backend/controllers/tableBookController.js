@@ -34,7 +34,7 @@ async function getTableBooksByUserId(req, res) {
     }
 }
 
-async function getTableBooksBySlotAndDate(req, res) {
+async function getTablesBySlotAndDate(req, res) {
     try{
         const {slotId,date} = req.body;
         const {day,month,year} = date;
@@ -72,14 +72,50 @@ async function getTableBooksBySlotAndDate(req, res) {
     
 }
 
+    try{
+        const {tableNo,slotNo,date} = req.body;
+        const {day,month,year} = date;
+        // const {day,month,year} = {
+            //     day: 24,
+            //     month: 1,
+            //     year: 2023
+            // };
+        const dateStr = `${month} ${day}, ${year}`;
+        const bookDate = new Date(dateStr);
+
+        const table = await Table.findOne({tableNo});
+        const slot = await Slot.findOne({slotNo});
+        // console.log(slot);
+
+        const tableBook = await TableBook.findOne({
+            table:table._id,
+            slot:slot._id,
+            date: bookDate
+        });
+        // console.log(tableBook);
+
+        res.status(200).send({ 
+            tableBook,
+            message: "TableBook get successfully" 
+        });
+    } catch (error) {
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+    }
+    
+}
+
 async function setTableBooks(req, res) {
     try{
         const {slotId,tableId,user,date} = req.body;
         const {day,month,year} = date;
         // static
         // const {day,month,year} = {
-        //     day: 24,
-        //     month: 1,
+        //     day: 2,
+        //     month: 2,
         //     year: 2023
         // };
         
@@ -160,4 +196,4 @@ async function deleteTableBook(req,res) {
     }   
 }
 
-module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId,getTableBooksBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }
+module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId,getTableBookByTableSlotDate,getTablesBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }

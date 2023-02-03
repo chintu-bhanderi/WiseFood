@@ -3,6 +3,9 @@
 #When worker login then find worker type acording to which they enter type when login.
 
 
-
 issues:
 #tableNo is not set unique when inserting - not give any error.
+
+
+#counter
+-if Input is invalid then give alert.
