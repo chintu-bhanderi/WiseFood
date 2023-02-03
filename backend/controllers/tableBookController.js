@@ -72,6 +72,7 @@ async function getTablesBySlotAndDate(req, res) {
     
 }
 
+async function getTableBookByTableSlotDate(req, res) {
     try{
         const {tableNo,slotNo,date} = req.body;
         const {day,month,year} = date;
