@@ -17,6 +17,8 @@ import { TableBook } from './components/table/TableBook';
 import "./components/styles.css"
 import { Navbar } from './components/Navbar';
 import { useCookies } from 'react-cookie';
+import { WaiterDetail } from './components/waiter/WaiterDetail';
+import { WaiterOrdersDetail } from './components/waiter/WaiterOrdersDetail';
 
 function App() {
   const [cookies, setCookies, removeCookies] = useCookies(['token']);
@@ -43,6 +45,10 @@ function App() {
           <Route path='/chef' >
               <Route index element={<ChefDetail/>} />
               <Route path='/chef/order/:chefId' element={<OrdersDetail/>} />
+          </Route>
+          <Route path='/waiter' >
+              <Route index element={<WaiterDetail/>} />
+              <Route path='/waiter/order/:waiterId' element={<WaiterOrdersDetail/>}  />
           </Route>
           <Route path='/counter'>
               <Route index element={<HomeCounter/>} />

@@ -28,6 +28,14 @@ async function getFoodOrderByChef(req,res) {
     res.status(200).json(orders);
 }
 
+async function getFoodOrderByWaiter(req,res) {
+    const waiterId = req.params.waiterId;
+
+    const orders = await FoodOrder.find({ isDone:true,isServed:false,waiter:waiterId });
+
+    res.status(200).json(orders);
+}
+
 async function findChefWithMinLoad(){
     const chefs = await Worker.find({type:CHEF_TYPE});
     let load = 10000;
@@ -105,12 +113,32 @@ async function updateOrderDone (req,res) {
 
     let waiter = await findWaiterWithMinLoad();
     waiter.load = waiter.load+1;
+    waiter.totalLoad = waiter.totalLoad+1;
     await waiter.save();
     order.waiter = waiter._id;
 
     await FoodOrder.findByIdAndUpdate(orderId,order);
     
     res.status(200).json({message: "Order is done is updates"});
+}
+
+async function updateOrderServe (req,res) {
+    const orderId = req.params.orderId;
+    if(!orderId) {
+        res.status(400).json({message: "Please enter all mendetory fields"})
+        return;
+    }
+
+    const order = await FoodOrder.findById(orderId);
+    order.isServed = true;
+
+    const waiter = await Worker.findById(order.waiter);
+    waiter.load = waiter.load - 1;
+    await waiter.save();
+
+    await FoodOrder.findByIdAndUpdate(orderId,order);
+    
+    res.status(200).json({message: "Order isServe is updates"});
 }
 
 
@@ -136,8 +164,10 @@ module.exports = {
     getAllFoodOrders,
     getFoodOrderByTable,
     getFoodOrderByChef,
+    getFoodOrderByWaiter,
     setFoodOrder,
     updateOrderDone,
+    updateOrderServe,
     deleteOrderByTable,
     deleteAllOrders
 }
