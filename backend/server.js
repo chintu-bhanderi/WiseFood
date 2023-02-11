@@ -24,6 +24,7 @@ app.use('/api/table-book/' , require('./routes/tableBookRoutes') )
 app.use('/api/auth/' , require('./routes/authRoutes') )
 app.use('/api/worker/' , require('./routes/workerRoutes') )
 app.use('/api/worker-action/' , require('./routes/workerActionRoutes') )    
+app.use('/api/test/' , require('./routes/testRoutes') )    
 
 // app.use(errorHandler);
 

@@ -27,6 +27,14 @@ const foodOrderSchema = mongoose.Schema({
         ref: "Worker",
         required: true
     },  
+    isServed: {
+        type: Boolean,
+        default: false
+    },
+    waiter: {
+        type: mongoose.Types.ObjectId,
+        ref: "Worker"
+    },  
 },{
     timestemps: true,
 })

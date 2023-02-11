@@ -1,7 +1,7 @@
 const FoodOrder = require('../models/foodOrderModel');
 const FoodItem = require('../models/foodItemsModel');
 const TableBook = require('../models/tableBookModel');
-const { CHEF_TYPE } = require('../authTypes');
+const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 const { Worker } = require('../models/workerModel');
 
 
@@ -47,7 +47,7 @@ async function setFoodOrder (req,res) {
     if(!name || !quantity || !tableBookId) {
         res.status(400).json({message: "Please enter all mendetory fields"})
         return;
-    }
+    } 
 
     tableBook = await TableBook.findOne({_id: tableBookId});
     
@@ -75,7 +75,18 @@ async function setFoodOrder (req,res) {
     res.status(200).json(order);
 }
 
-
+async function findWaiterWithMinLoad(){
+    const waiters = await Worker.find({type:WAITER_TYPE,isLogin:true});
+    let load = 10000;
+    let findWaiter;
+    for(let i=0; i<waiters.length; i++){
+        if(waiters[i].load<load){
+            load = waiters[i].load;
+            findWaiter = waiters[i];
+        }
+    }
+    return findWaiter;
+}
 
 async function updateOrderDone (req,res) {
     const orderId = req.params.orderId;
@@ -91,6 +102,11 @@ async function updateOrderDone (req,res) {
     chef.load = chef.load - parseInt(order.quantity);
     // await chef.foodOrder.pull(order._id);
     await chef.save();
+
+    let waiter = await findWaiterWithMinLoad();
+    waiter.load = waiter.load+1;
+    await waiter.save();
+    order.waiter = waiter._id;
 
     await FoodOrder.findByIdAndUpdate(orderId,order);
     
