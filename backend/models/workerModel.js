@@ -8,7 +8,9 @@ const workerSchema = new mongoose.Schema({
 	type: { type: String, required: true },
 	email: { type: String, required: true },
 	password: { type: String, required: true },
-	load:{ type: Number}
+	isLogin: { type: Boolean, default: false }, 
+	load:{ type: Number},
+	totalLoad:{ type: Number }
 });
 
 workerSchema.methods.generateWorkerToken = function () {

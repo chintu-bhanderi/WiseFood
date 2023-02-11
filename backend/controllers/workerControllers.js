@@ -19,7 +19,7 @@ async function workerRegistration(req, res) {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.password, salt);
         if(req.body.type==CHEF_TYPE || req.body.type==WAITER_TYPE) {
-            await new Worker({ ...req.body,password: hashPassword,load:0}).save();
+            await new Worker({ ...req.body,password: hashPassword,load:0,totalLoad:0 }).save();
         } else {
             await new Worker({ ...req.body, password: hashPassword }).save();
         }

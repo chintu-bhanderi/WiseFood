@@ -9,3 +9,6 @@ issues:
 
 #counter
 -if Input is invalid then give alert.
+
+#chef#waiter 
+his order make and serve is done then also show in history..
