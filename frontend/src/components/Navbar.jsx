@@ -1,16 +1,31 @@
-import React from "react"; 
+import React, { useEffect } from "react"; 
 import { useDispatch, useSelector } from "react-redux";
-import { authLogin } from "../store/actions/authAction";
+import { useNavigate } from "react-router-dom";
+import { authLogin, authLogout } from "../store/actions/authAction";
+import { SUCCESS_MESSAGE_CLEAR } from "../store/types/authType";
 import "../styles/navbar.css";
 
 export const Navbar = () => {
-    const {authenticate} = useSelector(state=>state.auth);
+    
+    const navigate = useNavigate();
+
+    const {authenticate,successMessage} = useSelector(state=>state.auth);
     const dispatch = useDispatch();	
 
-    const logoutHandler = ()=>{
-        dispatch(authLogin());
-        console.log("LogoutSuccessFull");
+    const logoutHandler = (e)=>{
+        e.preventDefault();
+        dispatch(authLogout())
     }
+
+    // useEffect(()=>{
+    //     if(authenticate){
+	// 		navigate('/');
+    //     }
+    //     if(successMessage){
+    //         alert.success(successMessage);
+    //         dispatch({type : SUCCESS_MESSAGE_CLEAR })
+    //     }
+    // },[successMessage])
 
 return (
     <>

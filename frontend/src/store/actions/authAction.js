@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useAlert } from 'react-alert';
-import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL } from '../types/authType';
+import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL, LOGOUT_SUCCESS_MESSAGE } from '../types/authType';
 
 export const userRegistration = (data) => {
     return async (dispath) => {
@@ -59,7 +59,7 @@ export const authLogout = () => {
               dispath({
                   type: LOGOUT_SUCCESS,
                   payload: {
-                    successMessage: 'Logged out successfull' 
+                    successMessage: LOGOUT_SUCCESS_MESSAGE
                   }
               })
     }

@@ -1,14 +1,11 @@
 import "../styles.css"
 import { Button} from '@mui/material';
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useEffect } from "react";
 
 export const OrdersShow = (props) => {
-
-    const navigate = useNavigate();  
     
-    const updateOrderDone = async () => {
+    const updateOrderServer = async () => {
         const res = await axios.put(`http://localhost:8000/api/order/serve/${props.foodOrderId}`)
           .catch(error => console.log(error));
         const data = await res.data;
@@ -17,10 +14,7 @@ export const OrdersShow = (props) => {
     }
 
     const clickHandler = () => {
-        updateOrderDone()
-        // .then(() => {
-        //     navigate(`/food-order-show`)
-        // })
+        updateOrderServer()
     }
 
     return (

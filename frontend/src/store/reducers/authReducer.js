@@ -93,7 +93,7 @@ export const authReducer = (state = authState, action) => {
           loading : true,
           authenticate : false,  
           error : '',
-          successMessage: '',
+          successMessage: payload.successMessage,
           myInfo : ''
      }
    }

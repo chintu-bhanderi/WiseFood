@@ -12,3 +12,11 @@ issues:
 
 #chef#waiter 
 his order make and serve is done then also show in history..
+
+PROTECTED ROUTE 
+- in login component put protected is remails.
+
+userType - change to GuestUser.
+
+logOut- not give success message.
+- is in that perticuler page and then logOut then not redirect to homePage. 

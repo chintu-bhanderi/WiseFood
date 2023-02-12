@@ -1,6 +1,14 @@
 export const USER_TYPE = 'user'
 export const WAITER_TYPE = 'waiter'
 export const CHEF_TYPE = 'chef'
+export const COUNTER_TYPE = 'counter'
+
+export const AUTH_LOGIN_TYPE = 'authentication'
+export const AUTH_LOGIN_ERROR_MESSAGE = 'You are alredy Loged-In..'
+export const AUTH_LOGOUT_TYPE = 'logout'
+export const AUTH_NOT_LOGIN_ERROR_MESSAGE = 'You are not Loged-In..'
+
+export const INVALID_USER_MESSAGE = 'You are not allow to access this page..'
 
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
 export const REGISTRATION_FAIL = 'REGISTRATION_FAIL'
@@ -8,4 +16,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
 export const SUCCESS_MESSAGE_CLEAR = 'SUCCESS_MESSAGE_CLEAR'
 export const ERROR_CLEAR = 'ERROR_CLEAR'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_SUCCESS = 'LOGOUT SUCCESS'
+export const LOGOUT_SUCCESS_MESSAGE = 'LOGOUT SUCCESSFUL'
