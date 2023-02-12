@@ -30,6 +30,8 @@ export const WaiterOrdersDetail = () => {
         <>
             <div>
                 <h1>All Orders</h1>
+                {foodOrders && <h2>Total Orders: {foodOrders.length}</h2>}
+                <br />
                 <div className="ordersDetail">
 
                     {foodOrders && foodOrders.map((foodOrder, index) => (

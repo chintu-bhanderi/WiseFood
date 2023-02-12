@@ -35,7 +35,7 @@ return (
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/category">Food Order</a></li>}
             {authenticate && myInfo.type===CHEF_TYPE && <li className="items"><a href={'/chef/order/'+ myInfo.id}>Order-Make</a></li>}
-            {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href="/waiter">Order-Serve</a></li>}
+            {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href={'/waiter/order/'+ myInfo.id}>Order-Serve</a></li>}
             {authenticate && myInfo.type===COUNTER_TYPE && <li className="items"><a href="/counter">User-Details</a></li>}
 
             {!authenticate && <li className="items"><a href="/auth">Login</a></li>}
