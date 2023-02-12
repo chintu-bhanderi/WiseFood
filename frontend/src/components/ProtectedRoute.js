@@ -28,7 +28,6 @@ export const ProtectedRoute = ({Child,type}) => {
         }
     },[])
     return (<>
-        <h1>{myInfo.type}</h1>
         <Child />
     </>)
 }

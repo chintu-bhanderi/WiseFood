@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authLogin, authLogout } from "../store/actions/authAction";
-import { SUCCESS_MESSAGE_CLEAR } from "../store/types/authType";
+import { authLogout } from "../store/actions/authAction";
+import { CHEF_TYPE, COUNTER_TYPE, SUCCESS_MESSAGE_CLEAR, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 import "../styles/navbar.css";
 
 export const Navbar = () => {
     
     const navigate = useNavigate();
     const alert = useAlert();
-    const {authenticate,successMessage} = useSelector(state=>state.auth);
+    const {authenticate,myInfo,successMessage} = useSelector(state=>state.auth);
     const dispatch = useDispatch();	
 
     const logoutHandler = (e)=>{
@@ -32,7 +32,12 @@ return (
             <li className="logo">Welcome</li>
             <li className="items"><a href="/">Home</a></li>
             <li className="items"><a href="/">About</a></li>
-            {/* <li className="items"><a href="/">Blogs</a></li> */}
+            {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}
+            {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/category">Food Order</a></li>}
+            {authenticate && myInfo.type===CHEF_TYPE && <li className="items"><a href={'/chef/order/'+ myInfo.id}>Order-Make</a></li>}
+            {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href="/waiter">Order-Serve</a></li>}
+            {authenticate && myInfo.type===COUNTER_TYPE && <li className="items"><a href="/counter">User-Details</a></li>}
+
             {!authenticate && <li className="items"><a href="/auth">Login</a></li>}
             {authenticate && <li className="items"><a onClick={logoutHandler}>Logout</a></li>}
             <li className="btn"><a href="/"><i className="fas fa-bars"></i></a></li>

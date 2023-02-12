@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 export const OrdersDetail = () => {
     // store all orders..
     const [foodOrders, setFoodOrders] = useState();
+    const [totalOrders, setTotalOrders] = useState(0);
     const chefId = useParams().chefId;
 
     // fetch all orders ..
@@ -21,7 +22,8 @@ export const OrdersDetail = () => {
     useEffect(() => {
         // after some interval rerander this page..
         setInterval(() => {
-            fetchFoodOrdersDetails().then(data => setFoodOrders(data));
+            fetchFoodOrdersDetails()
+            .then(data => setFoodOrders(data))
         }, 1000);
 
     }, []);
@@ -30,7 +32,9 @@ export const OrdersDetail = () => {
         <>
             <div>
                 <h1>All Orders</h1>
-                <div className="ordersDetail">
+                {foodOrders && <h2>Total Orders: {foodOrders.length}</h2>}
+                <br />
+                <div className="ordersDetail">  
 
                     {foodOrders && foodOrders.map((foodOrder, index) => (
                         <OrdersShow
