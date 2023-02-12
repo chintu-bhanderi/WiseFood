@@ -15,7 +15,7 @@ export const Navbar = () => {
 
     const logoutHandler = (e)=>{
         e.preventDefault();
-        dispatch(authLogout())
+        dispatch(authLogout(myInfo.type,myInfo.id));
     }
 
     useEffect(()=>{

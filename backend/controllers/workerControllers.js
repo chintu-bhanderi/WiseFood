@@ -67,6 +67,9 @@ async function workerLogin (req, res) {
                 }
             })  
         }
+
+        worker.isLogin = true;
+        await worker.save();
 		
 		const token = worker.generateWorkerToken();
 		res.status(200).send({ 
@@ -76,11 +79,39 @@ async function workerLogin (req, res) {
 	} catch (error) {
 		return res.status(404).json({
             error: {
-                 errorMessage : ['Internal Sever Error']
+                 errorMessage : ['Internal Server Error']
             }
        })
 	}
 };
+
+async function workerLogout (req, res) {
+    try {
+		const { id } = req.body;
+
+        const worker = await Worker.findById(id);
+        if(!worker) {
+            return  res.status(404).json({
+                error: {
+                    errorMessage: ["Invalid Id"]
+                }
+            })  
+        }
+
+        worker.isLogin = false;
+        await worker.save();
+		
+		res.status(200).send({ 
+            message: "logout successfully" 
+        });
+	} catch (error) {
+		return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Server Error']
+            }
+       })
+	}
+}
 
 async function getAllWorker (req, res) {
 	try {
@@ -98,10 +129,11 @@ async function getAllWorker (req, res) {
 	} catch (error) {
 		return res.status(404).json({
             error: {
-                 errorMessage : ['Internal Sever Error']
+                 errorMessage : ['Internal Server Error']
             }
        })
 	}
 };
 
-module.exports = { workerRegistration,workerLogin,getAllWorker }
+
+module.exports = { workerRegistration,workerLogin,workerLogout,getAllWorker }

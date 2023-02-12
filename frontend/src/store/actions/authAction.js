@@ -53,15 +53,23 @@ export const authLogin = (data,type,setCookies) => {
      }
 }
 
-export const authLogout = () => {
+export const authLogout = (type,id) => {
     return async (dispath) => {
+        try{
+            if(type!==USER_TYPE) {
+                const { data: res } = await axios.post("http://localhost:8000/api/worker/logout", {id});
+                console.log(res);
+            }
             localStorage.removeItem("authToken2");
-              dispath({
-                  type: LOGOUT_SUCCESS,
-                  payload: {
-                    successMessage: LOGOUT_SUCCESS_MESSAGE
-                  }
-              })
+            dispath({
+                type: LOGOUT_SUCCESS,
+                payload: {
+                successMessage: LOGOUT_SUCCESS_MESSAGE
+                }
+            })
+        } catch(error) {
+
+        }
     }
 }
 

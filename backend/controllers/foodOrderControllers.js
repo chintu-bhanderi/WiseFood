@@ -37,7 +37,7 @@ async function getFoodOrderByWaiter(req,res) {
 }
 
 async function findChefWithMinLoad(){
-    const chefs = await Worker.find({type:CHEF_TYPE});
+    const chefs = await Worker.find({type:CHEF_TYPE,isLogin:true});
     let load = 10000;
     let findChef;
     for(let i=0; i<chefs.length; i++){
@@ -78,6 +78,7 @@ async function setFoodOrder (req,res) {
 
     // chef.foodOrder.push(order._id);
     chef.load = chef.load+parseInt(quantity);
+    chef.totalLoad += parseInt(quantity);
     await chef.save();
 
     res.status(200).json(order);

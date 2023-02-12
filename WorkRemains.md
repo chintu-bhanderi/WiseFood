@@ -20,3 +20,6 @@ userType - change to GuestUser.
 
 logOut
 - is in that perticuler page and then logOut then not redirect to homePage. 
+
+foodOrder
+-quntity is static
