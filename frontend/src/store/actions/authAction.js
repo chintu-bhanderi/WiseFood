@@ -54,7 +54,7 @@ export const authLogin = (data,type,setCookies) => {
 }
 
 export const authLogout = () => {
-    return (dispath) => {
+    return async (dispath) => {
             localStorage.removeItem("authToken2");
               dispath({
                   type: LOGOUT_SUCCESS,

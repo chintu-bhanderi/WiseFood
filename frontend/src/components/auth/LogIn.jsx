@@ -29,10 +29,6 @@ export const LogIn = ({setCookies}) => {
 		if(authenticate){
 			navigate('/');
         }
-        if(successMessage){
-            alert.success(successMessage);
-            dispatch({type : SUCCESS_MESSAGE_CLEAR })
-        }
 		if(error){
 			error.map(err=>alert.error(err));
 			dispatch({type : ERROR_CLEAR })

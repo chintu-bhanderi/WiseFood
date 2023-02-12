@@ -18,5 +18,5 @@ PROTECTED ROUTE
 
 userType - change to GuestUser.
 
-logOut- not give success message.
+logOut
 - is in that perticuler page and then logOut then not redirect to homePage. 

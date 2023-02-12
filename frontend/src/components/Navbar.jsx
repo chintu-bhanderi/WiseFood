@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"; 
+import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authLogin, authLogout } from "../store/actions/authAction";
@@ -8,7 +9,7 @@ import "../styles/navbar.css";
 export const Navbar = () => {
     
     const navigate = useNavigate();
-
+    const alert = useAlert();
     const {authenticate,successMessage} = useSelector(state=>state.auth);
     const dispatch = useDispatch();	
 
@@ -17,15 +18,12 @@ export const Navbar = () => {
         dispatch(authLogout())
     }
 
-    // useEffect(()=>{
-    //     if(authenticate){
-	// 		navigate('/');
-    //     }
-    //     if(successMessage){
-    //         alert.success(successMessage);
-    //         dispatch({type : SUCCESS_MESSAGE_CLEAR })
-    //     }
-    // },[successMessage])
+    useEffect(()=>{
+        if(successMessage){
+            alert.success(successMessage);
+            dispatch({type : SUCCESS_MESSAGE_CLEAR })
+        }
+    },[successMessage])
 
 return (
     <>
