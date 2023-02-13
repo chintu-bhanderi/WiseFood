@@ -2,6 +2,7 @@
 import deCodeToken from 'jwt-decode';
 import { Cookies } from 'react-cookie';
 import { ERROR_CLEAR, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_FAIL, REGISTRATION_SUCCESS, SUCCESS_MESSAGE_CLEAR } from '../types/authType';
+import { BOOKED_TABLE_GET_SUCCEESS } from '../types/tableType';
 
 const authState = { 
     loading : true,
@@ -95,6 +96,14 @@ export const authReducer = (state = authState, action) => {
           error : '',
           successMessage: payload.successMessage,
           myInfo : ''
+     }
+   }
+
+   if(type === BOOKED_TABLE_GET_SUCCEESS){
+     const newInfo = {...state.myInfo,bookedTable:payload.table};
+     return {
+          ...state,
+          myInfo:newInfo
      }
    }
 

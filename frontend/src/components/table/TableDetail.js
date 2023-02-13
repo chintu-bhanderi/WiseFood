@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import {TableShow} from './TableShow'
 import { fetchTableDetailsBySlot, setTableBook } from "../../store/actions/tableAction";
+import { useSelector } from "react-redux";
 
 export const TableDetail = (props) => {
-
+    
     const [tables,setTables] = useState();
     const [bookFlag,setBookFlag] = useState(true);
     const slotId = props.selectSlot;
     const date = props.date;
     
+    const {myInfo} = useSelector(state=>state.auth);
+
     const postTableBook = (tableId) => {
-        setTableBook(tableId,slotId,date)
+        setTableBook(tableId,slotId,myInfo.id,date)
         .then(()=>setBookFlag(!bookFlag));
     }
 
@@ -24,6 +27,7 @@ export const TableDetail = (props) => {
             <div className="cards">
                 {tables && tables.map((table) => (
                     <TableShow
+                        tableNo={table.tableNo}
                         chair={table.chair}
                         price={table.price}
                         tableId={table._id}

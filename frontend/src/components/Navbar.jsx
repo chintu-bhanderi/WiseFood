@@ -3,6 +3,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authLogout } from "../store/actions/authAction";
+import { fetchAvailableTableByUser } from "../store/actions/tableAction";
 import { CHEF_TYPE, COUNTER_TYPE, SUCCESS_MESSAGE_CLEAR, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 import "../styles/navbar.css";
 
@@ -25,11 +26,18 @@ export const Navbar = () => {
         }
     },[successMessage])
 
+    useEffect(()=>{
+        if(authenticate && myInfo.type===USER_TYPE){
+            dispatch(fetchAvailableTableByUser(myInfo.id))
+        }
+    },[authenticate])
+
 return (
     <>
     <nav>
         <ul>
             <li className="logo">Welcome</li>
+            {/* <li className="logo">{myInfo.bookedTable}</li> */}
             <li className="items"><a href="/">Home</a></li>
             <li className="items"><a href="/">About</a></li>
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}

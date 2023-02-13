@@ -85,6 +85,7 @@ export const TableBookFind = () => {
                     bookId={tableBook._id}
                     slot={tableBook.slot}
                     table={tableBook.table}
+                    user={tableBook.user}
                     date={tableBook.date}
                     isAvailable={tableBook.isAvailable}
                 />}

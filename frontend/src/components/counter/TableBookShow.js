@@ -30,6 +30,7 @@ export const TableBookShow = (props) => {
                 <p>id: {props.bookId}</p>
                 <p>slot: {props.slot}</p>
                 <p>table: {props.table}</p>
+                <p>user: {props.user}</p>
                 <p>date: {props.date}</p>
                 <Button className="btnShow"
                     onClick={submithandler}
