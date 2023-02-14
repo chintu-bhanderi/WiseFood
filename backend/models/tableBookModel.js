@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const tableBookSchema = mongoose.Schema({
+    id:{
+        type: Number,
+        required: [true,'Please add TableBook id']
+    },
     slot: {
         type: mongoose.Types.ObjectId ,
         ref: "Slot",

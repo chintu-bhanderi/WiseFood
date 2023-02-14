@@ -130,8 +130,20 @@ async function getTableBookByTableSlotDate(req, res) {
                  errorMessage : ['Internal Sever Error']
             }
        })
+    }    
+}
+
+const getMEXIdFromAllTableBooks = (tableBooks) => {
+    if(!tableBooks.length || tableBooks.length==0) return 1;
+    tableBooks.sort((book1, book2) => {
+        return book1.id - book2.id;
+    });
+    let id=1;
+    for(let i=0; i<tableBooks.length; i++) {
+        if(id!=tableBooks[i].id) return id;
+        id++;
     }
-    
+    return id;
 }
 
 async function setTableBooks(req, res) {
@@ -147,28 +159,32 @@ async function setTableBooks(req, res) {
         
         if(!slotId || !tableId) {
             return  res.status(404).json({
-				error: {
-					errorMessage: ["Please enter all fields"]
+                error: {
+                    errorMessage: ["Please enter all fields"]
                 }
             })  
         }
         
         const table = await Table.findById(tableId);
-
+        
         if(!table) {
             return  res.status(404).json({
-				error: {
-					errorMessage: ["Please enter velid table"]
+                error: {
+                    errorMessage: ["Please enter velid table"]
                 }
             })  
         }
-
+        
+        const tableBooks = await TableBook.find({});
+        const id = getMEXIdFromAllTableBooks(tableBooks);
+        
         const price = table.price;
         
         const dateStr = `${month} ${day}, ${year}`;
         const bookDate = new Date(dateStr);
-
+        
         const tableBook = await TableBook.create({
+            id,
             slot : slotId,
             table : tableId,
             price,
@@ -179,14 +195,13 @@ async function setTableBooks(req, res) {
             message: "TableBook successfully"
 		});
     } catch(err){
+        console.log(err);
         return res.status(404).json({
             error: {
                  errorMessage : ['Internal Sever Error']
             }
        })
-    }
-
-    
+    }    
 }
 
 async function updateAvailable(req, res) {

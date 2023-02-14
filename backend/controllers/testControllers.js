@@ -1,6 +1,8 @@
 const { CHEF_TYPE } = require('../authTypes');
 const FoodOrder = require('../models/foodOrderModel');
 const {Worker} = require('../models/workerModel')
+const TableBook = require('../models/tableBookModel');
+
 
 async function getAllChefs(req,res) {
     try{
@@ -17,7 +19,7 @@ async function getAllChefs(req,res) {
 
 async function actionSomething(req,res) {
     try{
-        await FoodOrder.remove();
+        await TableBook.remove();
         res.status(200).json({message:"Successful"});
     } catch(error){
         return res.status(404).json({
