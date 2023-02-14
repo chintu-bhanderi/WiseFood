@@ -27,11 +27,22 @@ async function getFoodOrderByChef(req, res) {
 }
 
 async function getFoodOrderByUser(req, res) {
-    const userId = req.params.userId;
+    try{
+        const userId = req.params.userId;
 
-    const orders = await FoodOrder.find({ user: userId });
+        const orders = await FoodOrder.find({ user: userId });
 
-    res.status(200).json(orders);
+        res.status(200).send({ 
+            foodOrders: orders,
+            message: "FoodOrders get successfully" 
+        });
+    } catch (err) {
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+        })
+    }
 }
 
 async function getFoodOrderByWaiter(req, res) {

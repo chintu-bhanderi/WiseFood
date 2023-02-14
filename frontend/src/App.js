@@ -22,6 +22,7 @@ import { WaiterOrdersDetail } from './components/waiter/WaiterOrdersDetail';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AUTH_LOGIN_TYPE, CHEF_TYPE, COUNTER_TYPE, USER_TYPE, WAITER_TYPE } from './store/types/authType';
 import { TableBookFindById } from './components/counter/TableBookFindById';
+import { UserFoodOrderedDetail } from './components/food/UserFoodOrderedDetail';
 
 function App() {
   const [cookies, setCookies, removeCookies] = useCookies(['token']);
@@ -43,6 +44,7 @@ function App() {
               <Route path='/food/category/:categoryId' element={<ProtectedRoute Child={FoodDetail} type={USER_TYPE} />} />
               <Route path='/food/food-order/:foodName' element={<ProtectedRoute Child={FoodOrderDetail} type={USER_TYPE} />} />
               <Route path='/food/food-order/:foodName/:quantity' element={<ProtectedRoute Child={FoodOrderShow} type={USER_TYPE} />} />
+              <Route path='/food/food-order-show/user' element={<ProtectedRoute Child={UserFoodOrderedDetail} type={USER_TYPE} />} />
               <Route path='/food/food-order-show' element={<ProtectedRoute Child={OrdersDetail} type={USER_TYPE} />} />
           </Route>
           <Route path='/table'>

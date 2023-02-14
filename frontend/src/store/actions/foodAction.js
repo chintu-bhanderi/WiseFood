@@ -19,3 +19,13 @@ export const fetchFoodDetails = async (categoryId) => {
         console.log(error.response.data.error.errorMessage);
     }
 }
+
+export const fetchFoodDetailsByUser = async (user) => {
+    try {
+        const { data: res } = await axios.get(`http://localhost:8000/api/order/user/${user}`)
+        return res.foodOrders;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+    }
+}
+
