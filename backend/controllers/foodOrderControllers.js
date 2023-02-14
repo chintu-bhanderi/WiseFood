@@ -4,44 +4,50 @@ const TableBook = require('../models/tableBookModel');
 const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 const { Worker } = require('../models/workerModel');
 
-
-async function getAllFoodOrders(req,res) {
-    
+async function getAllFoodOrders(req, res) {
     const orders = await FoodOrder.find({});
 
     res.status(200).json(orders);
 }
 
-async function getFoodOrderByTable(req,res) {
+async function getFoodOrderByTable(req, res) {
     const tableBookId = req.params.id
-    
-    const orders = await FoodOrder.find({ tableBook : tableBookId });
+
+    const orders = await FoodOrder.find({ tableBook: tableBookId });
 
     res.status(200).json(orders);
 }
 
-async function getFoodOrderByChef(req,res) {
+async function getFoodOrderByChef(req, res) {
     const chefId = req.params.chefId;
-    
-    const orders = await FoodOrder.find({ chef:chefId , isDone:false});
+
+    const orders = await FoodOrder.find({ chef: chefId, isDone: false });
 
     res.status(200).json(orders);
 }
 
-async function getFoodOrderByWaiter(req,res) {
+async function getFoodOrderByUser(req, res) {
+    const userId = req.params.userId;
+
+    const orders = await FoodOrder.find({ user: userId });
+
+    res.status(200).json(orders);
+}
+
+async function getFoodOrderByWaiter(req, res) {
     const waiterId = req.params.waiterId;
 
-    const orders = await FoodOrder.find({ isDone:true,isServed:false,waiter:waiterId });
+    const orders = await FoodOrder.find({ isDone: true, isServed: false, waiter: waiterId });
 
     res.status(200).json(orders);
 }
 
-async function findChefWithMinLoad(){
-    const chefs = await Worker.find({type:CHEF_TYPE,isLogin:true});
+async function findChefWithMinLoad() {
+    const chefs = await Worker.find({ type: CHEF_TYPE, isLogin: true });
     let load = 10000;
     let findChef;
-    for(let i=0; i<chefs.length; i++){
-        if(chefs[i].load<load){
+    for (let i = 0; i < chefs.length; i++) {
+        if (chefs[i].load < load) {
             load = chefs[i].load;
             findChef = chefs[i];
         }
@@ -49,47 +55,49 @@ async function findChefWithMinLoad(){
     return findChef;
 }
 
-async function setFoodOrder (req,res) {
-    const { name,quantity} = req.body;
-    const tableBookId = req.params.id;
-    if(!name || !quantity || !tableBookId) {
-        res.status(400).json({message: "Please enter all mendetory fields"})
-        return;
-    } 
+async function setFoodOrder(req, res) {
+    try {
+        const { name, quantity } = req.body;
+        const tableBookId = req.params.id;
+        if (!name || !quantity || !tableBookId) {
+            res.status(400).json({ message: "Please enter all mendetory fields" })
+            return;
+        }
+        const tableBook = await TableBook.findOne({ id: tableBookId });
+        
+        if (!tableBook) {
+            res.status(400).json({ message: "Table is not booked yet" })
+            return;
+        }
+        
+        if (!tableBook.isAvailable) {
+            res.status(400).json({ message: "Please conform table available from Counter" });
+            return;
+        }
+        
+        const foodItem = await FoodItem.findOne({ name });
+        const totalPrice = quantity * foodItem.price;
+        
+        let chef = await findChefWithMinLoad();
 
-    tableBook = await TableBook.findOne({_id: tableBookId});
-    
-    if(!tableBook){
-        res.status(400).json({message: "Table is not booked yet"})
-        return;
+        const order = await FoodOrder.create({ name, quantity, totalPrice, tableBook: tableBook._id, chef: chef._id,user:tableBook.user });
+
+        chef.load = chef.load + parseInt(quantity);
+        chef.totalLoad += parseInt(quantity);
+        await chef.save();
+
+        res.status(200).json(order);
+    } catch (err) {
+        console.log(err);
     }
-    
-    if(!tableBook.isAvailable){
-        res.status(400).json({message: "Please conform table available from Counter"});
-        return;
-    }
-    
-    // console.log(name, " ", quantity, tableId);
-    const foodItem = await FoodItem.findOne({name});
-    const totalPrice = quantity*foodItem.price;
-
-    let chef = await findChefWithMinLoad();
-    const order = await FoodOrder.create({name,quantity,totalPrice,tableBook:tableBookId,chef:chef._id});
-
-    // chef.foodOrder.push(order._id);
-    chef.load = chef.load+parseInt(quantity);
-    chef.totalLoad += parseInt(quantity);
-    await chef.save();
-
-    res.status(200).json(order);
 }
 
-async function findWaiterWithMinLoad(){
-    const waiters = await Worker.find({type:WAITER_TYPE,isLogin:true});
+async function findWaiterWithMinLoad() {
+    const waiters = await Worker.find({ type: WAITER_TYPE, isLogin: true });
     let load = 10000;
     let findWaiter;
-    for(let i=0; i<waiters.length; i++){
-        if(waiters[i].load<load){
+    for (let i = 0; i < waiters.length; i++) {
+        if (waiters[i].load < load) {
             load = waiters[i].load;
             findWaiter = waiters[i];
         }
@@ -97,10 +105,10 @@ async function findWaiterWithMinLoad(){
     return findWaiter;
 }
 
-async function updateOrderDone (req,res) {
+async function updateOrderDone(req, res) {
     const orderId = req.params.orderId;
-    if(!orderId) {
-        res.status(400).json({message: "Please enter all mendetory fields"})
+    if (!orderId) {
+        res.status(400).json({ message: "Please enter all mendetory fields" })
         return;
     }
 
@@ -113,20 +121,20 @@ async function updateOrderDone (req,res) {
     await chef.save();
 
     let waiter = await findWaiterWithMinLoad();
-    waiter.load = waiter.load+1;
-    waiter.totalLoad = waiter.totalLoad+1;
+    waiter.load = waiter.load + 1;
+    waiter.totalLoad = waiter.totalLoad + 1;
     await waiter.save();
     order.waiter = waiter._id;
 
-    await FoodOrder.findByIdAndUpdate(orderId,order);
-    
-    res.status(200).json({message: "Order is done is updates"});
+    await FoodOrder.findByIdAndUpdate(orderId, order);
+
+    res.status(200).json({ message: "Order is done is updates" });
 }
 
-async function updateOrderServe (req,res) {
+async function updateOrderServe(req, res) {
     const orderId = req.params.orderId;
-    if(!orderId) {
-        res.status(400).json({message: "Please enter all mendetory fields"})
+    if (!orderId) {
+        res.status(400).json({ message: "Please enter all mendetory fields" })
         return;
     }
 
@@ -137,34 +145,35 @@ async function updateOrderServe (req,res) {
     waiter.load = waiter.load - 1;
     await waiter.save();
 
-    await FoodOrder.findByIdAndUpdate(orderId,order);
-    
-    res.status(200).json({message: "Order isServe is updates"});
+    await FoodOrder.findByIdAndUpdate(orderId, order);
+
+    res.status(200).json({ message: "Order isServe is updates" });
 }
 
 
 
-async function deleteOrderByTable(req,res) {
+async function deleteOrderByTable(req, res) {
     const tableBookId = req.params.id;
-    try{
-        await FoodOrder.deleteMany({tableBook:tableBookId});        
+    try {
+        await FoodOrder.deleteMany({ tableBook: tableBookId });
     } catch (err) {
         return console.log(err);
-    }   
-    return res.status(201).json({message:"successfully delete"});
+    }
+    return res.status(201).json({ message: "successfully delete" });
 }
 
-async function deleteAllOrders(req,res) {
+async function deleteAllOrders(req, res) {
 
-    await FoodOrder.remove();       
+    await FoodOrder.remove();
 
-    return res.status(201).json({message:"successfully All delete"});
+    return res.status(201).json({ message: "successfully All delete" });
 }
 
 module.exports = {
     getAllFoodOrders,
     getFoodOrderByTable,
     getFoodOrderByChef,
+    getFoodOrderByUser,
     getFoodOrderByWaiter,
     setFoodOrder,
     updateOrderDone,

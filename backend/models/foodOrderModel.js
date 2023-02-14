@@ -35,6 +35,10 @@ const foodOrderSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Worker"
     },  
+    user:{
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    }
 },{
     timestemps: true,
 })

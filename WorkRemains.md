@@ -29,3 +29,5 @@ then give notification or can't order food.
 
 -tableBook
 when user book the table the give them ticket by download or store in profile..
+
+put Alert when book the table and order food...

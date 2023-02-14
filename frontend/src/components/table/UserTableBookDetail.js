@@ -19,7 +19,7 @@ export const UserTableBookDetail = () => {
 
     return (
         <>
-            <div className="heading">Tables</div>
+            <div className="heading">Booked Tables</div>
             <div className="cards">
                 {tableBooks && tableBooks.map((tableBook) => (
                     <UserTableBookShow
