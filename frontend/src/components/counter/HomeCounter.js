@@ -12,6 +12,10 @@ export const HomeCounter = () => {
     return (
         <>
             <Button className="btnShow"
+                    onClick={()=>{navigate(`/counter/tables-book/id`)}}
+            >FindTableBooksById</Button>
+            <br />
+            <Button className="btnShow"
                     onClick={()=>{navigate(`/counter/tables-book`)}}
             >FindTableBooks</Button>
             <br />

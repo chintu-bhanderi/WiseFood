@@ -9,7 +9,7 @@ async function getAllTableBooks(req, res) {
     res.status(200).json(tableBooks);
 }
 
-async function getTableBookById(req, res) {
+async function getTableBookByBookId(req, res) {
     const bookId = req.params.bookId;
 
     const tableBook = await TableBook.findById(bookId); 
@@ -33,6 +33,25 @@ async function getTableBooksByUserId(req, res) {
        })
     }
 }
+
+async function getTableBookById(req, res) {
+    try{
+        const id = parseInt(req.params.id);
+        const tableBook = await TableBook.findOne({id:id});
+        res.status(200).send({ 
+            tableBook: tableBook,
+            message: "TableBooks get successfully" 
+        });
+    } catch(err){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+    }
+}
+
+
 
 async function getAvailableTableByUserId(req, res) {
     try{
@@ -237,4 +256,4 @@ async function deleteTableBook(req,res) {
     }   
 }
 
-module.exports = { getAllTableBooks,getTableBookById,getTableBooksByUserId,getAvailableTableByUserId,getTableBookByTableSlotDate,getTablesBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }
+module.exports = { getAllTableBooks,getTableBookByBookId,getTableBooksByUserId,getTableBookById,getAvailableTableByUserId,getTableBookByTableSlotDate,getTablesBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }
