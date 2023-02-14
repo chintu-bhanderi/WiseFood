@@ -21,9 +21,8 @@ export const fetchTableDetailsBySlot = async (slotId,date) => {
     }
 }
 
-export const fetchTableBookDetailsByUser = async () => {
+export const fetchTableBookDetailsByUser = async (user) => {
     try {
-        const user = "63a4ffc68cc75652b8850f9f";
         const { data: res } = await axios.get(`http://localhost:8000/api/table-book/user/${user}`);
         return res.tableBooks;
     } catch (error) {

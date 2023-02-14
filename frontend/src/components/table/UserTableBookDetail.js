@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import {UserTableBookShow} from './UserTableBookShow'
 import { deleteTableBookById, fetchTableBookDetailsByUser } from "../../store/actions/tableAction";
+import { useSelector } from "react-redux";
 
 export const UserTableBookDetail = () => {
 
     const [tableBooks,setTableBooks] = useState();
     const [state,setState] = useState(true);
+    const {myInfo} = useSelector(state=>state.auth);
 
     const deleteTableBook = async (tableBookId) => {
         deleteTableBookById(tableBookId).then(()=>setState(!state));
     }  
 
     useEffect(()=>{
-        fetchTableBookDetailsByUser().then(data=>setTableBooks(data));
+        fetchTableBookDetailsByUser(myInfo.id).then(data=>setTableBooks(data));
     },[state]);
 
     return (
