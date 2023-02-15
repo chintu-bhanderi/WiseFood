@@ -43,9 +43,11 @@ return (
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/category">Food Order</a></li>}
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book/user">Booked-Table</a></li>}
-            {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/food-order-show/user">Ordered_Food</a></li>}
+            {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/food-order-show/user">Ordered-Food</a></li>}
             {authenticate && myInfo.type===CHEF_TYPE && <li className="items"><a href={'/chef/order/'+ myInfo.id}>Order-Make</a></li>}
+            {authenticate && myInfo.type===CHEF_TYPE && <li className="items"><a href='/chef/order/made'>Made-Orders</a></li>}
             {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href={'/waiter/order/'+ myInfo.id}>Order-Serve</a></li>}
+            {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href='/waiter/order/served'>Served-Orders</a></li>}
             {authenticate && myInfo.type===COUNTER_TYPE && <li className="items"><a href="/counter">User-Details</a></li>}
 
             {!authenticate && <li className="items"><a href="/auth">Login</a></li>}

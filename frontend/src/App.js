@@ -23,6 +23,8 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { AUTH_LOGIN_TYPE, CHEF_TYPE, COUNTER_TYPE, USER_TYPE, WAITER_TYPE } from './store/types/authType';
 import { TableBookFindById } from './components/counter/TableBookFindById';
 import { UserFoodOrderedDetail } from './components/food/UserFoodOrderedDetail';
+import { ChefMadeOrderDetail } from './components/chef/ChefMadeOrderDetail';
+import { WaiterServedOrderDetail } from './components/waiter/WaiterServedOrderDetail';
 
 function App() {
   const [cookies, setCookies, removeCookies] = useCookies(['token']);
@@ -53,10 +55,12 @@ function App() {
           </Route>
           <Route path='/chef' >
               <Route index element={<ProtectedRoute Child={ChefDetail} type={CHEF_TYPE} />} />
+              <Route path='/chef/order/made' element={<ProtectedRoute Child={ChefMadeOrderDetail} type={CHEF_TYPE} />} />
               <Route path='/chef/order/:chefId' element={<ProtectedRoute Child={OrdersDetail} type={CHEF_TYPE} />} />
           </Route>
           <Route path='/waiter' >
               <Route index element={<ProtectedRoute Child={WaiterDetail} type={WAITER_TYPE} />} />
+              <Route path='/waiter/order/served' element={<ProtectedRoute Child={WaiterServedOrderDetail} type={WAITER_TYPE} />} />
               <Route path='/waiter/order/:waiterId' element={<ProtectedRoute Child={WaiterOrdersDetail} type={WAITER_TYPE} />} />
           </Route>
           <Route path='/counter'>
