@@ -24,11 +24,11 @@ export const WaiterDetail = (props) => {
                 <h1>All Chefs</h1>
                 <div className="ordersDetail">
 
-                    {waiters && waiters.map((chef, index) => (
+                    {waiters && waiters.map((waiter, index) => (
                         <WaiterShow
-                            chefId={chef._id}
-                            name={chef.name}
-                            load = {chef.load}
+                            chefId={waiter._id}
+                            name={waiter.name}
+                            load = {waiter.load}
                         />
                     ))}
                 </div>

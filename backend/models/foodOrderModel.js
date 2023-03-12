@@ -38,6 +38,9 @@ const foodOrderSchema = mongoose.Schema({
     user:{
         type: mongoose.Types.ObjectId,
         ref: "User"
+    },
+    tableNo: {
+        type: Number
     }
 },{
     timestemps: true,

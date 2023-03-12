@@ -16,8 +16,10 @@ const workerSchema = new mongoose.Schema({
 workerSchema.methods.generateWorkerToken = function () {
 	const token = jwt.sign({ 
         id: this._id,
+		name: this.name,
         type: this.type,
-        email: this.email
+        email: this.email,
+		totalLoad : this.totalLoad
     }, process.env.JWTPRIVATEKEY, {
 		expiresIn: process.env.TOKEN_EXP,
 	});

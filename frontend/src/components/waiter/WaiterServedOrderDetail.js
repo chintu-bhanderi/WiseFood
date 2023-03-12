@@ -18,7 +18,6 @@ export const WaiterServedOrderDetail = () => {
             <div className="cards">
                 {foodOrders && foodOrders.map((foodOrder) => (
                     <WaiterServedOrderShow
-                        id={foodOrder._id}
                         name={foodOrder.name}
                         totalPrice={foodOrder.totalPrice}
                     />

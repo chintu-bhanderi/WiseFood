@@ -8,11 +8,10 @@ export const TableOrderShow = (props) => {
     return (
         <>
             <span className="tableShow">
-                <p>id: {props.id}</p>
                 <p>name: {props.name}</p>
                 <p>quantity: {props.quantity}</p>
                 <p>totalPrice: {props.totalPrice}</p>
-                <p>tableBook: {props.tableBook}</p>
+                <p>tableBook: {props.tableNo}</p>
             </span>
         </>
     )

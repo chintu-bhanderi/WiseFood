@@ -1,6 +1,7 @@
 const Slot = require('../models/slotModel');
 const Table = require('../models/tableModel');
 const TableBook = require('../models/tableBookModel');
+const {User} = require('../models/userModel');
 
 
 async function getAllTableBooks(req, res) {
@@ -38,8 +39,24 @@ async function getTableBookById(req, res) {
     try{
         const id = parseInt(req.params.id);
         const tableBook = await TableBook.findOne({id:id});
+
+        const slot = await Slot.findById(tableBook.slot);
+
+        const table = await Table.findById(tableBook.table);
+
+        const user = await User.findById(tableBook.user);
+
+        const data = {
+            id,
+            slot: slot.slotNo,
+            table: table.tableNo,
+            user,
+            date: tableBook.date,
+            isAvailable: tableBook.isAvailable
+        } 
+
         res.status(200).send({ 
-            tableBook: tableBook,
+            tableBook: data,
             message: "TableBooks get successfully" 
         });
     } catch(err){
@@ -64,9 +81,9 @@ async function getAvailableTableByUserId(req, res) {
                 }
             })  
         }
-        const table = await Table.findById(tableBook.table);
+        // const table = await Table.findById(tableBook.table);
         res.status(200).send({ 
-            table,
+            tableBook:tableBook.id,
             message: "Table get successfully" 
         });
     } catch(err){
@@ -231,11 +248,11 @@ async function updateAvailable(req, res) {
         return;
     }
 
-    const table = await TableBook.findById(bookId);
+    const tablebook = await TableBook.findOne({id:bookId});
 
-    table.isAvailable = true;
+    tablebook.isAvailable = true;
 
-    await TableBook.findByIdAndUpdate(table._id,table);
+    await TableBook.findByIdAndUpdate(tablebook._id,tablebook);
 
     res.status(200).json({message: 'Available is Updated'});
 }
@@ -243,7 +260,7 @@ async function updateAvailable(req, res) {
 async function deleteTableBook(req,res) {
     try{
         const tableBookId = req.params.bookId;
-        await TableBook.deleteOne({_id:tableBookId});        
+        await TableBook.deleteOne({id:tableBookId});        
         res.status(200).send({ 
             message: "TableBook successfully delete"
 		});

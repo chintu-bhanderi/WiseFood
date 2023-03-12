@@ -1,44 +1,72 @@
-import React from "react"; 
+import React, { useState } from "react"; 
 import {Card, CardGroup, Button} from "react-bootstrap"; 
-import "../styles/category.css";
+import "../styles/foodItem.css";
 
 export const Cards = () => { 
+
+    const [items,setItems] = useState(1);
+
     return (
     <>
-    <h1 class="mainHeading">Categories</h1>
-    <ul class="cards">
+      <div>
+      <h1 class="foodItemMainHeading">Items</h1>
+      <ul class="foodItemCards">
         <li>
-            <a href="/" class="card">
-                <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-                <div class="card__overlay">
-                    <div class="card__header">
-                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                        <img class="card__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
-                        <div class="card__header-text">
-                            <h3 class="card__title">kim Cattrall</h3>
+            <div class="foodItemCard">
+                <img src="https://i.imgur.com/2DhmtJ4.jpg" class="foodItemCard__image" alt="" />
+                <div class="foodItemCard__overlay">
+                    <div class="foodItemCard__header">
+                        <svg class="foodItemCard__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+                        <img class="foodItemCard__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
+                        <div class="foodItemCard__header-text">
+                            <h3 class="foodItemCard__title">Chiily Panner Dry</h3>
                         </div>
                     </div>
-                    <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+
+                    <div class="foodItemCard__description">
+                        <p>Price: 270Rs</p>
+                        <div class="foodItemWrapper">
+                            <span class="minus" onClick={()=>{if(items>0)setItems(items-1)}}>-</span>
+                            <span class="num">{items}</span>
+                            <span class="plus" onClick={()=>{setItems(items+1)}}>+</span>
+                        </div>
+                        { items>0 && <div class="foodItemBtn">
+                            <a href="/" class="foodItemLink">Order Now</a>
+                          </div>
+                        }
+                    </div>
+
                 </div>
-            </a>
+            </div>
         </li>
         <li>
-            <a href="/" class="card">
-                <img src="https://i.imgur.com/2DhmtJ4.jpg" class="card__image" alt="" />
-                <div class="card__overlay">
-                    <div class="card__header">
-                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                        <img class="card__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
-                        <div class="card__header-text">
-                            <h3 class="card__title">kim Cattrall</h3>
-                        </div>
+        <div class="foodItemCard">
+            <img src="https://i.imgur.com/2DhmtJ4.jpg" class="foodItemCard__image" alt="" />
+            <div class="foodItemCard__overlay">
+                <div class="foodItemCard__header">
+                    <svg class="foodItemCard__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+                    <img class="foodItemCard__thumb" src="https://i.imgur.com/2DhmtJ4.jpg" alt="" />
+                    <div class="foodItemCard__header-text">
+                        <h3 class="foodItemCard__title">Chiily Panner Dry</h3>
                     </div>
-                    <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
                 </div>
-            </a>
+
+                <div class="foodItemCard__description">
+                    <p>Price: 270Rs</p>
+                    <div class="foodItemWrapper">
+                        <span class="minus">-</span>
+                        <span class="num">00</span>
+                        <span class="plus">+</span>
+                    </div>
+                    <div class="foodItemBtn"><a href="" target="_blank" class="foodItemLink">Order Now</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         </li>
-    </ul>
+        </ul>
+      </div>
     </> 
     )
 }
- 

@@ -13,7 +13,7 @@ export const TableBookFindById = () => {
     const [id,setId] = useState();
 
     const fetchTableBookDetail = async () => {
-        console.log("Fetching");
+        // console.log("Fetching");
         const { data: res } = await axios.get(`http://localhost:8000/api/table-book/id/${id}`)
         .catch(error => console.log(error));
         return res.tableBook;
@@ -42,7 +42,7 @@ export const TableBookFindById = () => {
             <div className="tableDetail"    >
 
                 {tableBook && <TableBookShow
-                    bookId={tableBook._id}
+                    bookId={tableBook.id}
                     slot={tableBook.slot}
                     table={tableBook.table}
                     user={tableBook.user}

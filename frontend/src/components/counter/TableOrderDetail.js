@@ -86,7 +86,7 @@ export const TableOrderDetail = () => {
                         name={order.name}
                         quantity={order.quantity}
                         totalPrice={order.totalPrice}
-                        tableBook={order.tableBook}
+                        tableNo={order.tableNo}
                     />
                 ))}
             </div>

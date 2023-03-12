@@ -8,10 +8,9 @@ async function userRegistration (req, res) {
 		if (error)
 			return res.status(404).json({
 				error: {
-					errorMessage: error.details[0].message
+					errorMessage: error.details.map(err => err.message)
 				}
 			})  
-
 		const user = await User.findOne({ email: req.body.email });
 		if (user){
 			return  res.status(404).json({
@@ -21,13 +20,21 @@ async function userRegistration (req, res) {
             })  
         }
 
-		const salt = await bcrypt.genSalt(Number(process.env.SALT));
-		const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-		await new User({ ...req.body, password: hashPassword }).save();
-		res.status(200).send({ 
-			message: "User registered successfully"
-		});
+		try{
+			const salt = await bcrypt.genSalt(Number(process.env.SALT));
+			const hashPassword = await bcrypt.hash(req.body.password, salt);
+			await new User({ ...req.body, password: hashPassword }).save();
+			res.status(200).send({ 
+				message: "User registered successfully"
+			});
+		} catch (error) {
+			// console.log(error);
+			return res.status(404).json({
+				error: {
+					 errorMessage : ['Internal Sever Error']
+				}
+		   })
+		}
 	} catch (error) {
 		return res.status(404).json({
             error: {
@@ -47,7 +54,6 @@ const validateLogin = (data) => {
 
 async function userLogin (req, res) {
 	try {
-		console.log('1');
 		const { error } = validateLogin(req.body);
 		if (error)
 		return res.status(404).json({
@@ -63,7 +69,6 @@ async function userLogin (req, res) {
                 }
             })  
         }
-		console.log('2');
 		
 		const validPassword = await bcrypt.compare(
 			req.body.password,
@@ -78,7 +83,6 @@ async function userLogin (req, res) {
 		}
 		
 		const token = user.generateAuthToken();
-		console.log('3');
 		res.status(200).send({ 
 			token: token,
 			message: "logged in successfully" 

@@ -12,9 +12,9 @@ export const HomeCounter = () => {
                     onClick={()=>{navigate(`/counter/tables-book/id`)}}
             >FindTableBooksById</Button>
             <br />
-            <Button className="btnShow"
+            {/* <Button className="btnShow"
                     onClick={()=>{navigate(`/counter/tables-book`)}}
-            >FindTableBooks</Button>
+            >FindTableBooks</Button> */}
             <br />
             <Button className="btnShow"
                     onClick={()=>{navigate(`/counter/tables-order`)}}

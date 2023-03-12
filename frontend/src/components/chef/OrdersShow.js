@@ -9,7 +9,7 @@ export const OrdersShow = (props) => {
     const navigate = useNavigate();  
     
     const updateOrderDone = async () => {
-        const res = await axios.put(`http://localhost:8000/api/order/done/${props.foodOrderId}`)
+        const res = await axios.put(`http://localhost:8000/api/order/done/${props.orderId}`)
           .catch(error => console.log(error));
         const data = await res.data;
         console.log(data);
@@ -26,11 +26,9 @@ export const OrdersShow = (props) => {
     return (
         <>
             <span className="ordersShow">
-                    <p>id: {props.foodOrderId}</p>
                     <p>Name: {props.foodName}</p>
                     <p>quantity: {props.quantity}</p>
-                    <p>table: {props.table}</p>
-                    <p>chef: {props.chef}</p>
+                    {/* <p>table: {props.table}</p> */}
                 <Button className="btnShow"
                     onClick={clickHandler}
                 >Done</Button>

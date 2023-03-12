@@ -13,6 +13,7 @@ export const FoodOrderShow = (props) => {
 
     const postTableOrder = async () => {
         // const tableBookId = '63d23cfaba82755485e47a3b';
+        // console.log(myInfo.bookedTable);
         const res = await axios.post(`http://localhost:8000/api/order/${myInfo.bookedTable}`,{
             name:foodName,quantity
         })  
@@ -22,9 +23,10 @@ export const FoodOrderShow = (props) => {
       }
 
       useEffect(()=>{
-        postTableOrder().then(data=>setFoodOrder(data));
-        console.log('foodorder',foodOrder);
-      },[])
+        // console.log(myInfo);
+        if(myInfo.bookedTable) postTableOrder().then(data=>setFoodOrder(data));
+        // console.log('foodorder',foodOrder);
+      },[myInfo])
     
     return (
         <>

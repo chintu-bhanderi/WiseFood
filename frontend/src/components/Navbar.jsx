@@ -29,6 +29,7 @@ export const Navbar = () => {
     useEffect(()=>{
         if(authenticate && myInfo.type===USER_TYPE){
             dispatch(fetchAvailableTableByUser(myInfo.id))
+            .then(()=>{console.log('myinfo2 ',myInfo)});   
         }
     },[authenticate])
 
@@ -37,9 +38,9 @@ return (
     <nav>
         <ul>
             <li className="logo">Welcome</li>
-            {/* <li className="logo">{myInfo.bookedTable}</li> */}
+            <li className="logo">{myInfo.bookedTable}</li>
             <li className="items"><a href="/">Home</a></li>
-            <li className="items"><a href="/">About</a></li>
+            <li className="items"><a href="/about">About</a></li>
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/food/category">Food Order</a></li>}
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book/user">Booked-Table</a></li>}
@@ -49,6 +50,7 @@ return (
             {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href={'/waiter/order/'+ myInfo.id}>Order-Serve</a></li>}
             {authenticate && myInfo.type===WAITER_TYPE && <li className="items"><a href='/waiter/order/served'>Served-Orders</a></li>}
             {authenticate && myInfo.type===COUNTER_TYPE && <li className="items"><a href="/counter">User-Details</a></li>}
+            {authenticate && <li className="items"><a href="/profile">Profile</a></li>}
 
             {!authenticate && <li className="items"><a href="/auth">Login</a></li>}
             {authenticate && <li className="items"><a onClick={logoutHandler}>Logout</a></li>}

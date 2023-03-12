@@ -7,7 +7,7 @@ export const ChefMadeOrderDetail = () => {
 
     const [foodOrders,setFoodOrders] = useState();
     const {myInfo} = useSelector(state=>state.auth);
-
+    
     useEffect(()=>{
         fetchChefMakeOrdersById(myInfo.id).then(data=>setFoodOrders(data.reverse()));
     },[]);
@@ -18,7 +18,6 @@ export const ChefMadeOrderDetail = () => {
             <div className="cards">
                 {foodOrders && foodOrders.map((foodOrder) => (
                     <ChefMadeOrderShow
-                        id={foodOrder._id}
                         name={foodOrder.name}
                         totalPrice={foodOrder.totalPrice}
                     />

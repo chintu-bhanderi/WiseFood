@@ -25,6 +25,8 @@ import { TableBookFindById } from './components/counter/TableBookFindById';
 import { UserFoodOrderedDetail } from './components/food/UserFoodOrderedDetail';
 import { ChefMadeOrderDetail } from './components/chef/ChefMadeOrderDetail';
 import { WaiterServedOrderDetail } from './components/waiter/WaiterServedOrderDetail';
+import { Profile } from './components/waiter/Profile';
+import { About } from './components/About';
 
 function App() {
   const [cookies, setCookies, removeCookies] = useCookies(['token']);
@@ -73,6 +75,11 @@ function App() {
             <Route index element={<ProtectedRoute Child={WorkerTypeDetail} type={AUTH_LOGIN_TYPE} />} />
               <Route path="/auth/signup" element={<ProtectedRoute Child={SignUp} type={AUTH_LOGIN_TYPE} />} />
               <Route path="/auth/login/:type" element={<LogIn setCookies={handleSetCookies}/>} />
+          </Route>
+          <Route path='/'>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/about" element={<About />} />
+              
           </Route>
         </Routes> 
     </div>

@@ -31,7 +31,7 @@ export const SignUp = () => {
 
 	useEffect(()=>{	
         if(successMessage){
-            alert.success(successMessage);
+            // alert.success(successMessage);
             dispatch({type : SUCCESS_MESSAGE_CLEAR })
 			navigate(`/auth`);
         }

@@ -24,7 +24,7 @@ export const OrdersDetail = () => {
         setInterval(() => {
             fetchFoodOrdersDetails()
             .then(data => setFoodOrders(data))
-        }, 1000);
+        }, 3000);
 
     }, []);
 
@@ -38,11 +38,10 @@ export const OrdersDetail = () => {
 
                     {foodOrders && foodOrders.map((foodOrder, index) => (
                         <OrdersShow
-                            foodOrderId={foodOrder._id}
+                            orderId={foodOrder._id}
                             foodName={foodOrder.name}
                             quantity={foodOrder.quantity}
                             table={foodOrder.table}
-                            chef={foodOrder.chef}
                         />
                     ))}
                 </div>

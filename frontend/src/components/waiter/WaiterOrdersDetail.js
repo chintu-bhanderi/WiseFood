@@ -21,8 +21,9 @@ export const WaiterOrdersDetail = () => {
     useEffect(() => {
         // after some interval rerander this page..
         setInterval(() => {
-            fetchFoodOrdersDetails().then(data => setFoodOrders(data));
-        }, 1000);
+            fetchFoodOrdersDetails().then(data => setFoodOrders(data))
+            // .then(()=>console.log(foodOrders));
+        }, 3000);
 
     }, []);
 
@@ -39,8 +40,7 @@ export const WaiterOrdersDetail = () => {
                             foodOrderId={foodOrder._id}
                             foodName={foodOrder.name}
                             quantity={foodOrder.quantity}
-                            table={foodOrder.table}
-                            chef={foodOrder.chef}
+                            table={foodOrder.tableNo}
                         />
                     ))}
                 </div>

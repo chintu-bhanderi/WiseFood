@@ -28,13 +28,13 @@ export const TableBookShow = (props) => {
         <>
             <span className="tableShow">
                 <p>id: {props.bookId}</p>
-                <p>slot: {props.slot}</p>
-                <p>table: {props.table}</p>
-                <p>user: {props.user}</p>
+                <p>slotNo: {props.slot}</p>
+                <p>tableNo: {props.table}</p>
+                <p>userName: {props.user.firstName+ " " + props.user.lastName}</p>
                 <p>date: {props.date}</p>
-                <Button className="btnShow"
+                { !props.isAvailable && <Button className="btnShow"
                     onClick={submithandler}
-                >Available</Button>
+                >Available</Button>}
             </span>
         </>
     )

@@ -34,12 +34,12 @@ export const fetchAvailableTableByUser = (user) => {
     return async (dispath) => {
         try {
             const { data: res } = await axios.get(`http://localhost:8000/api/table-book/user/available/${user}`);
-            console.log(res.table.tableNo);
+            // console.log(res.table.tableNo);
             dispath({
                 type: BOOKED_TABLE_GET_SUCCEESS,
                 payload: {
                     successMessage: res.message,
-                    table: res.table.tableNo
+                    table: res.tableBook
                 }
             })
         } catch (error) {
