@@ -1,5 +1,23 @@
 const Slot = require('../models/slotModel');
 
+async function getSlotNo (req,res) {
+    try{
+        const slotId = req.params.slotId;
+
+        const slot = await Slot.findById(slotId);
+        
+        res.status(200).send({ 
+			slotNo: slot.slotNo,
+			message: "SlotNo get successfully" 
+		});
+    } catch(err){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })       
+    }
+}
 
 async function getAllSlot(req,res) {
     try{
@@ -16,6 +34,8 @@ async function getAllSlot(req,res) {
        })
     }
 }
+
+
 async function setSlot (req,res) {
     try{
         const {slotNo,startTime,endTime} = req.body;
@@ -44,4 +64,5 @@ async function setSlot (req,res) {
 module.exports = {
     getAllSlot,
     setSlot,
+    getSlotNo
 }

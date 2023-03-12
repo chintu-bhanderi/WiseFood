@@ -25,7 +25,8 @@
     grid-gap: 30px;
 }
 
-.card {
+.slot-card {
+    background-color: #b4d3e1;
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
     margin-top: 25px;
 }
@@ -40,14 +41,13 @@ img {
 }
 
 .content h2 {
-    font-size: 20px;
     margin-top: 5px;
-    letter-spacing: 1.3px;
+    letter-spacing: 1.5px;
     color: #333;
 }
 
 .content h3 {
-    font-size: 14px;
+    font-size: 17px;
     columns: #5c5c5c;
     letter-spacing: 1.5px;
 }

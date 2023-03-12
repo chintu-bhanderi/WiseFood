@@ -11,8 +11,6 @@ export const TableShow = (props) => {
                         <h2>Table No. {props.tableNo}</h2>
                         <h2>Sitting avilable : {props.chair}</h2>
                         <h2>Price : {props.price}</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        {/* <a href={'/table-book/'+ props.tableId} className="button">Book Table</a> */}
                         <Button onClick={()=>props.postTableBook(props.tableId)}>Book Table</Button>
 
                     </div>

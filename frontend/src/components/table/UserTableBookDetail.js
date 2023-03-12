@@ -23,7 +23,7 @@ export const UserTableBookDetail = () => {
             <div className="cards">
                 {tableBooks && tableBooks.map((tableBook) => (
                     <UserTableBookShow
-                        id = {tableBook._id}
+                        id = {tableBook.id}
                         slot = {tableBook.slot}
                         table = {tableBook.table}
                         user={tableBook.user}

@@ -19,23 +19,22 @@ export const TableBook = () => {
             }
         })
     }
+
+    const changeHandler = (event) => {
+        setDate({
+          day : event.target.value.substring(8,10),
+          month : event.target.value.substring(5,7),
+          year : event.target.value.substring(0,4)   
+        })
+    }
    
     return (
         <>
             <br />
             <div>
-                <input 
-                    type="number" placeholder="Day" name="day" onChange={handleChange}
-                    value={date.day} required />
-                <input 
-                    type="number" placeholder="<Month" name="month" onChange={handleChange}
-                    value={date.month} required />
-                <input 
-                    type="number" placeholder="year" name="year" onChange={handleChange}
-                    value={date.year} required />
-            </div>
-            <br />
-            <br />
+                <span>Enter the date: </span>
+                <input type="date" name="date" id="date" onChange={changeHandler} placeholder="date" required />
+            </div>  
             <SlotDetail 
                 setSelectSlot={setSelectSlot}
             />

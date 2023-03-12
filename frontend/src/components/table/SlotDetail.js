@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles.css"
+import "../../styles/slot.css";
 import { SlotShow } from "./SlotShow";
 import { fetchSlotDetails } from "../../store/actions/tableAction";
 
@@ -17,8 +17,8 @@ export const SlotDetail = (props) => {
 
     return (
         <>
-            <div>
-                <div className="tableDetail">
+                <div className="heading">Slots</div>            
+                <div className="cards">
                 {slots && slots.map((slot) => (
                     <SlotShow
                         id={slot._id}
@@ -29,7 +29,6 @@ export const SlotDetail = (props) => {
                     />
                 ))}
                 </div>
-            </div>
         </>
     );
 }

@@ -6,6 +6,25 @@ async function getAllTables(req, res) {
     res.status(200).json(tables);
 }
 
+async function getTableNo (req,res) {
+    try{
+        const tableId = req.params.id;
+
+        const table = await Table.findById(tableId);
+        
+        res.status(200).send({ 
+			tableNo: table.tableNo,
+			message: "tableNo get successfully" 
+		});
+    } catch(err){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })       
+    }   
+}
+
 async function setTable(req, res) {
     const {price,chair,tableNo} = req.body;
 
@@ -45,4 +64,4 @@ async function deleteTable(req, res) {
 
 
 
-module.exports = { getAllTables, setTable, upadateTable, deleteTable }
+module.exports = { getAllTables,getTableNo , setTable, upadateTable, deleteTable }

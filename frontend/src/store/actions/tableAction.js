@@ -10,6 +10,26 @@ export const fetchSlotDetails = async () => {
     }
 }
 
+export const fetchSlotNo = async (slotId) => {
+    try {
+        const { data: res } = await axios.get(`http://localhost:8000/api/slot/${slotId}`);
+        // console.log(res.slotNo);
+        return res.slotNo;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+    }
+}
+
+export const fetchTableNo = async (tableId) => {
+    try {
+        const { data: res } = await axios.get(`http://localhost:8000/api/table/${tableId}`);
+        console.log(res.tableNo);
+        return res.tableNo;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+    }
+}
+
 export const fetchTableDetailsBySlot = async (slotId,date) => {
     try {
         const { data: res } = await axios.post(`http://localhost:8000/api/table-book/slot`,{
@@ -68,3 +88,5 @@ export const deleteTableBookById = async (tableBookId) => {
         console.log(error.response.data.error.errorMessage);
     }
 }
+
+
