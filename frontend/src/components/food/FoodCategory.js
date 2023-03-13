@@ -15,6 +15,8 @@ export const FoodCategory = () => {
     return (
         <>
             <h1 class="mainHeading">Categories</h1>
+            <br/>
+            <br/>
             <ul class="cards">
                 {categories && categories.map((category,index) => (
                     <FoodCategoryShow

@@ -12,32 +12,36 @@ export const UserFoodOrderedDetail = () => {
     useEffect(()=>{
         fetchFoodDetailsByUser(myInfo.id)
         .then(data=>{
-            setFoodOrders(data.filter((order)=>order.isServed))
-            setPastOrders(data.filter((order)=>!order.isServed).reverse());
+            setFoodOrders(data.filter((order)=>!order.isServed))
+            setPastOrders(data.filter((order)=>order.isServed).reverse());
+            console.log(foodOrders);
             return data;
         });
     },[]);
 
     return (
         <>
-            <div className="heading">Orderd Food</div>
+            <div className="heading">Just Orderd Food</div>
             <div className="cards">
                 {foodOrders && foodOrders.map((foodOrder) => (
                     <UserFoodOrderedShow
                         id={foodOrder._id}
                         name={foodOrder.name}
+                        quantity={foodOrder.quantity}
+                        totalPrice={foodOrder.totalPrice}
                         isDone={foodOrder.isDone}
                         isServed={foodOrder.isServed}
                     />
                 ))}
             </div>
             <br />
-            <div className="heading">Past Orderd Food</div>
+            <div className="heading">Served Orderd Food</div>
             <div className="cards">
                 {pastOrders && pastOrders.map((foodOrder) => (
                     <UserFoodOrderedShow
                         id={foodOrder._id}
                         name={foodOrder.name}
+                        totalPrice={foodOrder.totalPrice}
                         isDone={foodOrder.isDone}
                         isServed={foodOrder.isServed}
                     />

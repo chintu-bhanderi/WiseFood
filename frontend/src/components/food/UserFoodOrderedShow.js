@@ -7,10 +7,11 @@ export const UserFoodOrderedShow = (props) => {
         <>
             <div className="cards">
                 <div className="card">
-                    <img src="https://media.istockphoto.com/id/1363800317/photo/unique-round-wooden-dining-room-table.jpg?s=612x612&w=0&k=20&c=77IBIXe5TTm-_ShpwXWLHUgvFyxBc0KPB94Z-Et8rEE=" alt="img"/>
+                    <img src="https://www.healthifyme.com/blog/wp-content/uploads/2022/01/shutterstock_1015800871-1-750x375.jpg" alt="img"/>
                     <div className="content">
-                        <h2>foodOrder Id. {props.id}</h2>
-                        <h2>name: {props.name}</h2>
+                        <h2>Name: {props.name}</h2>
+                        <h2>Quantity: {props.quantity}</h2>
+                        <h2>TotalPrice: {props.totalPrice}</h2>
                     </div>
                 </div>
             </div>

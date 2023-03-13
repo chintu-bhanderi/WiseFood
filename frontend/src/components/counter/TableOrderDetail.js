@@ -4,6 +4,7 @@ import "../styles.css"
 import {TableOrderShow} from './TableOrderShow' 
 import { Button, Link, TextField } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { BillGenerate } from "./BillGenerate";
 
 
 
@@ -95,6 +96,7 @@ export const TableOrderDetail = () => {
                     onClick={deleteHandler}
                 >DeleteOrders</Button>
             }
+            {/* <BillGenerate /> */}
         </>
     );
 }
