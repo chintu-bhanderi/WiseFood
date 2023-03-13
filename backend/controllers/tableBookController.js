@@ -81,7 +81,6 @@ async function getAvailableTableByUserId(req, res) {
                 }
             })  
         }
-        // const table = await Table.findById(tableBook.table);
         res.status(200).send({ 
             tableBook:tableBook.id,
             message: "Table get successfully" 
@@ -98,21 +97,21 @@ async function getAvailableTableByUserId(req, res) {
 async function getTablesBySlotAndDate(req, res) {
     try{
         const {slotId,date} = req.body;
-        const {day,month,year} = date;
+        // const {day,month,year} = date;
         // const {day,month,year} = {
             //     day: 24,
             //     month: 1,
             //     year: 2023
             // };
-        const dateStr = `${month} ${day}, ${year}`;
-        const bookDate = new Date(dateStr);
+        // const dateStr = `${month} ${day}, ${year}`;
+        // const bookDate = new Date(dateStr);
         
         const tables = await Table.find({});
         const tableBooks = await TableBook.find({});
         
         const filterData = tables.filter((table) => {
             const findTable = tableBooks.filter((tableBook)=>{
-                if(tableBook.table.toString()==table._id && tableBook.slot==slotId && tableBook.date.toString()==bookDate.toString()) return true;
+                if(tableBook.table.toString()==table._id && tableBook.slot==slotId && tableBook.date.toString()==date.toString()) return true;
                 else return false;
             }) 
             if(findTable.length>0) return false;
@@ -136,14 +135,14 @@ async function getTablesBySlotAndDate(req, res) {
 async function getTableBookByTableSlotDate(req, res) {
     try{
         const {tableNo,slotNo,date} = req.body;
-        const {day,month,year} = date;
+        // const {day,month,year} = date;
         // const {day,month,year} = {
             //     day: 24,
             //     month: 1,
             //     year: 2023
             // };
-        const dateStr = `${month} ${day}, ${year}`;
-        const bookDate = new Date(dateStr);
+        // const dateStr = `${month} ${day}, ${year}`;
+        // const bookDate = new Date(dateStr);
 
         const table = await Table.findOne({tableNo});
         const slot = await Slot.findOne({slotNo});
@@ -152,7 +151,7 @@ async function getTableBookByTableSlotDate(req, res) {
         const tableBook = await TableBook.findOne({
             table:table._id,
             slot:slot._id,
-            date: bookDate
+            date
         });
         // console.log(tableBook);
 
@@ -185,7 +184,7 @@ const getMEXIdFromAllTableBooks = (tableBooks) => {
 async function setTableBooks(req, res) {
     try{
         const {slotId,tableId,user,date} = req.body;
-        const {day,month,year} = date;
+        // const {day,month,year} = date;
         // static
         // const {day,month,year} = {
         //     day: 2,
@@ -216,8 +215,8 @@ async function setTableBooks(req, res) {
         
         const price = table.price;
         
-        const dateStr = `${month} ${day}, ${year}`;
-        const bookDate = new Date(dateStr);
+        // const dateStr = `${month} ${day}, ${year}`;
+        // const bookDate = new Date(dateStr);
         
         const tableBook = await TableBook.create({
             id,
@@ -225,7 +224,7 @@ async function setTableBooks(req, res) {
             table : tableId,
             price,
             user,
-            date: bookDate
+            date
         });
         res.status(200).send({ 
             message: "TableBook successfully"

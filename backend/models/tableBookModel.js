@@ -25,7 +25,7 @@ const tableBookSchema = mongoose.Schema({
         required: [true,'Please add Table price']
     },
     date: {
-        type: Date,
+        type: String,
         required: [true,'Please add Date']
     },
     isAvailable: {

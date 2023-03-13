@@ -7,11 +7,11 @@ const slotSchema = mongoose.Schema({
         unique : true
     },
     startTime: {
-        type : Date,
+        type : String,
         required: [true,'Please add startTime'],
     },
     endTime: {
-        type : Date,
+        type : String,
         required: [true,'Please add endTime'],
     },
 },{
