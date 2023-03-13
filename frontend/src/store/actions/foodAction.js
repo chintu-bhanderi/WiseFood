@@ -20,6 +20,13 @@ export const fetchFoodDetails = async (categoryId) => {
     }
 }
 
+export const fetchTableBookOrders = async (bookId) => {
+    const res = await axios.get(`http://localhost:8000/api/order/${bookId}`)
+        .catch(error => console.log(error));
+    const data = await res.data;
+    return data;
+}
+
 export const fetchFoodDetailsByUser = async (user) => {
     try {
         const { data: res } = await axios.get(`http://localhost:8000/api/order/user/${user}`)

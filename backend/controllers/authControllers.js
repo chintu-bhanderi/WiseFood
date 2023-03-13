@@ -96,4 +96,14 @@ async function userLogin (req, res) {
 	}
 };
 
-module.exports = { userRegistration , userLogin}
+async function getUserByUserId(req, res) {
+	const userId = req.params.userId;
+	console.log(userId);
+
+	const user = await User.findById(userId);
+	// console.log(user);
+
+	return res.status(200).json(user);
+}
+
+module.exports = { userRegistration, userLogin, getUserByUserId}

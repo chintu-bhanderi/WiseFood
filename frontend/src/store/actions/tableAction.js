@@ -50,6 +50,16 @@ export const fetchTableBookDetailsByUser = async (user) => {
     }
 }
 
+export const fetchTableBookDetailsById = async (bookId) => {
+    try {
+        const res  = await axios.get(`http://localhost:8000/api/table-book/${bookId}`);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+    }
+}
+
 export const fetchAvailableTableByUser = (user) => {
     return async (dispath) => {
         try {

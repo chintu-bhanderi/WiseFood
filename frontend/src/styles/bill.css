@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&display=swap');
+/* :root {
+    --primary: #0000ff;
+    --secondary: #3d3d3d;
+    --white: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+} */
+
+/* body {
+    background: var(--secondary);
+    padding: 50px;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+} */
+
+.bill_bold {
+    font-weight: 900;
+}
+
+.bill_light {
+    font-weight: 100;
+}
+
+.bill_wrapper {
+    background: var(--white);
+    padding: 30px;
+}
+
+.bill_invoice_wrapper {
+    border: 3px solid var(--primary);
+    width: 700px;
+    max-width: 100%;
+}
+
+.bill_invoice_wrapper .bill_header .bill_logo_invoice_wrap,
+.bill_invoice_wrapper .bill_header .bill_total_wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.bill_invoice_wrapper .bill_header .bill_logo_sec {
+    display: flex;
+    align-items: center;
+}
+
+.bill_invoice_wrapper .bill_header .bill_logo_sec .bill_title_wrap {
+    margin-left: 5px;
+}
+
+.bill_invoice_wrapper .bill_header .bill_logo_sec .bill_title_wrap .bill_title {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.bill_invoice_wrapper .bill_header .bill_logo_sec .bill_title_wrap .bill_sub_title {
+    font-size: 12px;
+}
+
+.bill_invoice_wrapper .bill_header .bill_invoice_sec,
+.bill_invoice_wrapper .bill_header .bill_total_wrap .bill_wrap {
+    text-align: right;
+}
+
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_invoice {
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_invoice_no,
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_date {
+    display: flex;
+    width: 100%;
+}
+
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_invoice_no span:first-child,
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_date span:first-child {
+    width: 70px;
+    text-align: left;
+}
+
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_invoice_no span:last-child,
+.bill_invoice_wrapper .bill_header .bill_invoice_sec .bill_date span:last-child {
+    width: calc(100% - 70px);
+}
+
+.bill_invoice_wrapper .bill_header .bill_total_wrap .bill_wrap .bill_price,
+.bill_invoice_wrapper .bill_header .bill_total_wrap .bill_sec .bill_name {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_table_header {
+    background: var(--primary);
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_table_header .bill_row {
+    color: var(--white);
+    font-size: 18px;
+    border-bottom: 0px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row {
+    display: flex;
+    border-bottom: 1px solid var(--secondary);
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col {
+    padding: 10px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col_no {
+    width: 5%;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col_des {
+    width: 45%;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col_price {
+    width: 20%;
+    text-align: center;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col_qty {
+    width: 10%;
+    text-align: center;
+}
+
+.bill_invoice_wrapper .bill_body .bill_main_table .bill_row .bill_col_total {
+    width: 20%;
+    text-align: right;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0 30px;
+    align-items: flex-end;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_paymethod_sec {
+    padding-left: 30px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec {
+    width: 30%;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec p {
+    display: flex;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec p span {
+    padding: 0 10px;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec p span:first-child {
+    width: 60%;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec p span:last-child {
+    width: 40%;
+    text-align: right;
+}
+
+.bill_invoice_wrapper .bill_body .bill_paymethod_grandtotal_wrap .bill_grandtotal_sec p:last-child span {
+    background: var(--primary);
+    padding: 10px;
+    color: #fff;
+}
+
+.bill_invoice_wrapper .bill_footer {
+    padding: 30px;
+}
+
+.bill_invoice_wrapper .bill_footer>p {
+    color: var(--primary);
+    text-decoration: underline;
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+.bill_invoice_wrapper .bill_footer .bill_terms .bill_tc {
+    font-size: 16px;
+}

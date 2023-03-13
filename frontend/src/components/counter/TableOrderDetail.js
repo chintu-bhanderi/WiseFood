@@ -5,6 +5,7 @@ import {TableOrderShow} from './TableOrderShow'
 import { Button, Link, TextField } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { BillGenerate } from "./BillGenerate";
+import { fetchTableBookOrders } from "../../store/actions/foodAction";
 
 
 
@@ -17,12 +18,12 @@ export const TableOrderDetail = () => {
     const [orders, setOrders] = useState();
     const [bill, setBill] = useState(0);
 
-    const fetchTableBookOrders = async () => {
-        const res = await axios.get(`http://localhost:8000/api/order/${bookId}`)
-            .catch(error => console.log(error));
-        const data = await res.data;
-        return data;
-    }
+    // const fetchTableBookOrders = async () => {
+    //     const res = await axios.get(`http://localhost:8000/api/order/${bookId}`)
+    //         .catch(error => console.log(error));
+    //     const data = await res.data;
+    //     return data;
+    // }
 
     const deleteTableBookOrders = async () => {
         const res = await axios.delete(`http://localhost:8000/api/order/${bookId}`)
@@ -44,7 +45,7 @@ export const TableOrderDetail = () => {
 
     const submitHandler = (event) => {
         // event.preventDefault();
-        fetchTableBookOrders()
+        fetchTableBookOrders(bookId)
             .then((data) => {
                 return data.filter((order) => {
                     // console.log(order.isDone);
@@ -96,6 +97,12 @@ export const TableOrderDetail = () => {
                     onClick={deleteHandler}
                 >DeleteOrders</Button>
             }
+
+            {orders && <Button className="btnShow"
+                    onClick={()=>navigate(`/counter/generate-bill/${bookId}`)}
+                >Generate Bill</Button>
+            }
+
             {/* <BillGenerate /> */}
         </>
     );

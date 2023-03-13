@@ -1,142 +1,150 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { fetchUserById } from "../../store/actions/authAction";
+import { fetchTableBookOrders } from "../../store/actions/foodAction";
+import { fetchTableBookDetailsById } from "../../store/actions/tableAction";
 import "../../styles/bill.css"
 
 export const BillGenerate = () => {
 
+    const bookId = useParams().bookId;
+
+    const [orders, setOrders] = useState([]);
+    const [bill, setBill] = useState(0);
+    const [tableBookDetail,setTableBookDetail] = useState();
+    const [user,setUser] = useState();
+
+    useEffect(()=>{
+        fetchTableBookOrders(bookId).then()
+        .then((data) => {
+            return data.filter((order) => {
+                if (order.isDone) setBill(bill + order.totalPrice);
+                return order.isDone;
+            })
+        })
+        .then(data => { setOrders(data) })
+        fetchTableBookDetailsById(bookId)
+        .then(data=>{
+            setTableBookDetail(data)
+            fetchUserById(data.user)
+            .then(data=>setUser(data));
+            return data;
+        });
+    },[])
+
+    function getTotalBill() {
+        let totalBill = 0;
+        for(let i=0; i<orders.length; i++){
+            totalBill += orders[i].totalPrice;
+        }
+        return totalBill;
+    }
+
     return (
-        <>
-            <div class="wrapper">
-        <div class="invoice_wrapper">
-            <div class="header">
-                <div class="logo_invoice_wrap">
-                    <div class="logo_sec">
-                        <div class="title_wrap ">
-                            <p class="title bold ">Wise-Food</p>
-                            <p class="sub_title ">Privite Limited</p>
+        <>  
+           <div class="bill_wrapper">
+        <div class="bill_invoice_wrapper">
+            <div class="bill_header">
+                <div class="bill_logo_invoice_wrap">
+                    <div class="bill_logo_sec">
+                        <div class="bill_title_wrap ">
+                            <p class="bill_title bill_bold ">Wise-Food</p>
+                            <p class="bill_sub_title ">Privite Limited</p>
                         </div>
                     </div>
-                    <div class="invoice_sec ">
-                        <p class="invoice bold ">INVOICE</p>
-                        <p class="invoice_no ">
-                            <span class="bold ">Invoice No.</span>
-                            <span>#3488</span>
+                    <div class="bill_invoice_sec ">
+                        <p class="bill_invoice bill_bold ">INVOICE</p>
+                        <p class="bill_invoice_no ">
+                            <span class="bill_bold ">TableBook No.</span>
+                            <span>{tableBookDetail?.id}</span>
                         </p>
-                        <p class="date ">
-                            <span class="bold ">Date : </span>
-                            <span>08/Jan/2022</span>
+                        <p class="bill_date ">
+                            <span class="bill_bold ">Date : </span>
+                            <span>{tableBookDetail?.date}</span>
                         </p>
                     </div>
                 </div>
                 <div class="bill_total_wrap ">
                     <div class="bill_sec ">
-                        <p>Bill To</p>
-                        <p class="bold name ">John Doi</p>
+                        <p>Bill To:</p>
+                        <p class="bill_bold bill_name ">{user?.firstName} {user?.lastName}</p>
                         <span>
-                            123 walls street, New Delhi<br/>
-                            +91 929879234<br/>
-                            johndoi07@gmail.com
-                        </span>
+			           {user?.address}<br/>
+                       {user?.email}
+			        </span>
                     </div>
-                    <div class="total_wrap ">
+                    {/* <div class="bill_wrap ">
                         <p>Total Due</p>
-                        <p class="bold price ">Rs 1155</p>
-                    </div>
+                        <p class="bill_bold bill_price ">{}</p>
+                    </div> */}
                 </div>
             </div>
-            <div class="body ">
-                <div class="main_table ">
-                    <div class="table_header ">
-                        <div class="row ">
-                            <div class="col col_no ">NO.</div>
-                            <div class="col col_des ">ITEM DESCRIPTION</div>
-                            <div class="col col_price ">PRICE</div>
-                            <div class="col col_qty ">QTY</div>
-                            <div class="col col_total ">TOTAL</div>
+            <div class="bill_body ">
+                <div class="bill_main_table ">
+                    <div class="bill_table_header ">
+                        <div class="bill_row ">
+                            <div class="bill_col bill_col_no ">NO.</div>
+                            <div class="bill_col bill_col_des ">ITEM DESCRIPTION</div>
+                            <div class="bill_col bill_col_price ">PRICE</div>
+                            <div class="bill_col bill_col_qty ">QTY</div>
+                            <div class="bill_col bill_col_total ">TOTAL</div>
                         </div>
                     </div>
-                    <div class="table_body ">
-                        <div class="row ">
-                            <div class="col col_no ">
-                                <p>01</p>
-                            </div>
-                            <div class="col col_des ">
-                                <p class="bold ">Pav Bhaji</p>
-                            </div>
-                            <div class="col col_price ">
-                                <p>Rs 150</p>
-                            </div>
-                            <div class="col col_qty ">
-                                <p>1</p>
-                            </div>
-                            <div class="col col_total ">
-                                <p>Rs 150</p>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col col_no ">
-                                <p>02</p>
-                            </div>
-                            <div class="col col_des ">
-                                <p class="bold ">Chilly Paneer Dry</p>
-                            </div>
-                            <div class="col col_price ">
-                                <p>Rs 220</p>
-                            </div>
-                            <div class="col col_qty ">
-                                <p>2</p>
-                            </div>
-                            <div class="col col_total ">
-                                <p>Rs 440</p>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col col_no ">
-                                <p>03</p>
-                            </div>
-                            <div class="col col_des ">
-                                <p class="bold ">Masala Dhosa</p>
-                            </div>
-                            <div class="col col_price ">
-                                <p>Rs 120</p>
-                            </div>
-                            <div class="col col_qty ">
-                                <p>4</p>
-                            </div>
-                            <div class="col col_total ">
-                                <p>Rs 480</p>
-                            </div>
-                        </div>
+                    <div class="bill_table_body ">
+                        {
+                            orders && orders.map((order,index)=>(
+                                <div class="bill_row ">
+                                    <div class="bill_col bill_col_no ">
+                                        <p>{index+1}</p>
+                                    </div>
+                                    <div class="bill_col bill_col_des ">
+                                        <p class="bill_bold ">{order.name}</p>
+                                    </div>
+                                    <div class="bill_col bill_col_price ">
+                                        <p>Rs {order.totalPrice/order.quantity}</p>
+                                    </div>
+                                    <div class="bill_col bill_col_qty ">
+                                        <p>{order.quantity}</p>
+                                    </div>
+                                    <div class="bill_col bill_col_total ">
+                                        <p>Rs {order.totalPrice}</p>
+                                    </div>
+                                </div>
+                            ))
+                        }
+
                     </div>
                 </div>
-                <div class="paymethod_grandtotal_wrap ">
-                    <div class="paymethod_sec ">
-                        <p class="bold ">Payment Method</p>
+                <div class="bill_paymethod_grandtotal_wrap ">
+                    <div class="bill_paymethod_sec ">
+                        <p class="bill_bold ">Payment Method</p>
                         <p>Visa, Master Card, Online Payment, UPI and We accept Cheque</p>
                     </div>
-                    <div class="grandtotal_sec ">
-                        <p class="bold ">
+                    <div class="bill_grandtotal_sec ">
+                        <p class="bill_bold ">
                             <span>SUB TOTAL</span>
-                            <span>Rs 1070</span>
+                            <span>{getTotalBill()}</span>
                         </p>
-                        <p>
+                        {/* <p>
                             <span>Tax Vat 18%</span>
                             <span>+Rs 192</span>
                         </p>
                         <p>
                             <span>Discount 10%</span>
                             <span>-Rs 107</span>
-                        </p>
-                        <p class="bold ">
+                        </p> */}
+                        <p class="bill_bold ">
                             <span>Grand Total</span>
-                            <span>Rs 1155</span>
+                            <span>{getTotalBill()}</span>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="footer ">
+            <div class="bill_footer ">
                 <p>Thank you and Best Wishes</p>
-                <div class="terms ">
-                    <p class="tc bold ">Terms & Coditions</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit non praesentium doloribus. Quaerat vero iure itaque odio numquam, debitis illo quasi consequuntur velit, explicabo esse nesciunt error aliquid quis eius!</p>
+                <div class="bill_terms ">
+                    <p class="bill_tc bill_bold ">Terms & Coditions</p>
+                    {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit non praesentium doloribus. Quaerat vero iure itaque odio numquam, debitis illo quasi consequuntur velit, explicabo esse nesciunt error aliquid quis eius!</p> */}
                 </div>
             </div>
         </div>

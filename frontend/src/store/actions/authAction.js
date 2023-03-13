@@ -82,3 +82,15 @@ export const getWorkerTypes = async () => {
         console.log(error.response.data.error.errorMessage);
     }
 }
+
+export const fetchUserById = async (userId) => {
+    try {
+        console.log(userId);
+        const res = await axios.get(`http://localhost:8000/api/auth/${userId}`);
+        console.log(res.data);
+        return res.data;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+    }
+}
+

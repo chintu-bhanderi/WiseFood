@@ -7,13 +7,13 @@ const {User} = require('../models/userModel');
 async function getAllTableBooks(req, res) {
     const tableBooks = await TableBook.find({});
 
-    res.status(200).json(tableBooks);
+    res.status(200).json();
 }
 
 async function getTableBookByBookId(req, res) {
     const bookId = req.params.bookId;
 
-    const tableBook = await TableBook.findById(bookId); 
+    const tableBook = await TableBook.findOne({id:bookId}); 
 
     res.status(200).json(tableBook);
 }
