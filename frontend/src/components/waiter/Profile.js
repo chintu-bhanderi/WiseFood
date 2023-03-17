@@ -4,6 +4,7 @@ import { CHEF_TYPE, USER_TYPE, WAITER_TYPE } from "../../store/types/authType";
 
 export const Profile = () => {
     const {authenticate,myInfo,successMessage} = useSelector(state=>state.auth);
+    console.log('myInfo4',myInfo);
     return (
        <>
             <div className="bg-light">
@@ -61,7 +62,7 @@ export const Profile = () => {
                                 { (myInfo.type===CHEF_TYPE || myInfo.type===WAITER_TYPE) && <div className="row">
                                     <div className="col-sm-6">
                                         <p className="font-weight-bold">TotalLoad : </p>
-                                        <h6 className="text-muted">{myInfo.totalLoad}</h6>
+                                        <h6 className="text-muted">{myInfo?.totalLoad}</h6>
                                     </div>
                                 </div>}
                             </div>

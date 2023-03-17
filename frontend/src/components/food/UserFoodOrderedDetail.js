@@ -41,6 +41,7 @@ export const UserFoodOrderedDetail = () => {
                     <UserFoodOrderedShow
                         id={foodOrder._id}
                         name={foodOrder.name}
+                        quantity={foodOrder.quantity}
                         totalPrice={foodOrder.totalPrice}
                         isDone={foodOrder.isDone}
                         isServed={foodOrder.isServed}

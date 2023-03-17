@@ -37,7 +37,7 @@ return (
     <>
     <nav>
         <ul>
-            <li className="logo">Welcome</li>
+            <li className="logo">WiseFood</li>
             <li className="logo">{myInfo.bookedTable}</li>
             <li className="items"><a href="/">Home</a></li>
             <li className="items"><a href="/about">About</a></li>

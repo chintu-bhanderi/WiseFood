@@ -15,15 +15,6 @@ export const FoodShow = (props) => {
 
     return (
         <>
-            {/* <span className="tableShow">
-                    <p>Name: {props.foodName}</p>
-                    <p>price: {props.price}</p>
-                {
-                    myInfo.bookedTable && <Button className="btnShow"
-                        onClick={()=>{navigate(`/food/food-order/${props.foodName}`)}}
-                    >Order</Button> 
-                }
-            </span> */}
             <li>
             <div class="foodItemCard">
                 <img src="https://www.healthifyme.com/blog/wp-content/uploads/2022/01/shutterstock_1015800871-1-750x375.jpg" class="foodItemCard__image" alt="" />
@@ -39,7 +30,7 @@ export const FoodShow = (props) => {
                     <div class="foodItemCard__description">
                         <p style={{"font-size":"20px"}} >Price: {props.price}</p>
                         { myInfo.bookedTable && <div>
-                            <p style={{"font-size":"20px","color":"red"}} >How many items wants to order?</p>
+                            {/* <p style={{"font-size":"20px","color":"red"}} >How many items wants to order?</p> */}
                             <div class="foodItemWrapper">
                                 
                                 <span class="minus" onClick={()=>{if(items>0)setItems(items-1)}}>-</span>
