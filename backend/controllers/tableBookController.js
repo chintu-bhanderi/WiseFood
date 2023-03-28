@@ -3,7 +3,6 @@ const Table = require('../models/tableModel');
 const TableBook = require('../models/tableBookModel');
 const {User} = require('../models/userModel');
 
-
 async function getAllTableBooks(req, res) {
     const tableBooks = await TableBook.find({});
 
@@ -67,9 +66,6 @@ async function getTableBookById(req, res) {
        })
     }
 }
-
-
-
 async function getAvailableTableByUserId(req, res) {
     try{
         const userId = req.params.userId;
@@ -93,19 +89,10 @@ async function getAvailableTableByUserId(req, res) {
        })
     }
 }
-
 async function getTablesBySlotAndDate(req, res) {
     try{
         const {slotId,date} = req.body;
-        // const {day,month,year} = date;
-        // const {day,month,year} = {
-            //     day: 24,
-            //     month: 1,
-            //     year: 2023
-            // };
-        // const dateStr = `${month} ${day}, ${year}`;
-        // const bookDate = new Date(dateStr);
-        
+
         const tables = await Table.find({});
         const tableBooks = await TableBook.find({});
         
@@ -135,25 +122,15 @@ async function getTablesBySlotAndDate(req, res) {
 async function getTableBookByTableSlotDate(req, res) {
     try{
         const {tableNo,slotNo,date} = req.body;
-        // const {day,month,year} = date;
-        // const {day,month,year} = {
-            //     day: 24,
-            //     month: 1,
-            //     year: 2023
-            // };
-        // const dateStr = `${month} ${day}, ${year}`;
-        // const bookDate = new Date(dateStr);
 
         const table = await Table.findOne({tableNo});
         const slot = await Slot.findOne({slotNo});
-        // console.log(slot);
 
         const tableBook = await TableBook.findOne({
             table:table._id,
             slot:slot._id,
             date
         });
-        // console.log(tableBook);
 
         res.status(200).send({ 
             tableBook,
@@ -167,7 +144,6 @@ async function getTableBookByTableSlotDate(req, res) {
        })
     }    
 }
-
 const getMEXIdFromAllTableBooks = (tableBooks) => {
     if(!tableBooks.length || tableBooks.length==0) return 1;
     tableBooks.sort((book1, book2) => {
@@ -184,13 +160,6 @@ const getMEXIdFromAllTableBooks = (tableBooks) => {
 async function setTableBooks(req, res) {
     try{
         const {slotId,tableId,user,date} = req.body;
-        // const {day,month,year} = date;
-        // static
-        // const {day,month,year} = {
-        //     day: 2,
-        //     month: 2,
-        //     year: 2023
-        // };
         
         if(!slotId || !tableId) {
             return  res.status(404).json({
@@ -214,10 +183,7 @@ async function setTableBooks(req, res) {
         const id = getMEXIdFromAllTableBooks(tableBooks);
         
         const price = table.price;
-        
-        // const dateStr = `${month} ${day}, ${year}`;
-        // const bookDate = new Date(dateStr);
-        
+                
         const tableBook = await TableBook.create({
             id,
             slot : slotId,
@@ -255,7 +221,6 @@ async function updateAvailable(req, res) {
 
     res.status(200).json({message: 'Available is Updated'});
 }
-
 async function deleteTableBook(req,res) {
     try{
         const tableBookId = req.params.bookId;
@@ -272,4 +237,16 @@ async function deleteTableBook(req,res) {
     }   
 }
 
-module.exports = { getAllTableBooks,getTableBookByBookId,getTableBooksByUserId,getTableBookById,getAvailableTableByUserId,getTableBookByTableSlotDate,getTablesBySlotAndDate, setTableBooks,updateAvailable,deleteTableBook }
+module.exports = { 
+    getAllTableBooks,
+    getTableBookByBookId,
+    getTableBooksByUserId,
+    getTableBookById,
+    getAvailableTableByUserId,
+    getTableBookByTableSlotDate,
+    getTablesBySlotAndDate,
+    setTableBooks,
+    updateAvailable,
+    deleteTableBook
+}
+    

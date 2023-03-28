@@ -37,6 +37,7 @@ async function setTable(req, res) {
 
     res.status(200).json(table);
 }
+
 async function upadateTable(req, res) {
     const tableId = req.params.id;
     
@@ -50,6 +51,7 @@ async function upadateTable(req, res) {
     await Table.findByIdAndUpdate(tableId,table);
     res.status(200).json({message:"table is updated"});
 }
+
 async function deleteTable(req, res) {
     const tableId = req.params.id;
     
@@ -62,6 +64,10 @@ async function deleteTable(req, res) {
     res.status(200).json({message: 'Table is deleted succesfully'});
 }
 
-
-
-module.exports = { getAllTables,getTableNo , setTable, upadateTable, deleteTable }
+module.exports = { 
+    getAllTables,
+    getTableNo, 
+    setTable, 
+    upadateTable, 
+    deleteTable 
+}

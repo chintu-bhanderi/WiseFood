@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { useAlert } from 'react-alert';
+import axios from '../../api/axios';
 import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL, LOGOUT_SUCCESS_MESSAGE } from '../types/authType';
 
 export const userRegistration = (data) => {
     return async (dispath) => {
          try {
-            const url = "http://localhost:8000/api/auth/registration";
+            const url = "/api/auth/registration";
 			const { data: res } = await axios.post(url, data);
             console.log(res);
               dispath({
@@ -29,11 +29,10 @@ export const authLogin = (data,type,setCookies) => {
      return async (dispath) => {
           try {
             let url;
-			if(type===USER_TYPE) url = "http://localhost:8000/api/auth/login";
+			if(type===USER_TYPE) url = "/api/auth/login";
 			else url = "http://localhost:8000/api/worker/login";
 			const { data: res } = await axios.post(url, data);
-			localStorage.setItem("authToken2", res.token);
-            setCookies("authToken2", res.token)
+            setCookies("jwtoken", res.token)
 			console.log(res);
                dispath({
                    type: LOGIN_SUCCESS,
@@ -53,18 +52,18 @@ export const authLogin = (data,type,setCookies) => {
      }
 }
 
-export const authLogout = (type,id) => {
+export const authLogout = (type,id,removeCookies) => {
     return async (dispath) => {
         try{
             if(type!==USER_TYPE) {
-                const { data: res } = await axios.post("http://localhost:8000/api/worker/logout", {id});
+                const { data: res } = await axios.post("/api/worker/logout", {id});
                 console.log(res);
             }
-            localStorage.removeItem("authToken2");
+            removeCookies("jwtoken");
             dispath({
                 type: LOGOUT_SUCCESS,
                 payload: {
-                successMessage: LOGOUT_SUCCESS_MESSAGE
+                    successMessage: LOGOUT_SUCCESS_MESSAGE
                 }
             })
         } catch(error) {
@@ -75,7 +74,7 @@ export const authLogout = (type,id) => {
 
 export const getWorkerTypes = async () => {
     try {
-        const { data: res } = await axios.get(`http://localhost:8000/api/worker`);
+        const { data: res } = await axios.get(`/api/worker`);
         // console.log(res.types);
         return res.types;
     } catch (error) {
@@ -86,7 +85,7 @@ export const getWorkerTypes = async () => {
 export const fetchUserById = async (userId) => {
     try {
         console.log(userId);
-        const res = await axios.get(`http://localhost:8000/api/auth/${userId}`);
+        const res = await axios.get(`/api/auth/${userId}`);
         console.log(res.data);
         return res.data;
     } catch (error) {

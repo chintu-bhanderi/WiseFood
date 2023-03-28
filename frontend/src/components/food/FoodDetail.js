@@ -17,7 +17,7 @@ export const FoodDetail = (props) => {
 
     return (
         <>
-            { !myInfo.bookedTable && <h4 style={{'color':'red'}}>Note: Item can Order when you in restuant</h4>}
+            { !myInfo.bookedTable && <h4 style={{'color':'red'}}>Note: Item can be Order when you in the restaunt</h4>}
             <h1 class="foodItemMainHeading">Items</h1>
             <ul class="foodItemCards">
                 {foodItems && foodItems.map((foodItem,index) => (

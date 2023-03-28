@@ -21,7 +21,7 @@ userType - change to GuestUser.
 logOut
 - is in that perticuler page and then logOut then not redirect to homePage. 
 
-foodOrder
+foodOrder 
 -quntity is static
 
 ChefOrWaiter is not login even one.
@@ -46,3 +46,9 @@ slot show.
 
 //time permits then do.
     past food-ordered data and table-booked data. 
+
+
+//update the staus of order food while checking by user.
+
+
+validationOfLogin - put into utility fu.

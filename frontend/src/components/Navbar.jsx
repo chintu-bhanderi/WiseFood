@@ -7,7 +7,7 @@ import { fetchAvailableTableByUser } from "../store/actions/tableAction";
 import { CHEF_TYPE, COUNTER_TYPE, SUCCESS_MESSAGE_CLEAR, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 import "../styles/navbar.css";
 
-export const Navbar = () => {
+export const Navbar = ({removeCookies}) => {
     
     const navigate = useNavigate();
     const alert = useAlert();
@@ -16,7 +16,7 @@ export const Navbar = () => {
 
     const logoutHandler = (e)=>{
         e.preventDefault();
-        dispatch(authLogout(myInfo.type,myInfo.id));
+        dispatch(authLogout(myInfo.type,myInfo.id,removeCookies));
     }
 
     useEffect(()=>{

@@ -2,7 +2,6 @@ const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 const {Worker} = require('../models/workerModel')
 const FoodOrder = require('../models/foodOrderModel');
 
-
 async function getAllChefs(req,res) {
     try{
         const chefs = await Worker.find({type:CHEF_TYPE});
@@ -62,7 +61,6 @@ async function getWaiterServedOrdersById(req,res) {
        })
     }
 }
-
 
 
 module.exports = {

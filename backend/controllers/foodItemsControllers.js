@@ -1,7 +1,6 @@
 const FoodCategory = require('../models/foodCategoryModel');
 const FoodItem = require('../models/foodItemsModel');
 
-
 async function getFoodItemByCategory(req,res) {
     try{
         const categoryId = req.params.id
@@ -45,11 +44,11 @@ async function setFooditem (req,res) {
     await existingCategory.save();
     res.status(200).json(foodItem);
 }
+
 async function updateFoodItem(req,res) {
     const name = req.params.name
 
     let foodItem = await FoodItem.findOne({name});
-    // console.log(foodItem);
     if(!foodItem) {
         res.status(400).json({message: "food-item doesn't exist"});
         return;
@@ -63,6 +62,7 @@ async function updateFoodItem(req,res) {
         message : `Update food-item at ${req.params.name}`
     })
 }
+
 async function deleteFoodItem(req,res) {
     const name = req.params.name;
     let foodItem;
@@ -77,6 +77,7 @@ async function deleteFoodItem(req,res) {
     }   
     return res.status(201).json({message:"successfully delete"});
 }
+
 module.exports = {
     getFoodItemByCategory,
     setFooditem,

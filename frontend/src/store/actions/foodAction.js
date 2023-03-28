@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from "../../api/axios";
 
 export const fetchCategoryDetails = async () => {
     try {
-        const { data: res } = await axios.get(`http://localhost:8000/api/category`)
+        const { data: res } = await axios.get(`/api/category`)
         // console.log(res.message);
         return res.categories;
     } catch (error) {
@@ -12,7 +12,7 @@ export const fetchCategoryDetails = async () => {
 
 export const fetchFoodDetails = async (categoryId) => {
     try {
-        const { data: res } = await axios.get(`http://localhost:8000/api/food-item/${categoryId}`)
+        const { data: res } = await axios.get(`/api/food-item/${categoryId}`)
         // console.log(res.message);
         return res.foodItems;
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetchFoodDetails = async (categoryId) => {
 }
 
 export const fetchTableBookOrders = async (bookId) => {
-    const res = await axios.get(`http://localhost:8000/api/order/${bookId}`)
+    const res = await axios.get(`/api/order/${bookId}`)
         .catch(error => console.log(error));
     const data = await res.data;
     return data;
@@ -29,7 +29,7 @@ export const fetchTableBookOrders = async (bookId) => {
 
 export const fetchFoodDetailsByUser = async (user) => {
     try {
-        const { data: res } = await axios.get(`http://localhost:8000/api/order/user/${user}`)
+        const { data: res } = await axios.get(`/api/order/user/${user}`)
         return res.foodOrders;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);

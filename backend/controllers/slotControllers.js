@@ -35,7 +35,6 @@ async function getAllSlot(req,res) {
     }
 }
 
-
 async function setSlot (req,res) {
     try{
         const {slotNo,startTime,endTime} = req.body;
@@ -59,7 +58,6 @@ async function setSlot (req,res) {
     }
     
 }
-
 
 module.exports = {
     getAllSlot,

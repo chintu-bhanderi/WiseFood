@@ -136,4 +136,9 @@ async function getAllWorker (req, res) {
 };
 
 
-module.exports = { workerRegistration,workerLogin,workerLogout,getAllWorker }
+module.exports = { 
+    workerRegistration,
+    workerLogin,
+    workerLogout,
+    getAllWorker 
+}

@@ -1,7 +1,6 @@
 const FoodCategory = require('../models/foodCategoryModel');
 const FoodItem = require('../models/foodItemsModel');
 
-
 async function setCategory(req,res) {
     if(!req.body.name){
         res.status(400).json({message:"Please add Name of Category"}); 
@@ -43,11 +42,13 @@ async function deleteCategory(req,res) {
         res.status(400).json({message:"This Category is not in list"}); 
         return;
     } 
-    console.log(category);
     await FoodItem.deleteMany({category:category._id});
     await FoodCategory.deleteOne({name});
     res.status(200).json({message: "Category deleted successfully"}); 
-    // res.status(200).json(category); 
 }
 
-module.exports = {setCategory,getAllCategory,deleteCategory}
+module.exports = {
+    setCategory,
+    getAllCategory,
+    deleteCategory
+}

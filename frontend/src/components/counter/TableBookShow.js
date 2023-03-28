@@ -34,7 +34,7 @@ export const TableBookShow = (props) => {
                 <p>date: {props.date}</p>
                 { !props.isAvailable && <Button className="btnShow"
                     onClick={submithandler}
-                >Available</Button>}
+                >Confirm</Button>}
             </span>
         </>
     )

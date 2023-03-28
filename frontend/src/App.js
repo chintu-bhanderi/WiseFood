@@ -8,7 +8,7 @@ import { HomeCounter } from './components/counter/HomeCounter'; //done
 import { TableBookFind } from './components/counter/TableBookFind'; //done
 import { TableOrderDetail } from './components/counter/TableOrderDetail'; //done
 import { ChefDetail } from './components/chef/ChefDetail';
-import { Cards } from './components/Cards';
+import { HomePage } from './components/HomePage';
 import { UserTableBookDetail } from './components/table/UserTableBookDetail';
 import { SignUp } from './components/auth/SignUp';
 import { LogIn } from './components/auth/LogIn';
@@ -41,9 +41,9 @@ function App() {
   return (
     <>
     <div>
-        <Navbar />
+        <Navbar removeCookies={handleRemoveCookies}  />
         <Routes>
-          <Route index element={<Cards/>} />
+          <Route index element={<HomePage />} />
           <Route path='/food' >
               <Route path='/food/category' element={<ProtectedRoute Child={FoodCategory} type={USER_TYPE} />} />
               <Route path='/food/category/:categoryId' element={<ProtectedRoute Child={FoodDetail} type={USER_TYPE} />} />

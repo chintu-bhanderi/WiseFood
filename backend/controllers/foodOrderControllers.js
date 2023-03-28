@@ -53,15 +53,6 @@ async function getFoodOrderByWaiter(req, res) {
 
     const orders = await FoodOrder.find({ isDone: true, isServed: false, waiter: waiterId })
 
-    // let tableBooks = [];
-    // orders.map(async (order)=>{
-    //     const tableBook = await TableBook.findById(order.tableBook);
-    //     tableBooks.push(tableBook);
-    //     return tableBook;
-    // })
-
-    // console.log(orders); 
-
     res.status(200).json(orders);
 }
 
@@ -103,7 +94,6 @@ async function setFoodOrder(req, res) {
         const table = await Table.findById(tableBook.table);
         
         let chef = await findChefWithMinLoad();
-        console.log('tableBook ',chef);
 
         const order = await FoodOrder.create({ name, quantity, totalPrice, tableBook: tableBook._id, chef: chef._id,user:tableBook.user,tableNo:table.tableNo });
 
@@ -142,7 +132,6 @@ async function updateOrderDone(req, res) {
 
     const chef = await Worker.findById(order.chef);
     chef.load = chef.load - parseInt(order.quantity);
-    // await chef.foodOrder.pull(order._id);
     await chef.save();
 
     let waiter = await findWaiterWithMinLoad();
@@ -163,7 +152,6 @@ async function updateOrderServe(req, res) {
         return;
     }
 
-    // console.log(orderId);   
     const order = await FoodOrder.findById(orderId);
     order.isServed = true;
 
@@ -175,8 +163,6 @@ async function updateOrderServe(req, res) {
 
     res.status(200).json({ message: "Order isServe is updates" });
 }
-
-
 
 async function deleteOrderByTable(req, res) {
     const tableBookId = req.params.id;
@@ -190,7 +176,6 @@ async function deleteOrderByTable(req, res) {
 }
 
 async function deleteAllOrders(req, res) {
-
     await FoodOrder.remove();
 
     return res.status(201).json({ message: "successfully All delete" });

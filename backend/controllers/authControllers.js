@@ -28,7 +28,6 @@ async function userRegistration (req, res) {
 				message: "User registered successfully"
 			});
 		} catch (error) {
-			// console.log(error);
 			return res.status(404).json({
 				error: {
 					 errorMessage : ['Internal Sever Error']
@@ -83,6 +82,10 @@ async function userLogin (req, res) {
 		}
 		
 		const token = user.generateAuthToken();
+		res.cookie("jwtoken",token,{
+			expires: new Date(Date.now()+25892000000),
+			httpOnly: true
+		})
 		res.status(200).send({ 
 			token: token,
 			message: "logged in successfully" 
@@ -101,9 +104,12 @@ async function getUserByUserId(req, res) {
 	console.log(userId);
 
 	const user = await User.findById(userId);
-	// console.log(user);
 
 	return res.status(200).json(user);
 }
 
-module.exports = { userRegistration, userLogin, getUserByUserId}
+module.exports = { 
+	userRegistration,
+	userLogin, 
+	getUserByUserId
+}
