@@ -1,5 +1,5 @@
-import { useAlert } from 'react-alert';
 import axios from '../../api/axios';
+import Cookies from 'js-cookie';
 import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL, LOGOUT_SUCCESS_MESSAGE } from '../types/authType';
 
 export const userRegistration = (data) => {
@@ -53,10 +53,17 @@ export const authLogin = (data,type,setCookies) => {
 }
 
 export const authLogout = (type,id,removeCookies) => {
+    const token = Cookies.get('jwtoken');
+    console.log('token->',token);
     return async (dispath) => {
         try{
             if(type!==USER_TYPE) {
-                const { data: res } = await axios.post("/api/worker/logout", {id});
+                const { data: res } = await axios.post("/api/worker/logout",{id},{ 
+                    headers:{
+                        "Content-Type": "application/json",
+                        Authorization : `Bearer ${token}`
+                    }
+                });
                 console.log(res);
             }
             removeCookies("jwtoken");
@@ -67,7 +74,7 @@ export const authLogout = (type,id,removeCookies) => {
                 }
             })
         } catch(error) {
-
+            console.log(error.response.data.error.errorMessage);
         }
     }
 }

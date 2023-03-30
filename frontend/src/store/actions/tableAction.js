@@ -84,7 +84,7 @@ export const setTableBook = async (tableId,slotId,user,date) => {
         const { data: res } = await axios.post(`/api/table-book`,{
             slotId,tableId,user,date
         })  
-        console.log(res.message);
+        // console.log(res.message);
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
     }

@@ -41,7 +41,10 @@ function App() {
   return (
     <>
     <div>
-        <Navbar removeCookies={handleRemoveCookies}  />
+        <Navbar
+            cookies={cookies}      
+            removeCookies={handleRemoveCookies} 
+        />
         <Routes>
           <Route index element={<HomePage />} />
           <Route path='/food' >

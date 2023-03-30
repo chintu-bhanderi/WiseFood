@@ -23,7 +23,7 @@ async function userRegistration (req, res) {
 		try{
 			const salt = await bcrypt.genSalt(Number(process.env.SALT));
 			const hashPassword = await bcrypt.hash(req.body.password, salt);
-			await new User({ ...req.body, password: hashPassword }).save();
+			await new User({ ...req.body, password: hashPassword,tokens:[] }).save();
 			res.status(200).send({ 
 				message: "User registered successfully"
 			});
@@ -82,10 +82,14 @@ async function userLogin (req, res) {
 		}
 		
 		const token = user.generateAuthToken();
-		res.cookie("jwtoken",token,{
-			expires: new Date(Date.now()+25892000000),
-			httpOnly: true
-		})
+		// res.cookie("jwtoken",token,{
+		// 	expires: new Date(Date.now()+25892000000),
+		// 	httpOnly: true
+		// })
+
+		// user.tokens.push(token);
+		// await user.save();
+
 		res.status(200).send({ 
 			token: token,
 			message: "logged in successfully" 
@@ -99,6 +103,18 @@ async function userLogin (req, res) {
 	}
 };
 
+async function userLogout(req, res) {
+	try{
+
+	} catch(error){
+		return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+	}
+}
+
 async function getUserByUserId(req, res) {
 	const userId = req.params.userId;
 	console.log(userId);
@@ -111,5 +127,6 @@ async function getUserByUserId(req, res) {
 module.exports = { 
 	userRegistration,
 	userLogin, 
+	userLogout,
 	getUserByUserId
 }

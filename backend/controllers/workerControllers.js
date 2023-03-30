@@ -87,7 +87,7 @@ async function workerLogin (req, res) {
 
 async function workerLogout (req, res) {
     try {
-		const { id } = req.body;
+		const id = req.workerId;
 
         const worker = await Worker.findById(id);
         if(!worker) {

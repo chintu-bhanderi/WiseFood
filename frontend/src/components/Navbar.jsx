@@ -1,15 +1,12 @@
 import React, { useEffect } from "react"; 
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { authLogout } from "../store/actions/authAction";
 import { fetchAvailableTableByUser } from "../store/actions/tableAction";
 import { CHEF_TYPE, COUNTER_TYPE, SUCCESS_MESSAGE_CLEAR, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 import "../styles/navbar.css";
 
 export const Navbar = ({removeCookies}) => {
-    
-    const navigate = useNavigate();
     const alert = useAlert();
     const {authenticate,myInfo,successMessage} = useSelector(state=>state.auth);
     const dispatch = useDispatch();	
@@ -29,7 +26,7 @@ export const Navbar = ({removeCookies}) => {
     useEffect(()=>{
         if(authenticate && myInfo.type===USER_TYPE){
             dispatch(fetchAvailableTableByUser(myInfo.id))
-            .then(()=>{console.log('myinfo2 ',myInfo)});   
+            // .then(()=>{console.log('myinfo2 ',myInfo)});   
         }
     },[authenticate])
 
