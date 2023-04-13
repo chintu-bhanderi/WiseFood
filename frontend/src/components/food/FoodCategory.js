@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import {FoodCategoryShow} from './FoodCategoryShow'
-import "../styles.css"
-import "../../styles/category.css";
+import { FoodCategoryShow } from './FoodCategoryShow'
 import { fetchCategoryDetails } from "../../store/actions/foodAction";
+import "../../styles/category.css";
 
 export const FoodCategory = () => {
 

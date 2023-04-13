@@ -1,10 +1,7 @@
-import "../styles.css"
-import { Button} from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "../../styles/foodItem.css";
 import { useState } from "react";
-
+import "../../styles/foodItem.css";
 
 export const FoodShow = (props) => {
 
@@ -26,7 +23,6 @@ export const FoodShow = (props) => {
                             <h3 class="foodItemCard__title">{props.foodName}</h3>
                         </div>
                     </div>
-
                     <div class="foodItemCard__description">
                         <p style={{"font-size":"20px"}} >Price: {props.price}</p>
                         { myInfo.bookedTable && <div>
@@ -44,7 +40,6 @@ export const FoodShow = (props) => {
                         </div> 
                         }
                     </div>
-
                 </div>
             </div>
         </li>

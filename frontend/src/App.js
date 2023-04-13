@@ -1,5 +1,4 @@
 import {FoodCategory} from './components/food/FoodCategory' //done
-import {FoodOrderDetail} from './components/food/FoodOrderDetail' //done
 import {Routes, Route } from "react-router-dom";
 import { FoodDetail } from './components/food/FoodDetail'; //done
 import { FoodOrderShow } from './components/food/FoodOrderShow'; //done
@@ -50,7 +49,6 @@ function App() {
           <Route path='/food' >
               <Route path='/food/category' element={<ProtectedRoute Child={FoodCategory} type={USER_TYPE} />} />
               <Route path='/food/category/:categoryId' element={<ProtectedRoute Child={FoodDetail} type={USER_TYPE} />} />
-              <Route path='/food/food-order/:foodName' element={<ProtectedRoute Child={FoodOrderDetail} type={USER_TYPE} />} />
               <Route path='/food/food-order/:foodName/:quantity' element={<ProtectedRoute Child={FoodOrderShow} type={USER_TYPE} />} />
               <Route path='/food/food-order-show/user' element={<ProtectedRoute Child={UserFoodOrderedDetail} type={USER_TYPE} />} />
               <Route path='/food/food-order-show' element={<ProtectedRoute Child={OrdersDetail} type={USER_TYPE} />} />

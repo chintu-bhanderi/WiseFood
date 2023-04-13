@@ -1,11 +1,8 @@
-import "../styles.css"
 import "../../styles/category.css";
 
 export const FoodCategoryShow = (props) => {
-
-            return (
-                <>
-
+    return (
+        <>
             <li>
                 <a href={'/food/category/'+ props.categoryId} class="card">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiLwNvtRCA6VJg1ixits6DxoMGF0K--4EdOA&usqp=CAU" class="card__image" alt="" />
@@ -17,11 +14,9 @@ export const FoodCategoryShow = (props) => {
                                 <h3 class="card__title">{props.categoryName}</h3>
                             </div>
                         </div>
-                        {/* <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p> */}
                     </div>
                 </a>
             </li>
-
         </>
     )
 }

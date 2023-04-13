@@ -1,8 +1,7 @@
-import axios from "axios"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import { postTableOrder } from "../../store/actions/foodAction";
 
 export const FoodOrderShow = (props) => {
     
@@ -11,21 +10,9 @@ export const FoodOrderShow = (props) => {
     const quantity = useParams().quantity;
     const {myInfo} = useSelector(state=>state.auth);
 
-    const postTableOrder = async () => {
-        // const tableBookId = '63d23cfaba82755485e47a3b';
-        // console.log(myInfo.bookedTable);
-        const res = await axios.post(`http://localhost:8000/api/order/${myInfo.bookedTable}`,{
-            name:foodName,quantity
-        })  
-        .catch(error => console.log(error));
-        const data = await res.data;
-        return data;
-      }
-
       useEffect(()=>{
-        // console.log(myInfo);
-        if(myInfo.bookedTable) postTableOrder().then(data=>setFoodOrder(data));
-        // console.log('foodorder',foodOrder);
+        if(myInfo.bookedTable) postTableOrder(myInfo,foodName,quantity)
+        .then(data=>setFoodOrder(data));
       },[myInfo])
     
     return (

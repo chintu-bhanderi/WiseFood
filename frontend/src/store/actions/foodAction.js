@@ -35,3 +35,11 @@ export const fetchFoodDetailsByUser = async (user) => {
     }
 }
 
+export const postTableOrder = async (myInfo,foodName,quantity) => {
+    const res = await axios.post(`http://localhost:8000/api/order/${myInfo.bookedTable}`,{
+        name:foodName,quantity
+    })  
+    .catch(error => console.log(error));
+    const data = await res.data;
+    return data;
+  }
