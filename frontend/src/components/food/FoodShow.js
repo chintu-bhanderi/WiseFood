@@ -17,7 +17,7 @@ export const FoodShow = (props) => {
         <>
             <li>
             <div class="foodItemCard">
-                <img src="https://www.healthifyme.com/blog/wp-content/uploads/2022/01/shutterstock_1015800871-1-750x375.jpg" class="foodItemCard__image" alt="" />
+                <img class="foodItemCard__image" src={props?.image} alt="https://www.healthifyme.com/blog/wp-content/uploads/2022/01/shutterstock_1015800871-1-750x375.jpg" />
                 <div class="foodItemCard__overlay">
                     <div class="foodItemCard__header">
                         <svg class="foodItemCard__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>

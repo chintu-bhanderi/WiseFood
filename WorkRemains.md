@@ -52,3 +52,8 @@ slot show.
 
 
 validationOfLogin - put into utility fu.
+
+
+** Locking mechanism
+when fetching available table then also check tableBooktoken table tuble, might be booked table in process then also it will fetch that table as available.
+

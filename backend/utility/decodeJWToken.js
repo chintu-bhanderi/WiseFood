@@ -5,19 +5,26 @@ function decodeJWTtoken(req, res) {
     if ('Bearer undefined' !== authorization) {
         const token = authorization.split(' ')[1];
         if ('undefined' !== token) {
-            const decoded = verify(token, process.env.JWTPRIVATEKEY);
-            if (decoded === undefined) {
-                res.status(401).json({
+            try {
+                const decoded = verify(token, process.env.JWTPRIVATEKEY);
+                if (decoded === undefined) {
+                    res.status(401).json({
+                        error: {
+                            errorMessage: ['you are not authorized for this page']
+                        }
+                    });
+                }
+                else {
+                    return decoded;
+                }
+            } catch (error) {
+                return res.status(404).json({
                     error: {
-                        errorMessage: ['you are not authorized for this page']
+                        errorMessage: ['Token is not valid']
                     }
-                });
-            }
-            else {
-                return decoded;
+                })
             }
         } else {
-            console.log('here')
             res.status(401).json({
                 error: {
                     errorMessage: ['you are not authorized for this page']

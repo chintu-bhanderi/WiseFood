@@ -2,6 +2,11 @@ const Slot = require('../models/slotModel');
 const Table = require('../models/tableModel');
 const TableBook = require('../models/tableBookModel');
 const {User} = require('../models/userModel');
+var Mutex = require('async-mutex').Mutex;
+const TableBookLockTokenModel = require('../models/tableBookLockTokenModel');
+// import {Mutex, Semaphore, withTimeout} from 'async-mutex';
+
+const mutex = new Mutex();
 
 async function getAllTableBooks(req, res) {
     const tableBooks = await TableBook.find({});
@@ -160,7 +165,28 @@ const getMEXIdFromAllTableBooks = (tableBooks) => {
 async function setTableBooks(req, res) {
     try{
         const {slotId,tableId,user,date} = req.body;
-        
+
+        try{
+            await mutex.acquire();
+            const token = `date=${date}:slotId=${slotId}:tableId=${tableId}`;
+            const data = await TableBookLockTokenModel.findOne({token}); 
+            if(data) {
+                return res.status(400).send({ 
+                    error: {
+                        errorMessage : "Sorry, The table has been booked."
+                    }
+                });
+            }
+            await TableBookLockTokenModel.create({token}); 
+        } catch(err){
+            return res.status(404).json({
+                error: {
+                    errorMessage : ['Internal Sever Error']
+                }
+            })
+        } finally {
+            mutex.release();
+        }
         if(!slotId || !tableId) {
             return  res.status(404).json({
                 error: {
@@ -224,6 +250,9 @@ async function updateAvailable(req, res) {
 async function deleteTableBook(req,res) {
     try{
         const tableBookId = req.params.bookId;
+        const data = await TableBook.findOne({id:tableBookId});
+        const token = `date=${data.date}:slotId=${data.slot}:tableId=${data.table}`;
+        await TableBookLockTokenModel.deleteOne({token});
         await TableBook.deleteOne({id:tableBookId});        
         res.status(200).send({ 
             message: "TableBook successfully delete"
@@ -238,7 +267,7 @@ async function deleteTableBook(req,res) {
 }
 
 module.exports = { 
-    getAllTableBooks,
+    getAllTableBooks, 
     getTableBookByBookId,
     getTableBooksByUserId,
     getTableBookById,

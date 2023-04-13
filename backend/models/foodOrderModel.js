@@ -41,6 +41,9 @@ const foodOrderSchema = mongoose.Schema({
     },
     tableNo: {
         type: Number
+    },
+    image:{
+        type: String
     }
 },{
     timestemps: true,

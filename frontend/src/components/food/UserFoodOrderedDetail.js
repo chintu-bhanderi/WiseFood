@@ -31,6 +31,7 @@ export const UserFoodOrderedDetail = () => {
                         totalPrice={foodOrder.totalPrice}
                         isDone={foodOrder.isDone}
                         isServed={foodOrder.isServed}
+                        image={foodOrder.image}
                     />
                 ))}
             </div>

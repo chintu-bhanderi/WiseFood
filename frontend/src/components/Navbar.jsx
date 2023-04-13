@@ -35,7 +35,7 @@ return (
     <nav>
         <ul>
             <li className="logo">WiseFood</li>
-            <li className="logo">{myInfo.bookedTable}</li>
+            {/* <li className="logo">{myInfo.bookedTable}</li> */}
             <li className="items"><a href="/">Home</a></li>
             <li className="items"><a href="/about">About</a></li>
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}

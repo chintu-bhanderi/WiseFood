@@ -1,6 +1,7 @@
 import axios from "../../api/axios";
 import { BOOKED_TABLE_GET_SUCCEESS } from "../types/tableType";
 
+
 export const fetchSlotDetails = async () => {
     try {
         const { data: res }  = await axios.get(`/api/slot`)
@@ -73,7 +74,7 @@ export const fetchAvailableTableByUser = (user) => {
                 }
             })
         } catch (error) {
-            console.log(error.response.data.error.errorMessage);
+            // console.log(error.response.data.error.errorMessage);
         }   
     }
 }
@@ -87,6 +88,7 @@ export const setTableBook = async (tableId,slotId,user,date) => {
         // console.log(res.message);
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
+        alert(error.response.data.error.errorMessage);
     }
 }
 

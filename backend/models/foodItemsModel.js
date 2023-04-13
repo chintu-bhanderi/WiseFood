@@ -17,6 +17,9 @@ const foodItemSchema = mongoose.Schema({
         type: String,
         ref: "FoodCategory",
         required: [true,'Please add category']
+    },
+    image:{
+        type:String
     }
 },{
     timestemps: true,

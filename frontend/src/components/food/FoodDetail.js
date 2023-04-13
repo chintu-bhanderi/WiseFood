@@ -25,6 +25,7 @@ export const FoodDetail = (props) => {
                         foodItemId={foodItem._id}
                         foodName={foodItem.name}
                         price={foodItem.price}
+                        image={foodItem?.image}
                     />
                 ))}
             </ul>

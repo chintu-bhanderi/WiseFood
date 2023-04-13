@@ -95,7 +95,7 @@ async function setFoodOrder(req, res) {
         
         let chef = await findChefWithMinLoad();
 
-        const order = await FoodOrder.create({ name, quantity, totalPrice, tableBook: tableBook._id, chef: chef._id,user:tableBook.user,tableNo:table.tableNo });
+        const order = await FoodOrder.create({ name, quantity, totalPrice, tableBook: tableBook._id, chef: chef._id,user:tableBook.user,tableNo:table.tableNo,image: foodItem.image });
 
         chef.load = chef.load + parseInt(quantity);
         chef.totalLoad += parseInt(quantity);

@@ -54,11 +54,11 @@ export const authLogin = (data,type,setCookies) => {
 
 export const authLogout = (type,id,removeCookies) => {
     const token = Cookies.get('jwtoken');
-    console.log('token->',token);
+    // console.log('token->',token);
     return async (dispath) => {
         try{
             if(type!==USER_TYPE) {
-                const { data: res } = await axios.post("/api/worker/logout",{id},{ 
+                const { data: res } = await axios.post("/api/worker/logout",{},{ 
                     headers:{
                         "Content-Type": "application/json",
                         Authorization : `Bearer ${token}`
@@ -82,7 +82,6 @@ export const authLogout = (type,id,removeCookies) => {
 export const getWorkerTypes = async () => {
     try {
         const { data: res } = await axios.get(`/api/worker`);
-        // console.log(res.types);
         return res.types;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
@@ -90,9 +89,15 @@ export const getWorkerTypes = async () => {
 }
 
 export const fetchUserById = async (userId) => {
+    const token = Cookies.get('jwtoken');
     try {
         console.log(userId);
-        const res = await axios.get(`/api/auth/${userId}`);
+        const res = await axios.get(`/api/auth/${userId}`,{},{ 
+            headers:{
+                "Content-Type": "application/json",
+                Authorization : `Bearer ${token}`
+            }
+        });
         console.log(res.data);
         return res.data;
     } catch (error) {
