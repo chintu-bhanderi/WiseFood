@@ -1,4 +1,7 @@
 const Table = require('../models/tableModel');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
 
 async function getAllTables(req, res) {
     const tables = await Table.find();
@@ -10,7 +13,17 @@ async function getTableNo (req,res) {
     try{
         const tableId = req.params.id;
 
+        const tableNoKey = `tableId-${tableId}`; 
+        const cachedTableNo = cache.get(tableNoKey);
+        if (cachedTableNo) {
+            return res.status(200).send({ 
+                tableNo: cachedTableNo,
+                message: "tableNo get successfully" 
+            });
+        }
+
         const table = await Table.findById(tableId);
+        cache.set(tableNoKey, table.tableNo);
         
         res.status(200).send({ 
 			tableNo: table.tableNo,

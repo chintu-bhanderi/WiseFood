@@ -1,10 +1,25 @@
 const Slot = require('../models/slotModel');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
+
+const slotKey = 'slots';
 
 async function getSlotNo (req,res) {
     try{
         const slotId = req.params.slotId;
 
+        const slotNoKey = `slotId-${slotId}`; 
+        const cachedSlotNo = cache.get(slotNoKey);
+        if (cachedSlotNo) {
+            return res.status(200).send({ 
+                slotNo: cachedSlotNo,
+                message: "SlotNo get successfully" 
+            });
+        }
+
         const slot = await Slot.findById(slotId);
+        cache.set(slotNoKey, slot.slotNo);
         
         res.status(200).send({ 
 			slotNo: slot.slotNo,
@@ -21,7 +36,17 @@ async function getSlotNo (req,res) {
 
 async function getAllSlot(req,res) {
     try{
+        const cachedSlots = cache.get(slotKey);
+        if (cachedSlots) {
+            return res.status(200).send({ 
+                slots: cachedSlots,
+                message: "Slot get successfully" 
+            });
+        }
+
         const slots = await Slot.find({});
+        cache.set(slotKey, slots);
+
         res.status(200).send({ 
 			slots: slots,
 			message: "Slot get successfully" 
