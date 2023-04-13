@@ -3,6 +3,11 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Joi = require("joi");
 const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
+
+const workerTypeKey = 'worker-type';
 
 async function workerRegistration(req, res) {
 	try {
@@ -115,6 +120,14 @@ async function workerLogout (req, res) {
 
 async function getAllWorker (req, res) {
 	try {
+        const cachedWorkerTypes = cache.get(workerTypeKey);
+        if (cachedWorkerTypes) {
+            return res.status(200).send({ 
+                types: cachedWorkerTypes,
+                message: "Types get successfully" 
+            });
+        }
+
         const workers = await Worker.find({});
         let types = [];
         workers.forEach(worker => {
@@ -122,6 +135,8 @@ async function getAllWorker (req, res) {
                 types.push(worker.type);
             }
         })
+        cache.set(workerTypeKey, types);
+
         res.status(200).send({ 
             types: types,
             message: "Types get successfully" 

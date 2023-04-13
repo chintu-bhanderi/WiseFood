@@ -3,7 +3,6 @@ import axios from "../../api/axios";
 export const fetchCategoryDetails = async () => {
     try {
         const { data: res } = await axios.get(`/api/category`)
-        // console.log(res.message);
         return res.categories;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);

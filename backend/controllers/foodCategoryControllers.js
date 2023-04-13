@@ -1,5 +1,36 @@
 const FoodCategory = require('../models/foodCategoryModel');
 const FoodItem = require('../models/foodItemsModel');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
+
+const categoryKey = 'categories';
+
+async function getAllCategory(req,res) {
+    try{
+        const cachedCategories = cache.get(categoryKey);
+        if (cachedCategories) {
+            return res.status(200).send({ 
+                categories : cachedCategories,
+                message: "Food Categories get successfully"
+            });
+        }
+        
+        const categories = await FoodCategory.find();
+        cache.set(categoryKey, categories);
+
+        res.status(200).send({ 
+            categories : categories,
+            message: "Food Categories get successfully"
+		});
+    } catch(error){
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+        })
+    }
+}
 
 async function setCategory(req,res) {
     if(!req.body.name){
@@ -17,22 +48,6 @@ async function setCategory(req,res) {
     category = await FoodCategory.create({name,foodItem:[]});
 
     res.status(200).json(category); 
-}
-
-async function getAllCategory(req,res) {
-    try{
-        const categories = await FoodCategory.find();
-        res.status(200).send({ 
-            categories : categories,
-            message: "Food Categories get successfully"
-		});
-    } catch(error){
-        return res.status(404).json({
-            error: {
-                 errorMessage : ['Internal Sever Error']
-            }
-        })
-    }
 }
 
 async function deleteCategory(req,res) {

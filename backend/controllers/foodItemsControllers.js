@@ -1,9 +1,22 @@
 const FoodCategory = require('../models/foodCategoryModel');
 const FoodItem = require('../models/foodItemsModel');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
 
 async function getFoodItemByCategory(req,res) {
     try{
         const categoryId = req.params.id
+
+        const foodItemsKey = `categoryId-${categoryId}`; 
+        const cachedFoodItems = cache.get(foodItemsKey);
+        if (cachedFoodItems) {
+            return res.status(200).send({ 
+                foodItems: cachedFoodItems,
+                message: "FoodItem get successfully" 
+            });
+        }
+
         const category = await FoodCategory.findOne({_id: categoryId})
         if(!category) {
             return  res.status(404).json({
@@ -13,14 +26,16 @@ async function getFoodItemByCategory(req,res) {
             })  
         }
         const foodItems = await FoodItem.find({ category: category._id})
+        cache.set(foodItemsKey, foodItems);
+
         res.status(200).send({ 
             foodItems: foodItems,
             message: "FoodItem get successfully" 
-    });
+        });
     } catch(error){
         return res.status(404).json({
             error: {
-                 errorMessage : ['Internal Sever Error']
+                errorMessage : ['Internal Sever Error']
             }
         })
     }

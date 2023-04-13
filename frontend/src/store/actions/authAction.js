@@ -91,7 +91,6 @@ export const getWorkerTypes = async () => {
 export const fetchUserById = async (userId) => {
     const token = Cookies.get('jwtoken');
     try {
-        console.log(userId);
         const res = await axios.get(`/api/auth/${userId}`,{},{ 
             headers:{
                 "Content-Type": "application/json",
