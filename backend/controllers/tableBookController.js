@@ -4,7 +4,9 @@ const TableBook = require('../models/tableBookModel');
 const {User} = require('../models/userModel');
 var Mutex = require('async-mutex').Mutex;
 const TableBookLockTokenModel = require('../models/tableBookLockTokenModel');
-// import {Mutex, Semaphore, withTimeout} from 'async-mutex';
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 30 , checkperiod: 10 });
 
 const mutex = new Mutex();
 
@@ -165,19 +167,26 @@ const getMEXIdFromAllTableBooks = (tableBooks) => {
 async function setTableBooks(req, res) {
     try{
         const {slotId,tableId,user,date} = req.body;
+        if(!slotId || !tableId) {
+            return  res.status(404).json({
+                error: {
+                    errorMessage: ["Please enter all fields"]
+                }
+            })  
+        }
 
         try{
             await mutex.acquire();
-            const token = `date=${date}:slotId=${slotId}:tableId=${tableId}`;
-            const data = await TableBookLockTokenModel.findOne({token}); 
-            if(data) {
+            const tableBookKey = `${date}:${slotId}:${tableId}`;
+            const cachedTableBook = cache.get(tableBookKey);
+            if(cachedTableBook) {
                 return res.status(400).send({ 
                     error: {
                         errorMessage : "Sorry, The table has been booked."
                     }
                 });
             }
-            await TableBookLockTokenModel.create({token}); 
+            cache.set(tableBookKey, "Table is booking");
         } catch(err){
             return res.status(404).json({
                 error: {
@@ -186,13 +195,6 @@ async function setTableBooks(req, res) {
             })
         } finally {
             mutex.release();
-        }
-        if(!slotId || !tableId) {
-            return  res.status(404).json({
-                error: {
-                    errorMessage: ["Please enter all fields"]
-                }
-            })  
         }
         
         const table = await Table.findById(tableId);
@@ -204,13 +206,22 @@ async function setTableBooks(req, res) {
                 }
             })  
         }
+
+        const tableBook = await TableBook.findOne({slot:slotId,table:tableId,date});
+        if(tableBook) {
+            return res.status(400).send({ 
+                error: {
+                    errorMessage : "Sorry, The table has been booked."
+                }
+            });
+        }
         
         const tableBooks = await TableBook.find({});
         const id = getMEXIdFromAllTableBooks(tableBooks);
         
         const price = table.price;
                 
-        const tableBook = await TableBook.create({
+        await TableBook.create({
             id,
             slot : slotId,
             table : tableId,
