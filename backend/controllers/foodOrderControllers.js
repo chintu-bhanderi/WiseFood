@@ -4,6 +4,9 @@ const TableBook = require('../models/tableBookModel');
 const Table = require('../models/tableModel');
 const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 const { Worker } = require('../models/workerModel');
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 5 , checkperiod: 5 });
 
 async function getAllFoodOrders(req, res) {
     const orders = await FoodOrder.find({});
@@ -73,20 +76,39 @@ async function setFoodOrder(req, res) {
     try {
         const { name, quantity } = req.body;
         const tableBookId = req.params.id;
+
+        const cachedBookedId = cache.get(tableBookId);
+        if(cachedBookedId) {
+            return  res.status(404).json({
+				error: {
+					errorMessage: "Please make request after some time"
+                }
+            })  
+        }
+
         if (!name || !quantity || !tableBookId) {
-            res.status(400).json({ message: "Please enter all mendetory fields" })
-            return;
+            return  res.status(404).json({
+				error: {
+					errorMessage: "Please enter all mendetory fields"
+                }
+            })  
         }
         const tableBook = await TableBook.findOne({ id: tableBookId });
 
         if (!tableBook) {
-            res.status(400).json({ message: "Table is not booked yet" })
-            return;
+            return  res.status(404).json({
+				error: {
+					errorMessage: "Table is not booked yet"
+                }
+            })  
         }
         
         if (!tableBook.isAvailable) {
-            res.status(400).json({ message: "Please conform table available from Counter" });
-            return;
+            return  res.status(404).json({
+				error: {
+					errorMessage: "Please conform table available from Counter"
+                }
+            })  
         }
         const foodItem = await FoodItem.findOne({ name });
         const totalPrice = quantity * foodItem.price;
@@ -101,9 +123,18 @@ async function setFoodOrder(req, res) {
         chef.totalLoad += parseInt(quantity);
         await chef.save();
 
-        res.status(200).json(order);
+        cache.set(tableBookId, 'BookedId');
+          
+        res.status(200).send({ 
+			order,
+			message: "Food ordered successfully" 
+		});
     } catch (err) {
-        console.log(err);
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })   
     }
 }
 

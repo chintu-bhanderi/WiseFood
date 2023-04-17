@@ -1,7 +1,9 @@
 const { Worker } = require('../models/workerModel');
 const {User,validate} = require('../models/userModel');
 const { decodeJWTtoken } = require('../utility/decodeJWToken');
+const nodemailer = require('nodemailer');
 const Joi = require("joi");
+
 
 const userRegistrationMiddleware = async (req, res, next) => {
     try {
@@ -21,7 +23,36 @@ const userRegistrationMiddleware = async (req, res, next) => {
             })
         }
 
+        const transporter = await nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            auth: { 
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+            }
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: req.body.email,
+            subject: 'Test email',
+            text: 'This is a test email sent from Node.js using Nodemailer.'
+        };
+
+        console.log('mailOption->',mailOptions)
+        // console.log('transporter->',transporter)
+
+        await transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+        });
+        
         next();
+
 
     } catch (error) {
 		return res.status(404).json({

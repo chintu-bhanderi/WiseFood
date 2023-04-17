@@ -1,13 +1,15 @@
 import "../styles.css"
 import { Button} from '@mui/material';
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import {io} from 'socket.io-client';
 
 export const OrdersShow = (props) => {
 
-    const navigate = useNavigate();  
-    
+    const {myInfo} = useSelector(state=>state.auth);
+    const socket = useRef();
+
     const updateOrderDone = async () => {
         const res = await axios.put(`http://localhost:8000/api/order/done/${props.orderId}`)
           .catch(error => console.log(error));
@@ -16,11 +18,16 @@ export const OrdersShow = (props) => {
         return data;
     }
 
+    useEffect(() => {
+        socket.current = io("ws://localhost:5000");
+    }, []);
+
     const clickHandler = () => {
         updateOrderDone()
-        // .then(() => {
-        //     navigate(`/food-order-show`)
-        // })
+        .then((data) => {
+            console.log(myInfo);
+            socket.current.emit('order-done',myInfo.id)
+        })
     }
 
     return (

@@ -65,7 +65,6 @@ export const fetchAvailableTableByUser = (user) => {
     return async (dispath) => {
         try {
             const { data: res } = await axios.get(`/api/table-book/user/available/${user}`);
-            // console.log(res.table.tableNo);
             dispath({
                 type: BOOKED_TABLE_GET_SUCCEESS,
                 payload: {
@@ -74,18 +73,16 @@ export const fetchAvailableTableByUser = (user) => {
                 }
             })
         } catch (error) {
-            // console.log(error.response.data.error.errorMessage);
+            console.log(error.response.data.error.errorMessage);
         }   
     }
 }
 
 export const setTableBook = async (tableId,slotId,user,date) => {
     try {
-        // const user = '63a4ffc68cc75652b8850f9f';
-        const { data: res } = await axios.post(`/api/table-book`,{
+        await axios.post(`/api/table-book`,{
             slotId,tableId,user,date
         })  
-        // console.log(res.message);
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
         alert(error.response.data.error.errorMessage);

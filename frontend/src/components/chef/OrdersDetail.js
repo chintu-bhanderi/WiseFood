@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { OrdersShow } from './OrdersShow'
 import "../styles.css"
 import { useParams } from "react-router-dom";
+import {io} from 'socket.io-client'
+import { useSelector } from "react-redux";
 
-//import React from "react"
 export const OrdersDetail = () => {
-    // store all orders..
-    const [foodOrders, setFoodOrders] = useState();
-    const [totalOrders, setTotalOrders] = useState(0);
-    const chefId = useParams().chefId;
 
-    // fetch all orders ..
+    const chefId = useParams().chefId;
+    const [foodOrders, setFoodOrders] = useState();
+   const socket = useRef();
+    const {myInfo} = useSelector(state=>state.auth); 
+    
     const fetchFoodOrdersDetails = async () => {
         const res = await axios.get(`http://localhost:8000/api/order/chef/${chefId}`)
             .catch(error => console.log(error));
@@ -19,13 +20,26 @@ export const OrdersDetail = () => {
         return data;
     }
 
-    useEffect(() => {
-        // after some interval rerander this page..
-        setInterval(() => {
-            fetchFoodOrdersDetails()
-            .then(data => setFoodOrders(data))
-        }, 3000);
+    const setFoodOrderArray = () => {
+        fetchFoodOrdersDetails()
+        .then(data => setFoodOrders(data))
+    } 
+    
+    useEffect(()=>{
+        socket.current = io("ws://localhost:5000");   
+        socket.current.on('get-order',(data)=>{
+            console.log(data);
+            setFoodOrderArray();
+        })
+        socket.current.on('order-update',(data)=>{
+            console.log(data);
+            setFoodOrderArray();
+        })
+    },[])
 
+    useEffect(() => {
+        socket.current.emit('add-worker', myInfo.id, myInfo);
+        setFoodOrderArray();
     }, []);
 
     return (
