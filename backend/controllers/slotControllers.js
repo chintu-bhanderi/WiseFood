@@ -62,15 +62,15 @@ async function getAllSlot(req,res) {
 
 async function setSlot (req,res) {
     try{
-        const {slotNo,startTime,endTime} = req.body;
-        if(!slotNo && !startTime && !endTime) {
+        const {slotNo,startTime,endTime,category} = req.body;
+        if(!slotNo || !startTime || !endTime || !category) {
             return  res.status(404).json({
 				error: {
 					errorMessage: ["Please enter all mendetory fields"]
                 }
             })  
         }
-        const slot = await Slot.create({slotNo,startTime,endTime});
+        const slot = await Slot.create({slotNo,startTime,endTime,category});
         res.status(200).send({ 
 			message: "Slot created successfully" 
 		});

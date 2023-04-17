@@ -14,6 +14,10 @@ const tableSchema = mongoose.Schema({
         type: Number,
         required: [true,'Please add table chair']
     },
+    category: {
+        type: Number,
+        required: [true,'Please add category']
+    }
 },{
     timestemps: true,
 })

@@ -39,14 +39,14 @@ async function getTableNo (req,res) {
 }
 
 async function setTable(req, res) {
-    const {price,chair,tableNo} = req.body;
+    const {price,chair,tableNo,category} = req.body;
 
-    if(!tableNo || !price || !chair) {
+    if(!tableNo || !price || !chair || !category) {
         res.status(404).json({message: 'Please enter all fields'});
         return;
     }
 
-    const table = await Table.create({tableNo,price,chair});
+    const table = await Table.create({tableNo,price,chair,category});
 
     res.status(200).json(table);
 }

@@ -19,7 +19,7 @@ export const TableDetail = (props) => {
 
     useEffect(()=>{
         fetchTableDetailsBySlot(slotId,date).then(data=>setTables(data));
-    },[bookFlag]);
+    },[bookFlag,props.selectSlot,props.date]);
 
     return (
         <>

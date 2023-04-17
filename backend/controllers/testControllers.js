@@ -43,20 +43,9 @@ async function actionSomething(req,res) {
 
 async function getData(req,res) {
     try{
-        const id = "64258739a306d83496ba62c3";
-        
-        // const data = await TableBookLockToken.findById(id);
-        // const data = await TableBookLockToken.collection.createIndex({ createdAt: 1 }, { expireAfterSeconds: 60 });
-        const data = await TableBookLockToken.collection.getIndexes();
-        // console.log(1);
-        const data2 = data;
-        const expirationTime = new Date(Date.now());
-        // const data = await TableBookLockToken.find({createdAt: {
-        //     $gte: expirationTime
-        //     // $lt: expirationTime
-        //   }});  
-
-        res.status(200).json(data);
+        console.log(1);
+        await TableBook.deleteMany({});
+        res.status(200).json({message: "seccess"});
     } catch(error){
         console.log(error.message);
         return res.status(404).json({

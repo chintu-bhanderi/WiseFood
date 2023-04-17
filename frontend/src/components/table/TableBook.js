@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableDetail } from "./TableDetail";
 import { SlotDetail } from "./SlotDetail";
 
 export const TableBook = () => {
 
     const [selectSlot,setSelectSlot] = useState();
-    const [date,setDate] = useState("");
+    const [date,setDate] = useState();
 
     const changeHandler = (event) => {
         setDate(event.target.value);
-    }
+    }   
    
     return (
         <>
@@ -20,8 +20,9 @@ export const TableBook = () => {
             </div>  
             <SlotDetail 
                 setSelectSlot={setSelectSlot}
+                selectSlot={selectSlot}
             />
-            {selectSlot && 
+            {date && selectSlot && 
                 <TableDetail
                     selectSlot={selectSlot}
                     date={date}

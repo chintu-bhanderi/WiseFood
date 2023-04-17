@@ -100,7 +100,9 @@ async function getTablesBySlotAndDate(req, res) {
     try {
         const { slotId, date } = req.body;
 
-        const tables = await Table.find({});
+        const slot = await Slot.findById(slotId);
+
+        const tables = await Table.find({category:slot.category});
         const tableBooks = await TableBook.find({});
 
         const filterData = tables.filter((table) => {
