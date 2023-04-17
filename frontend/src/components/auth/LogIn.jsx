@@ -1,45 +1,44 @@
 import { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie';
-import {useDispatch,useSelector} from "react-redux";
-import { authLogin} from '../../store/actions/authAction';
+import { useDispatch, useSelector } from "react-redux";
+import { authLogin } from '../../store/actions/authAction';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from 'react-alert';
-import {ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE} from '../../store/types/authType'
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE } from '../../store/types/authType'
 import styles from "../../styles/login.module.css";
 
-export const LogIn = ({setCookies}) => {
+export const LogIn = ({ setCookies }) => {
 
-	const dispatch = useDispatch();	
+	const dispatch = useDispatch();
 	const alert = useAlert();
 	const navigate = useNavigate();
 	const type = useParams().type;
 	const [data, setData] = useState({ email: "", password: "" });
-	const {authenticate,successMessage,error} = useSelector(state=>state.auth);
+	const { authenticate, successMessage, error } = useSelector(state => state.auth);
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 	};
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(authLogin(data,type,setCookies));
+		dispatch(authLogin(data, type, setCookies));
 	};
 
-	useEffect(()=>{	
-		if(authenticate){
+	useEffect(() => {
+		if (authenticate) {
 			navigate('/');
-        }
-		if(error){
-			error.map(err=>alert.error(err));
-			dispatch({type : ERROR_CLEAR })
-			setData((prev)=>{
+		}
+		if (error) {
+			error.map(err => alert.error(err));
+			dispatch({ type: ERROR_CLEAR })
+			setData((prev) => {
 				return {
 					...prev,
-					password : ""
+					password: ""
 				}
 			})
 		}
-	},[successMessage,error])
+	}, [successMessage, error])
 
 	return (
 		<div className={styles.login_container}>
@@ -71,7 +70,7 @@ export const LogIn = ({setCookies}) => {
 						</button>
 					</form>
 				</div>
-				{ type===USER_TYPE && 
+				{type === USER_TYPE &&
 					<div className={styles.right}>
 						<h1>New Here ?</h1>
 						<Link to="/auth/signup">

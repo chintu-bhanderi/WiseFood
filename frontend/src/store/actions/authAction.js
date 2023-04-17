@@ -54,7 +54,6 @@ export const authLogin = (data,type,setCookies) => {
 
 export const authLogout = (type,id,removeCookies) => {
     const token = Cookies.get('jwtoken');
-    // console.log('token->',token);
     return async (dispath) => {
         try{
             if(type!==USER_TYPE) {

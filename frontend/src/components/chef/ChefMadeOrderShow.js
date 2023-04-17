@@ -1,8 +1,6 @@
-import { Button } from "react-bootstrap";
 import "../../styles/Table.css";
 
 export const ChefMadeOrderShow = (props) => {
-
     return (  
         <>
             <div className="cards">

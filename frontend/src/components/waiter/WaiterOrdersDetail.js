@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from 'axios';
+import { io } from 'socket.io-client'
 import { OrdersShow } from './OrdersShow'
 import "../styles.css"
-import { useParams } from "react-router-dom";
 
-//import React from "react"
 export const WaiterOrdersDetail = () => {
-    // store all orders..
+
     const [foodOrders, setFoodOrders] = useState();
     const waiterId = useParams().waiterId;
+    const socket = useRef();
+    const { myInfo } = useSelector(state => state.auth);
 
-    // fetch all orders ..
+
     const fetchFoodOrdersDetails = async () => {
         const res = await axios.get(`http://localhost:8000/api/order/waiter/${waiterId}`)
             .catch(error => console.log(error));
@@ -18,14 +21,25 @@ export const WaiterOrdersDetail = () => {
         return data;
     }
 
-    useEffect(() => {
-        // after some interval rerander this page..
-        setInterval(() => {
-            fetchFoodOrdersDetails().then(data => setFoodOrders(data))
-            // .then(()=>console.log(foodOrders));
-        }, 3000);
+    const setFoodOrderArray = () => {
+        fetchFoodOrdersDetails()
+            .then(data => setFoodOrders(data))
+    }
 
+    useEffect(() => {
+        socket.current = io("ws://localhost:5000");
+        socket.current.on('get-order', (data) => {
+            setFoodOrderArray();
+        })
+        socket.current.on('order-update', (data) => {
+            setFoodOrderArray();
+        })
     }, []);
+
+    useEffect(() => {
+        socket.current.emit('add-worker', myInfo.id, myInfo);
+        setFoodOrderArray();
+    }, [])
 
     return (
         <>
@@ -34,7 +48,6 @@ export const WaiterOrdersDetail = () => {
                 {foodOrders && <h2>Total Orders: {foodOrders.length}</h2>}
                 <br />
                 <div className="ordersDetail">
-
                     {foodOrders && foodOrders.map((foodOrder, index) => (
                         <OrdersShow
                             foodOrderId={foodOrder._id}

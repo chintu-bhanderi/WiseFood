@@ -44,7 +44,7 @@ async function actionSomething(req,res) {
 async function getData(req,res) {
     try{
         console.log(1);
-        await TableBook.deleteMany({});
+        await FoodOrder.deleteMany({});
         res.status(200).json({message: "seccess"});
     } catch(error){
         console.log(error.message);

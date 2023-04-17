@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "../../styles/signup.module.css";
-import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE } from "../../store/types/authType";
-import { useDispatch, useSelector } from "react-redux";
-import { userRegistration } from "../../store/actions/authAction";
 import { useAlert } from "react-alert";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { userRegistration } from "../../store/actions/authAction";
+import { ERROR_CLEAR, SUCCESS_MESSAGE_CLEAR, USER_TYPE } from "../../store/types/authType";
+import styles from "../../styles/signup.module.css";
 
 export const SignUp = () => {
-	
+
 	const navigate = useNavigate();
-	const dispatch = useDispatch();	
+	const dispatch = useDispatch();
 	const alert = useAlert();
-	const {successMessage,error} = useSelector(state=>state.auth);
+	const { successMessage, error } = useSelector(state => state.auth);
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
@@ -29,23 +29,22 @@ export const SignUp = () => {
 		dispatch(userRegistration(data));
 	};
 
-	useEffect(()=>{	
-        if(successMessage){
-            // alert.success(successMessage);
-            dispatch({type : SUCCESS_MESSAGE_CLEAR })
+	useEffect(() => {
+		if (successMessage) {
+			dispatch({ type: SUCCESS_MESSAGE_CLEAR })
 			navigate(`/auth`);
-        }
-		if(error){
-			error.map(err=>alert.error(err));
-			dispatch({type : ERROR_CLEAR })
-			setData((prev)=>{
+		}
+		if (error) {
+			error.map(err => alert.error(err));
+			dispatch({ type: ERROR_CLEAR })
+			setData((prev) => {
 				return {
 					...prev,
-					password : ""
+					password: ""
 				}
 			})
 		}
-	},[successMessage,error])
+	}, [successMessage, error])
 
 	return (
 		<div className={styles.signup_container}>
@@ -106,7 +105,6 @@ export const SignUp = () => {
 							required
 							className={styles.input}
 						/>
-						{/* {error && <div className={styles.error_msg}>{error}</div>} */}
 						<button type="submit" className={styles.green_btn}>
 							Sing Up
 						</button>

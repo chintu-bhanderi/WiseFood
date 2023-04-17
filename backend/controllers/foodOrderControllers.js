@@ -171,9 +171,12 @@ async function updateOrderDone(req, res) {
     await waiter.save();
     order.waiter = waiter._id;
 
-    await FoodOrder.findByIdAndUpdate(orderId, order);
+    const updatedOrder = await FoodOrder.findByIdAndUpdate(orderId, order);
 
-    res.status(200).json({ message: "Order is done is updates" });
+    res.status(200).send({ 
+        order,
+        message: "Food ordered successfully" 
+    });
 }
 
 async function updateOrderServe(req, res) {

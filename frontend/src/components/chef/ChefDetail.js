@@ -3,12 +3,9 @@ import axios from 'axios';
 import { ChefShow } from './ChefShow'
 import "../styles.css"
 
-//import React from "react"
 export const ChefDetail = (props) => {
-    // store all orders..
     const [chefs, setChefs] = useState();
 
-    // fetch all orders ..
     const fetchChefDetails = async () => {
         const res = await axios.get(`http://localhost:8000/api/worker-action/chef`)
             .catch(error => console.log(error));
@@ -25,12 +22,11 @@ export const ChefDetail = (props) => {
             <div>
                 <h1>All Chefs</h1>
                 <div className="ordersDetail">
-
                     {chefs && chefs.map((chef, index) => (
                         <ChefShow
                             chefId={chef._id}
                             name={chef.name}
-                            load = {chef.load}
+                            load={chef.load}
                         />
                     ))}
                 </div>

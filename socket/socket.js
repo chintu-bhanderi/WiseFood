@@ -11,18 +11,15 @@ const addWorker = (workerId, socketId, workerInfo) => {
     if (!checkWorker) {
         workers.push({ workerId, socketId, workerInfo });
     }
-    console.log(workers);
 }
 
 const removeWorker = (socketId) => {
     workers = workers.filter(w => w.socketId !== socketId);
-    console.log(workers);
 }
 
 const findworker = (id) => {
     return workers.find(w => w.workerId == id);
 }
-
 
 io.on('connection', (socket) => {
     console.log('Socket is connecting...');
@@ -34,8 +31,7 @@ io.on('connection', (socket) => {
     })
     socket.on('food-ordered', (workerId) => {
         const worker = findworker(workerId);
-        console.log(workers);
-        if(worker){
+        if (worker) {
             io.to(worker.socketId).emit('get-order', {
                 msg: "get-ordered"
             });
@@ -43,14 +39,12 @@ io.on('connection', (socket) => {
     })
     socket.on('order-done', (workerId) => {
         const worker = findworker(workerId);
-        console.log(worker);
-        if(worker){
+        if (worker) {
             io.to(worker.socketId).emit('order-update', {
                 msg: "get-updated"
             });
         }
     })
-
     socket.on('disconnect', () => {
         console.log('worker is disconnected')
         removeWorker(socket.id);

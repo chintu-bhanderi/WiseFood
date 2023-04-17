@@ -1,8 +1,6 @@
-import "../styles.css"
 import { Button} from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import { useEffect } from "react";
+import "../styles.css"
 
 export const ChefShow = (props) => {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { CHEF_TYPE, USER_TYPE, WAITER_TYPE } from "../../store/types/authType";
+import { CHEF_TYPE, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 
 export const Profile = () => {
     const {authenticate,myInfo,successMessage} = useSelector(state=>state.auth);

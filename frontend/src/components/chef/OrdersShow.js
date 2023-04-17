@@ -1,21 +1,21 @@
-import "../styles.css"
-import { Button} from '@mui/material';
+import { Button } from '@mui/material';
 import axios from "axios";
+import { io } from 'socket.io-client';
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import {io} from 'socket.io-client';
+import "../styles.css"
 
 export const OrdersShow = (props) => {
 
-    const {myInfo} = useSelector(state=>state.auth);
+    const { myInfo } = useSelector(state => state.auth);
     const socket = useRef();
 
     const updateOrderDone = async () => {
         const res = await axios.put(`http://localhost:8000/api/order/done/${props.orderId}`)
-          .catch(error => console.log(error));
+            .catch(error => console.log(error));
         const data = await res.data;
         console.log(data);
-        return data;
+        return data.order;
     }
 
     useEffect(() => {
@@ -24,18 +24,17 @@ export const OrdersShow = (props) => {
 
     const clickHandler = () => {
         updateOrderDone()
-        .then((data) => {
-            console.log(myInfo);
-            socket.current.emit('order-done',myInfo.id)
-        })
+            .then((data) => {
+                socket.current.emit('order-done', myInfo.id);
+                socket.current.emit('food-ordered', data.waiter);
+            })
     }
 
     return (
         <>
             <span className="ordersShow">
-                    <p>Name: {props.foodName}</p>
-                    <p>quantity: {props.quantity}</p>
-                    {/* <p>table: {props.table}</p> */}
+                <p>Name: {props.foodName}</p>
+                <p>quantity: {props.quantity}</p>
                 <Button className="btnShow"
                     onClick={clickHandler}
                 >Done</Button>

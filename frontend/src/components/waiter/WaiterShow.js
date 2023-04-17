@@ -1,6 +1,6 @@
-import "../styles.css"
 import { Button} from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import "../styles.css"
 
 export const WaiterShow = (props) => {
 
