@@ -2,7 +2,6 @@ const { CHEF_TYPE } = require('../authTypes');
 const FoodOrder = require('../models/foodOrderModel');
 const {Worker} = require('../models/workerModel')
 const TableBook = require('../models/tableBookModel');  
-const TableBookLockToken = require('../models/tableBookLockTokenModel');
 const Slot = require('../models/slotModel');
 const FoodItemsModel = require('../models/foodItemsModel');
 
@@ -27,8 +26,6 @@ async function actionSomething(req,res) {
         const token = `date=${date}:slotNo=${slotNo}:tableNo=${tableNo}`;
         const expirationTime = new Date(Date.now() + 300000);
         const data = await TableBookLockToken.create({ token });
-        // const data = await TableBookLockToken.create({ token, createdAt: new Date() });
-        console.log(1);
 
         res.status(200).json(data);
     } catch(error){
@@ -44,7 +41,7 @@ async function actionSomething(req,res) {
 async function getData(req,res) {
     try{
         console.log(1);
-        await FoodOrder.deleteMany({});
+        await TableBook.deleteMany({});
         res.status(200).json({message: "seccess"});
     } catch(error){
         console.log(error.message);

@@ -1,7 +1,9 @@
 const { verify } = require('jsonwebtoken');
+
 function decodeJWTtoken(req, res) {
 
     const { authorization } = req.headers;
+    console.log(authorization);
     if ('Bearer undefined' !== authorization) {
         const token = authorization.split(' ')[1];
         if ('undefined' !== token) {

@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import { CHEF_TYPE, USER_TYPE, WAITER_TYPE } from "../store/types/authType";
 
 export const Profile = () => {
-    const {authenticate,myInfo,successMessage} = useSelector(state=>state.auth);
-    console.log('myInfo4',myInfo);
+    const {myInfo} = useSelector(state=>state.auth);
     return (
        <>
             <div className="bg-light">
@@ -46,13 +45,7 @@ export const Profile = () => {
                                         <p className="font-weight-bold">Email : </p>
                                         <h6 className="text-muted">{myInfo.email}</h6>
                                     </div>
-
-                                    {/* <div className="col-sm-6">
-                                        <p className="font-weight-bold">Phone : </p>
-                                        <h6 className="text-muted">987654344</h6>
-                                    </div> */}
                                 </div>
-
                                 { myInfo.type===USER_TYPE && <div className="row">
                                     <div className="col-sm-6">
                                         <p className="font-weight-bold">Address: </p>

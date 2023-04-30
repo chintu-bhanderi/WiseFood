@@ -23,9 +23,10 @@ export const BillGenerate = () => {
             })
         })
         .then(data => { setOrders(data) })
+
         fetchTableBookDetailsById(bookId)
         .then(data=>{
-            setTableBookDetail(data)
+            setTableBookDetail(data);
             fetchUserById(data.user)
             .then(data=>setUser(data));
             return data;
@@ -47,9 +48,9 @@ export const BillGenerate = () => {
             <div class="bill_header">
                 <div class="bill_logo_invoice_wrap">
                     <div class="bill_logo_sec">
-                        <div class="bill_title_wrap ">
-                            <p class="bill_title bill_bold ">Wise-Food</p>
-                            <p class="bill_sub_title ">Privite Limited</p>
+                        <div class="bill_title_wrap">
+                            <p class="bill_title bill_bold" style={{ fontSize: '2rem',paddingTop: '-20px' }}>Wise-Food</p>
+                            <p class="bill_sub_title" style={{ fontSize: '1rem' }}>Privite Limited</p>
                         </div>
                     </div>
                     <div class="bill_invoice_sec ">
@@ -73,10 +74,6 @@ export const BillGenerate = () => {
                        {user?.email}
 			        </span>
                     </div>
-                    {/* <div class="bill_wrap ">
-                        <p>Total Due</p>
-                        <p class="bill_bold bill_price ">{}</p>
-                    </div> */}
                 </div>
             </div>
             <div class="bill_body ">

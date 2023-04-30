@@ -27,7 +27,10 @@ export const ProtectedRoute = ({Child,type}) => {
             navigate("/");
         }
     },[])
-    return (<>
-        <Child />
-    </>)
+    
+    return (
+        <>
+            <Child />
+        </>
+    )
 }

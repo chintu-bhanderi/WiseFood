@@ -8,8 +8,6 @@ export const TableBookShow = (props) => {
 
     const navigate = useNavigate();
 
-    // const [available,setAvailable] = useState(props.isAvailable);
-
     const updateIsAvailable = async () => {
         const res = await axios.put(`http://localhost:8000/api/table-book/${props.bookId}`)
             .catch(error => console.log(error));
@@ -21,8 +19,6 @@ export const TableBookShow = (props) => {
         updateIsAvailable()
         .then(()=>{navigate('/counter')});
     }
-
-    // useEffect(()=>{console.log(props)},[])
 
     return (
         <>

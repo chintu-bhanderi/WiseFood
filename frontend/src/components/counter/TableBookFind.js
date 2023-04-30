@@ -4,9 +4,6 @@ import "../styles.css"
 import { Button, TextField } from "@mui/material";
 import { TableBookShow } from "./TableBookShow";
 
-
-
-//import React from "react
 export const TableBookFind = () => {
 
     const [bookId, setBookId] = useState();
@@ -26,9 +23,6 @@ export const TableBookFind = () => {
         })
         .catch(error => console.log(error));
         return res.tableBook;
-        // const data = await res.data;
-        // console.log(data);
-        // return data;
     }
 
     const inputTableNoHandler = (event) => {

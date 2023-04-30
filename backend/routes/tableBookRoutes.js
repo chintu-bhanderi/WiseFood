@@ -9,9 +9,5 @@ router.route('/user/:userId').get(getTableBooksByUserId);
 router.route('/id/:id').get(getTableBookById)
 router.route('/:bookId').get(getTableBookByBookId).put(updateAvailable).delete(deleteTableBook);
 router.route('/').get(getAllTableBooks).post(setTableBooks);
-// router.route('/:name').put(updateFoodItem).delete(deleteFoodItem);
-
-// otherwise we can write :- router.put('/:id,updateGoals)
-
 
 module.exports = router

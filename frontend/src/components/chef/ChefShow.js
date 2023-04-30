@@ -18,7 +18,7 @@ export const ChefShow = (props) => {
                     <p>quantity: {props.load}</p>
                 <Button className="btnShow"
                     onClick={clickHandler}
-                >Done</Button>
+                >Show</Button>
             </span>
         </>
     )

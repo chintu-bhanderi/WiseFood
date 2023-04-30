@@ -1,10 +1,6 @@
 import "../styles.css"
-import { Button } from '@mui/material';
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 export const TableOrderShow = (props) => {
-
     return (
         <>
             <span className="tableShow">

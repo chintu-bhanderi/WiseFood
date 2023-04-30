@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TableDetail } from "./TableDetail";
 import { SlotDetail } from "./SlotDetail";
 

@@ -63,7 +63,7 @@ async function userLogout(req, res) {
 }
 
 async function getUserByUserId(req, res) {
-	const userId = req.userId;
+	const userId = req.params.userId;
 
 	const user = await User.findById(userId);
 

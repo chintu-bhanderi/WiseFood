@@ -3,7 +3,6 @@ const Table = require('../models/tableModel');
 const TableBook = require('../models/tableBookModel');
 const { User } = require('../models/userModel');
 var Mutex = require('async-mutex').Mutex;
-const TableBookLockTokenModel = require('../models/tableBookLockTokenModel');
 const NodeCache = require('node-cache');
 
 const cache = new NodeCache({ stdTTL: 30, checkperiod: 10 });
@@ -153,6 +152,7 @@ async function getTableBookByTableSlotDate(req, res) {
         })
     }
 }
+
 const getMEXIdFromAllTableBooks = (tableBooks) => {
     if (!tableBooks.length || tableBooks.length == 0) return 1;
     tableBooks.sort((book1, book2) => {
@@ -259,12 +259,18 @@ async function updateAvailable(req, res) {
 
     res.status(200).json({ message: 'Available is Updated' });
 }
+
 async function deleteTableBook(req, res) {
     try {
         const tableBookId = req.params.bookId;
-        const data = await TableBook.findOne({ id: tableBookId });
-        const token = `date=${data.date}:slotId=${data.slot}:tableId=${data.table}`;
-        await TableBookLockTokenModel.deleteOne({ token });
+        const tableBook = await TableBook.findOne({id: tableBookId});
+        if(tableBook.isAvailable) {
+            return res.status(404).json({
+                error: {
+                    errorMessage: 'Table-book is already confirm!'
+                }
+            })
+        }
         await TableBook.deleteOne({ id: tableBookId });
         res.status(200).send({
             message: "TableBook successfully delete"

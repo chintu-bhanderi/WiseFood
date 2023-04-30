@@ -12,7 +12,6 @@ export const fetchCategoryDetails = async () => {
 export const fetchFoodDetails = async (categoryId) => {
     try {
         const { data: res } = await axios.get(`/api/food-item/${categoryId}`)
-        // console.log(res.message);
         return res.foodItems;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);

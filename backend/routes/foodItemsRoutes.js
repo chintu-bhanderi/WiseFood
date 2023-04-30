@@ -6,7 +6,4 @@ router.route('/').post(setFooditem)
 router.route('/:id').get(getFoodItemByCategory)
 router.route('/:name').put(updateFoodItem).delete(deleteFoodItem);
 
-// otherwise we can write :- router.put('/:id,updateGoals)
-
-
 module.exports = router

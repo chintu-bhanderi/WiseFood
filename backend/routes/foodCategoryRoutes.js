@@ -5,9 +5,4 @@ const {setCategory,getAllCategory,deleteCategory} = require('../controllers/food
 router.route('/').get(getAllCategory).post(setCategory)
 router.route('/:name').delete(deleteCategory)
 
-// router.route('/:id').put(updateGoals).delete(deleteGoals)
-
-// otherwise we can write :- router.put('/:id,updateGoals)
-
-
 module.exports = router

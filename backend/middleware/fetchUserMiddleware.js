@@ -4,6 +4,7 @@ const { decodeJWTtoken } = require('../utility/decodeJWToken');
 
 const fetchUserMiddleware = async (req, res, next) => {
     try {
+        
         const { id } = decodeJWTtoken(req, res);
         if(!id) return res.status(404).json({
                 error: {

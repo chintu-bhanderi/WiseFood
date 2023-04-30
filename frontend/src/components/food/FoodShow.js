@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import "../../styles/foodItem.css";
@@ -8,7 +7,6 @@ export const FoodShow = (props) => {
     const [items,setItems] = useState(0);
 
     const {myInfo} = useSelector(state=>state.auth);
-    const navigate = useNavigate();    
 
     return (
         <>
@@ -26,7 +24,6 @@ export const FoodShow = (props) => {
                     <div class="foodItemCard__description">
                         <p style={{"font-size":"20px"}} >Price: {props.price}</p>
                         { myInfo.bookedTable && <div>
-                            {/* <p style={{"font-size":"20px","color":"red"}} >How many items wants to order?</p> */}
                             <div class="foodItemWrapper">
                                 
                                 <span class="minus" onClick={()=>{if(items>0)setItems(items-1)}}>-</span>

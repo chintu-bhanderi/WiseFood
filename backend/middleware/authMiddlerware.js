@@ -4,7 +4,6 @@ const { decodeJWTtoken } = require('../utility/decodeJWToken');
 const nodemailer = require('nodemailer');
 const Joi = require("joi");
 
-
 const userRegistrationMiddleware = async (req, res, next) => {
     try {
         const { error } = validate(req.body);

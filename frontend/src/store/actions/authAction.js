@@ -88,14 +88,8 @@ export const getWorkerTypes = async () => {
 }
 
 export const fetchUserById = async (userId) => {
-    const token = Cookies.get('jwtoken');
     try {
-        const res = await axios.get(`/api/auth/${userId}`,{},{ 
-            headers:{
-                "Content-Type": "application/json",
-                Authorization : `Bearer ${token}`
-            }
-        });
+        const res = await axios.get(`/api/auth/${userId}`);
         console.log(res.data);
         return res.data;
     } catch (error) {

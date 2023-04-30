@@ -1,6 +1,4 @@
-// import axios from "axios";
 import axios from "../../api/axios";
-
 
 export const fetchChefMakeOrdersById = async (chefId) => {
     try {

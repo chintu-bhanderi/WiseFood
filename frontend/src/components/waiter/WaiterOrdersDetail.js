@@ -12,8 +12,6 @@ export const WaiterOrdersDetail = () => {
     const waiterId = useParams().waiterId;
     const socket = useRef();
     const { myInfo } = useSelector(state => state.auth);
-
-
     const fetchFoodOrdersDetails = async () => {
         const res = await axios.get(`http://localhost:8000/api/order/waiter/${waiterId}`)
             .catch(error => console.log(error));
@@ -25,7 +23,6 @@ export const WaiterOrdersDetail = () => {
         fetchFoodOrdersDetails()
             .then(data => setFoodOrders(data))
     }
-
     useEffect(() => {
         socket.current = io("ws://localhost:5000");
         socket.current.on('get-order', (data) => {

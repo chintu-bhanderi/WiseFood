@@ -3,7 +3,6 @@ const cors = require('cors')
 const colors = require('colors')
 const connectDb = require('./config/db')
 const dotenv = require('dotenv').config();
-// const {errorHandler} = require('./middleware/errorMiddleware')
 const port = process.env.PORT || 5000;
 
 connectDb();
@@ -25,7 +24,5 @@ app.use('/api/auth/' , require('./routes/authRoutes') )
 app.use('/api/worker/' , require('./routes/workerRoutes') )
 app.use('/api/worker-action/' , require('./routes/workerActionRoutes') )    
 app.use('/api/test/' , require('./routes/testRoutes') )    
-
-// app.use(errorHandler);
 
 app.listen(port, ()=>console.log(`Server started on port ${port}`))

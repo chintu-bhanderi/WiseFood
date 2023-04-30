@@ -1,7 +1,6 @@
 import axios from "../../api/axios";
 import { BOOKED_TABLE_GET_SUCCEESS } from "../types/tableType";
 
-
 export const fetchSlotDetails = async () => {
     try {
         const { data: res }  = await axios.get(`/api/slot`)
@@ -14,7 +13,6 @@ export const fetchSlotDetails = async () => {
 export const fetchSlotNo = async (slotId) => {
     try {
         const { data: res } = await axios.get(`/api/slot/${slotId}`);
-        // console.log(res.slotNo);
         return res.slotNo;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
@@ -24,7 +22,6 @@ export const fetchSlotNo = async (slotId) => {
 export const fetchTableNo = async (tableId) => {
     try {
         const { data: res } = await axios.get(`/api/table/${tableId}`);
-        console.log(res.tableNo);
         return res.tableNo;
     } catch (error) {
         console.log(error.response.data.error.errorMessage);
@@ -94,6 +91,7 @@ export const deleteTableBookById = async (tableBookId) => {
         const { data: res } = await axios.delete(`/api/table-book/${tableBookId}`);
         console.log(res.message);
     } catch (error) {
+        alert(error.response.data.error.errorMessage);
         console.log(error.response.data.error.errorMessage);
     }
 }

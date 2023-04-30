@@ -6,9 +6,6 @@ const { fetchUserMiddleware } = require('../middleware/fetchUserMiddleware');
 
 router.route('/registration').post(userRegistrationMiddleware,userRegistration);
 router.route('/login').post(userLoginMiddleware,userLogin);
-router.route('/:userId').get(fetchUserMiddleware,getUserByUserId);
-
-// router.route('/login').get(getAllSlot).post(setSlot);
-
+router.route('/:userId').get(getUserByUserId);
 
 module.exports = router

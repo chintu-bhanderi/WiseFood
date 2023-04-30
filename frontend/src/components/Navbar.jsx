@@ -26,7 +26,6 @@ export const Navbar = ({removeCookies}) => {
     useEffect(()=>{
         if(authenticate && myInfo.type===USER_TYPE){
             dispatch(fetchAvailableTableByUser(myInfo.id))
-            // .then(()=>{console.log('myinfo2 ',myInfo)});   
         }
     },[authenticate])
 
@@ -35,7 +34,6 @@ return (
     <nav>
         <ul>
             <li className="logo">WiseFood</li>
-            {/* <li className="logo">{myInfo.bookedTable}</li> */}
             <li className="items"><a href="/">Home</a></li>
             <li className="items"><a href="/about">About</a></li>
             {authenticate && myInfo.type===USER_TYPE && <li className="items"><a href="/table/table-book">Table Book</a></li>}
@@ -50,7 +48,7 @@ return (
             {authenticate && <li className="items"><a href="/profile">Profile</a></li>}
 
             {!authenticate && <li className="items"><a href="/auth">Login</a></li>}
-            {authenticate && <li className="items"><a onClick={logoutHandler}>Logout</a></li>}
+            {authenticate && <li className="items" style={{ color: '#e88290' }} ><a onClick={logoutHandler}>Logout</a></li>}
             <li className="btn"><a href="/"><i className="fas fa-bars"></i></a></li>
         </ul>
     </nav>

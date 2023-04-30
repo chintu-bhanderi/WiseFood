@@ -8,7 +8,4 @@ router.route('/login').post(workerLogin);
 router.route('/logout').post(userLogoutMiddleware,workerLogout); 
 router.route('/').get(getAllWorker);
 
-// router.route('/login').get(getAllSlot).post(setSlot);
-
-
 module.exports = router

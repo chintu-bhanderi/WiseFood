@@ -4,16 +4,12 @@ import "../styles.css"
 import { Button, TextField } from "@mui/material";
 import { TableBookShow } from "./TableBookShow";
 
-
-
-//import React from "react
 export const TableBookFindById = () => {
 
     const [tableBook, setTableBook] = useState();
     const [id,setId] = useState();
 
     const fetchTableBookDetail = async () => {
-        // console.log("Fetching");
         const { data: res } = await axios.get(`http://localhost:8000/api/table-book/id/${id}`)
         .catch(error => console.log(error));
         return res.tableBook;
