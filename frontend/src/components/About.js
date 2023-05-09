@@ -1,8 +1,10 @@
 import React from "react";
+import { testing } from "../store/actions/workerAction";
 
 export const About = () => {
     return (
         <>
+            <button onClick={testing} >Test</button>
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC" />
             <div class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge" id="about">

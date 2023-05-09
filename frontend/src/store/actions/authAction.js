@@ -1,12 +1,23 @@
 import axios from '../../api/axios';
 import Cookies from 'js-cookie';
 import { USER_TYPE,LOGIN_FAIL,LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTRATION_SUCCESS, REGISTRATION_FAIL, LOGOUT_SUCCESS_MESSAGE } from '../types/authType';
+const CryptoJS = require('crypto-js');
+const secretKey = 'mdsdflsddfsgscqs';
+
+const encryptionOfMessage = (data) => {
+    const dataString = JSON.stringify(data);
+    const encryptedMessage = CryptoJS.AES.encrypt(dataString, secretKey).toString();  
+    return encryptedMessage;
+}
 
 export const userRegistration = (data) => {
+    const encryptedMessage = encryptionOfMessage(data);
     return async (dispath) => {
          try {
             const url = "/api/auth/registration";
-			const { data: res } = await axios.post(url, data);
+			const { data: res } = await axios.post(url, {
+                data: encryptedMessage
+            });
             console.log(res);
               dispath({
                   type: REGISTRATION_SUCCESS,
@@ -26,12 +37,15 @@ export const userRegistration = (data) => {
 }
 
 export const authLogin = (data,type,setCookies) => {
+    const encryptedMessage = encryptionOfMessage(data);
      return async (dispath) => {
           try {
             let url;
 			if(type===USER_TYPE) url = "/api/auth/login";
 			else url = "http://localhost:8000/api/worker/login";
-			const { data: res } = await axios.post(url, data);
+			const { data: res } = await axios.post(url, {
+                data: encryptedMessage
+            });
             setCookies("jwtoken", res.token)
 			console.log(res);
                dispath({

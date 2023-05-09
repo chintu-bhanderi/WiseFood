@@ -4,6 +4,8 @@ const {Worker} = require('../models/workerModel')
 const TableBook = require('../models/tableBookModel');  
 const Slot = require('../models/slotModel');
 const FoodItemsModel = require('../models/foodItemsModel');
+const CryptoJS = require('crypto-js');
+const secretKey = 'mySecretKey';
 
 
 async function getAllChefs(req,res) {
@@ -41,7 +43,26 @@ async function actionSomething(req,res) {
 async function getData(req,res) {
     try{
         console.log(1);
-        await TableBook.deleteMany({});
+        console.log(req.body);
+        res.status(200).json({message: "seccess"});
+    } catch(error){
+        console.log(error.message);
+        return res.status(404).json({
+            error: {
+                 errorMessage : ['Internal Sever Error']
+            }
+       })
+    }
+}
+
+async function postData(req,res) {
+    try{
+        console.log(1);
+        console.log(req.body.token);
+        const decryptedBytes = CryptoJS.AES.decrypt(req.body.token, secretKey);
+        const decryptedMessage = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        const token = JSON.parse(decryptedMessage);
+        console.log(token);
         res.status(200).json({message: "seccess"});
     } catch(error){
         console.log(error.message);
@@ -79,6 +100,7 @@ async function updateData(req,res) {
 module.exports = {
     getAllChefs,
     getData,
+    postData,
     actionSomething,
     updateData
 }
