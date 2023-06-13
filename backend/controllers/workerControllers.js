@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const Joi = require("joi");
 const { CHEF_TYPE, WAITER_TYPE } = require('../authTypes');
 const NodeCache = require('node-cache');
+const { decryptionOfMessage } = require('../utility/decryptionOfMessage');
 
 const cache = new NodeCache({ stdTTL: 86400 , checkperiod: 8640 });
 
@@ -44,11 +45,13 @@ const validateLogin = (data) => {
 
 async function workerLogin (req, res) {
 	try {
+        // console.log(req.body);
+        req.body = decryptionOfMessage(req.body.data);
 		const { error } = validateLogin(req.body);
 		if (error)
         return  res.status(404).json({
                     error: {
-                        errorMessage: error.details[0].message
+                        errorMessage: [error.details[0].message]
                     }
                 })  
 		

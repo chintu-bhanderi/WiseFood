@@ -22,7 +22,7 @@ export const OrdersDetail = () => {
 
     const setFoodOrderArray = () => {
         fetchFoodOrdersDetails()
-            .then(data => setFoodOrders(data))
+            .then(data => setFoodOrders(data))  
     }
 
     useEffect(() => {

@@ -1,6 +1,8 @@
-const Slot = require('../models/slotModel');
+const Slot = require('../models/slotModel');    
 const Table = require('../models/tableModel');
 const TableBook = require('../models/tableBookModel');
+const crypto = require("crypto")
+const Razorpay = require("razorpay");
 const { User } = require('../models/userModel');
 var Mutex = require('async-mutex').Mutex;
 const NodeCache = require('node-cache');
@@ -166,6 +168,69 @@ const getMEXIdFromAllTableBooks = (tableBooks) => {
     return id;
 }
 
+async function OrderPayment(req, res) {
+    try {
+        console.log("Kaihdaof")
+        const { tableId, price } = req.body;
+        // console.log(tableId, price);
+        // console.log(process.env.RAZORPAY_KEY_ID)
+        const instance = new Razorpay({
+            key_id: process.env.RAZORPAY_KEY_ID,
+            key_secret: process.env.RAZORPAY_SECRET_KEY ,
+        });
+        const option = {
+            amount: Number(price*100),
+            currency: "INR",
+        }
+        instance.orders.create(option, (error, order) => {
+            console.log(order)
+            if (error) {
+                console.log(error);
+                return res.status(500).json({ message: "Somthing Went Wrong" });
+
+            }
+            res.status(200).json({ data: order,message:"Success" });
+        })
+        // res.status(200).send({
+        //     message: "Success",
+        //     // message: "TableBook get successfully"
+        // });
+    } catch (error) {
+        return res.status(404).json({
+            error: {
+                errorMessage: ['Internal Sever Error']
+            }
+        })
+    }
+}
+
+async function verifyPayment(req, res) {
+    try {
+        const {orderId,paymentId ,signature} = req.body;
+        console.log("hii verify");
+        console.log(req.body);
+        const sign = orderId + "|" + paymentId;
+        
+        const expectedSign = crypto.createHmc("sha256",process.env.RAZORPAY_SECRET_KEY).update(sign.toString()).digest("hex");
+        console.log(expectedSign);
+        if(signature === expectedSign) {
+            return res.status(200).json({
+                message : "payment verified succeffully",
+            })
+        }else{
+            return res.status(200).json({
+                message : "Invalid signature sent",
+            })
+        }
+    } catch (error) {
+        return res.status(404).json({
+            error: {
+                errorMessage: ['Internal Sever Error']
+            }
+        })
+    }
+}
+
 async function setTableBooks(req, res) {
     try {
         const { slotId, tableId, user, date } = req.body;
@@ -292,6 +357,8 @@ module.exports = {
     getAvailableTableByUserId,
     getTableBookByTableSlotDate,
     getTablesBySlotAndDate,
+    OrderPayment,
+    verifyPayment,
     setTableBooks,
     updateAvailable,
     deleteTableBook

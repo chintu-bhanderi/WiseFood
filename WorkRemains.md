@@ -7,6 +7,8 @@ issues:
 #tableNo is not set unique when inserting - not give any error.
 
 
+
+
 #counter
 -if Input is invalid then give alert.
 
@@ -54,6 +56,26 @@ slot show.
 validationOfLogin - put into utility fu.
 
 
+IMP functionality and topics which is put in project.
+
 ** Locking mechanism
 when fetching available table then also check tableBooktoken table tuble, might be booked table in process then also it will fetch that table as available.
+
+** caching
+
+** token
+
+** Protected Router
+
+** Cryptography
+ 
+** socket.io for realtime
+
+** Jmeter through performance testing.
+
+** compression for decrease payload...
+
+** table assigning in slot for better uttilization of chaf side and reduce the responce time and better performance.
+
+
 

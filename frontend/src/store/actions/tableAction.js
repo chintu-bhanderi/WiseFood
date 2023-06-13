@@ -86,6 +86,35 @@ export const setTableBook = async (tableId,slotId,user,date) => {
     }
 }
 
+
+export const userPaymentRequest = async (tableId,price) => {
+    try {
+        console.log("Booking")
+        const res = await axios.post(`/api/table-book/payment`,{
+            tableId,price
+        });  
+        console.log(res)
+        return res;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+        alert(error.response.data.error.errorMessage);
+    }
+}
+
+export const userPaymentVerify = async (orderId,paymentId,signature) => {
+    try {
+        console.log("verify")
+        const res = await axios.post(`/api/table-book/verify`,{
+            orderId,paymentId,signature
+        });  
+        console.log(res)
+        return res;
+    } catch (error) {
+        console.log(error.response.data.error.errorMessage);
+        alert(error.response.data.error.errorMessage);
+    }
+}
+
 export const deleteTableBookById = async (tableBookId) => {
     try {
         const { data: res } = await axios.delete(`/api/table-book/${tableBookId}`);
@@ -95,5 +124,6 @@ export const deleteTableBookById = async (tableBookId) => {
         console.log(error.response.data.error.errorMessage);
     }
 }
+
 
 

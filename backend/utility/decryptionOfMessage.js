@@ -9,4 +9,4 @@ function decryptionOfMessage(encryptedMessage) {
 
 module.exports = {
     decryptionOfMessage
-}
+}   

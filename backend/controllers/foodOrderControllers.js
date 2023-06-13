@@ -148,6 +148,7 @@ async function findWaiterWithMinLoad() {
             findWaiter = waiters[i];
         }
     }
+    console.log(waiters);
     return findWaiter;
 }
 
@@ -166,6 +167,7 @@ async function updateOrderDone(req, res) {
     await chef.save();
 
     let waiter = await findWaiterWithMinLoad();
+    // console.log(waiter);
     waiter.load = waiter.load + 1;
     waiter.totalLoad = waiter.totalLoad + 1;
     await waiter.save();

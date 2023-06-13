@@ -68,7 +68,7 @@ function App() {
           <Route path='/waiter' >
             <Route index element={<ProtectedRoute Child={WaiterDetail} type={WAITER_TYPE} />} />
             <Route path='/waiter/order/served' element={<ProtectedRoute Child={WaiterServedOrderDetail} type={WAITER_TYPE} />} />
-            <Route path='/waiter/order/:waiterId' element={<ProtectedRoute Child={WaiterOrdersDetail} type={WAITER_TYPE} />} />
+            <Route path='/waiter/order/:waiterId' element={<ProtectedRoute Child={WaiterOrdersDetail} type={WAITER_TYPE} />} /> 
           </Route>
 
           <Route path='/counter'>
