@@ -16,7 +16,7 @@ Can payment the bill online.
 
 A web application developed using the MERN stack, allowing users to conveniently book tables online, after that customer needs to go to the restaurant at a defined time. Confirm that table from the counter and after that customer can able to order the food online.	
 
-The customer order request is going to the chef and the chef needs to prepare that order and after that send the request to the waiter the service the food. So the waiter's only job is to serve whenever prepared the order and solves customer doubts of use the application to order the food.	
+The customer order request is going to the chef and the chef needs to prepare that order and after that send the request to the waiter the serve the food. So the waiter's only job is to serve whenever prepared the order and solves customer doubts of use the application to order the food.	
 
 ## Technologies Used
 
@@ -62,8 +62,8 @@ Note: Make sure you have MongoDB installed and running locally or provide the co
 ## Usage
 
 *1. User Authentication:*
-   - Sign up for an account by providing your name, email, and password and other detais.
-   - Sign in for an account by probiding yout email and possword and after verification generate token and send to the client side for authorization.
+   - Sign up for an account by providing your name, email, password and other detais.
+   - Sign in for an account by probiding yout email and possword and after verification, generate token and send to the client side for authorization.
 
 *2. Table Booking:*
    - Show the list of available tables based on date and slot.
