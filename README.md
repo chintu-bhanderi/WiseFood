@@ -63,7 +63,7 @@ Note: Make sure you have MongoDB installed and running locally or provide the co
 
 *1.  User Authentication:*
    - Sign up for an account by providing your name, email, password and other detais.
-   - Sign in for an account by probiding yout email and possword and after verification, generate token and send to the client side for authorization.
+   - Sign in for an account by probiding yout email and possword and after verification, generate token and send to the client side for secure authorization.
 
 *2. Table Booking:*
    - Show the list of available tables based on date and slot.
