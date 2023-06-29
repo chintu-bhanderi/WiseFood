@@ -7,7 +7,7 @@ const { User } = require('../models/userModel');
 var Mutex = require('async-mutex').Mutex;
 const NodeCache = require('node-cache');
 
-const cache = new NodeCache({ stdTTL: 30, checkperiod: 10 });
+const cache = new NodeCache({ stdTTL: 900, checkperiod: 90 });
 
 const mutex = new Mutex();
 
